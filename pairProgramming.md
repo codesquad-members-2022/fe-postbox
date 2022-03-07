@@ -1,5 +1,3 @@
-# javascript-postbox
-
 # **페어 프로그래밍**
 
 ## **장점**
