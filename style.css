@@ -1,0 +1,61 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.map {
+  width: 1080px;
+  border: 3px solid black;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.map__container {
+  display: flex;
+}
+
+.map__wrapper {
+  width: 80%;
+  height: 520px;
+  margin-right: 20px;
+  border: 1px solid black;
+}
+
+.map__info {
+  width: 20%;
+  padding: 20px;
+  border: 1px solid black;
+  text-align: start;
+}
+
+.info__btn {
+  width: 100%;
+  display: inline-block;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(234, 67, 54);
+  color: #fff;
+}
+
+.info__town {
+  margin-bottom: 20px;
+}
+.map__wrapper span {
+  display: inline-block;
+}
+
+.map__town {
+  width: 40%;
+  padding: 20px;
+}
+
+.first,
+.second,
+.third,
+.fourth {
+  padding: 20px;
+  border: 1px solid black;
+}
