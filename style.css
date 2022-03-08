@@ -1,0 +1,10 @@
+html {
+  padding: 0;
+  margin: 0;
+}
+
+.town-map {
+  width: 800px;
+  height: 800px;
+  border: 4px solid black;
+}
