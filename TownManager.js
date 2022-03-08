@@ -76,4 +76,4 @@ class TownManager {
   }
 }
 
-const manager = new TownManager();
+export { TownManager }
