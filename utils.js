@@ -1,8 +1,7 @@
+import { MAP_SIZE } from "./constants.js";
 
 function getRandomNumber() {
-    const min = 0;
-    const max = 100;
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (MAP_SIZE.MAX - MAP_SIZE.MIN + 1)) + MAP_SIZE.MIN;
 }
 
 function getRandomLocation() {
