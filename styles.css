@@ -1,0 +1,78 @@
+@import url('./css/base/reset.css');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin-top: 100px;
+}
+
+#title,
+#main {
+  width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 1200px;
+  height: 600px;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.section {
+  /* border: 1px solid black; */
+  width: 50%;
+  height: 50%;
+  position: relative;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  border: 1px solid blue;
+  border-radius: 10px;
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.name {
+  position: absolute;
+  top: -20px;
+}
+
+.child {
+  flex: 1 1 auto;
+  width: 20%;
+  border: 1px solid blue;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.box1 {
+  top: 100px;
+  left: 10px;
+}
+
+.box2 {
+  top: 20px;
+  left: 50px;
+}
+
+.box3 {
+  top: 0px;
+  left: 70px;
+}
+
+.box4 {
+  top: 50px;
+  left: 90px;
+}
