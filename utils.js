@@ -1,11 +1,14 @@
 import { MAP_SIZE } from "./constants.js";
 
-function getRandomNumber() {
-    return Math.floor(Math.random() * (MAP_SIZE.MAX - MAP_SIZE.MIN + 1)) + MAP_SIZE.MIN;
+function getRandomNumber({ min, max }) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 function getRandomLocation() {
-    return [getRandomNumber(), getRandomNumber()]
+  return {
+    x: getRandomNumber({ min: MAP_SIZE.MIN, max: MAP_SIZE.MAX }),
+    y: getRandomNumber({ min: MAP_SIZE.MIN, max: MAP_SIZE.MAX }),
+  };
 }
 
-export { getRandomLocation, getRandomNumber }
+export { getRandomLocation, getRandomNumber };
