@@ -5,12 +5,9 @@ manager.makeTowns();
 manager.nameTowns();
 manager.towns.forEach(renderTown);
 
-console.log("manager.towns", manager.towns);
-
 function renderTown(town) {
   const contentsEl = document.querySelector(".contents");
   const townEl = createTownElem(town);
-  console.log(townEl);
   contentsEl.appendChild(townEl);
 }
 

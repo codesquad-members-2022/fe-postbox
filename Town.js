@@ -1,18 +1,18 @@
 import { getRandomNumber, getRandomLocation } from "./utils.js";
-import { MAP_SIZE } from "./constants.js";
+import { TOWN_SIZE } from "./constants.js";
 
 class Town {
   constructor() {
     this.location = getRandomLocation();
     this.width = getRandomNumber({
-      min: 1,
-      max: MAP_SIZE.MAX - this.location.x,
+      min: TOWN_SIZE.MIN,
+      max: TOWN_SIZE.MAX,
     });
     this.height = getRandomNumber({
-      min: 1,
-      max: MAP_SIZE.MAX - this.location.y,
+      min: TOWN_SIZE.MIN,
+      max: TOWN_SIZE.MAX,
     });
-    this.postOfficeLocation;
+    this.mailBox;
     this.name = null;
   }
 
