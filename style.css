@@ -7,11 +7,12 @@ html {
   width: 800px;
   height: 800px;
   border: 4px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 15px;
 }
+
 .town {
   display: flex;
-}
-.down {
-  position: relative;
-  top: 5px;
 }
