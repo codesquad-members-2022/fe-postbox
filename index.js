@@ -24,6 +24,10 @@ function renderChild($child, $parentNode, layer) {
   $child.style.height = `${LAYER_SIZE[layer]}px`;
   $child.style.border = `1px solid ${LAYER_COLOR[layer]}`;
   $child.classList.add("town");
+  if (getRandomNumber(0, 10) >= 5) {
+    $child.classList.add("down");
+    $child.style["top"] = `${LAYER_SIZE[layer] / 5}px`;
+  }
   $parentNode.appendChild($child);
 }
 

@@ -11,3 +11,7 @@ html {
 .town {
   display: flex;
 }
+.down {
+  position: relative;
+  top: 5px;
+}
