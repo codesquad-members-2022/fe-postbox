@@ -99,6 +99,10 @@ button {
   width: 70%;
 }
 
+.town.has-mailbox {
+  border-color: #e00e0b;
+}
+
 .town-title {
   display: inline-block;
 }

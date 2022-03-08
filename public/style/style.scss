@@ -45,6 +45,10 @@
   min-width: 30%;
   min-height: 50%;
   width: 70%;
+
+  &.has-mailbox {
+    border-color: $bg-mailbox;
+  }
 }
 
 .town-title {
