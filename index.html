@@ -5,18 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      #app {
-        display: grid;
-      }
-      .town {
-        border: 1px solid blue;
-        border-radius: 5%;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app"></div>
-    <script src="index.js"></script>
+    <div class="check-post__container">
+      <button class="check-post__button">빨간 우체통 확인</button>
+    </div>
+    <div class="show-result__container">
+      <div class="show-result__count-town">총 몇 개의 마을</div>
+      <div class="show-result__post-box">우체통 크기 순서</div>
+    </div>
+    <div>
+      <h2>마을지도</h2>
+      <div id="town-map" class="town-map"></div>
+    </div>
   </body>
+  <script type="module" src="index.js"></script>
 </html>
