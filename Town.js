@@ -13,6 +13,7 @@ class Town {
       max: MAP_SIZE.MAX - this.location.y,
     });
     this.postOfficeLocation;
+    this.name = null;
   }
 
   getReferencePoint() {
@@ -25,6 +26,10 @@ class Town {
 
   getHeight() {
     return this.height;
+  }
+
+  nameTown(name) {
+    this.name = name;
   }
 }
 

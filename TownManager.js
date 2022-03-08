@@ -14,7 +14,16 @@ class TownManager {
   }
 
   makeTowns() {
-    Array.from({ length: RECYCLE_NUMBER }).forEach(() => this.addTown());
+    Array.from({ length: RECYCLE_NUMBER }).forEach(() => {
+      this.addTown();
+    });
+  }
+
+  nameTowns() {
+    this.towns.forEach((town, i) => {
+      const name = String.fromCharCode(65 + i);
+      town.nameTown(name);
+    });
   }
 
   addTown() {
@@ -41,8 +50,20 @@ class TownManager {
     // 안에 있는지 체크
     const isInner = this.checkInside(townLoca1, townLoca2);
     // 밖에 있는지 체크
-    const isOutter = this.checkInside(townLoca2, townLoca1);
+    const isOutter = this.checkOutside(townLoca1, townLoca2);
     return !isInner && !isOutter;
+  }
+
+  checkOutside(baseTown, checkTown) {
+    for (let key in checkTown) {
+      const point = checkTown[key];
+      const checkX = point[0] < baseTown.p1[0] || point[0] > baseTown.p2[0];
+      const checkY = point[1] < baseTown.p1[1] || point[1] > baseTown.p3[1];
+      if (!checkX || !checkY) {
+        return false;
+      }
+    }
+    return true;
   }
 
   checkInside(baseTown, checkTown) {
@@ -76,4 +97,4 @@ class TownManager {
   }
 }
 
-export { TownManager }
+export { TownManager };

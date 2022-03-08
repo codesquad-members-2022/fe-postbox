@@ -1,6 +1,6 @@
 const MAP_SIZE = {
   MIN: 0,
-  MAX: 100,
+  MAX: 1000,
 };
 
 const RECYCLE_NUMBER = 1000;
