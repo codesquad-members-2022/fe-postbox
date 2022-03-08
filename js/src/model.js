@@ -46,6 +46,22 @@ class Model {
     if (randomHeight < 0.3) randomHeight += 0.3;
     return height * randomHeight;
   }
+
+  getPostbox() {
+    const postbox = {
+      size: 0,
+      exist: 0,
+    };
+    if (this.check50Percent()) {
+      postbox.exist++;
+      postbox.size = Math.floor(Math.random() * 10) + 1;
+    }
+    return postbox;
+  }
+
+  check50Percent() {
+    return Math.round(Math.random());
+  }
 }
 
 const model = new Model();
