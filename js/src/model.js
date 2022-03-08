@@ -16,6 +16,10 @@ class Model {
         child: [],
       };
 
+      if (this.check50Percent()) {
+        this.addChildren(village, getVillageInfo);
+      }
+
       return village;
     };
 
@@ -32,6 +36,20 @@ class Model {
           this.getPostbox()
         )
       );
+    }
+  }
+
+  addChildren(village, getVillageInfo) {
+    let childNum = this.getChildNum(1, 4);
+    for (let i = 0; i < childNum; i++) {
+      let villageWidth = this.getVillageWidth(village.width / childNum);
+      let villageHeight = this.getVillageHeight(village.height / childNum);
+
+      if (villageWidth > 20 && villageHeight > 20) {
+        village.child.push(
+          getVillageInfo(villageWidth, villageHeight, this.getPostbox())
+        );
+      }
     }
   }
 
@@ -61,6 +79,10 @@ class Model {
 
   check50Percent() {
     return Math.round(Math.random());
+  }
+
+  getChildNum(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
 
