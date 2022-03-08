@@ -19,6 +19,22 @@ function createTownElem(town) {
   townEl.style.top = `${town.location.y}px`;
   townEl.style.left = `${town.location.x}px`;
   townEl.style.border = "1px solid";
-  townEl.innerText = "📮";
+  townEl.appendChild(createTownNameElem(town));
+  townEl.appendChild(createMailboxElem(town));
   return townEl;
+}
+
+function createMailboxElem(town) {
+  const mailboxEl = document.createElement("span");
+  mailboxEl.innerText = town.mailBox ? "📮" : "";
+  return mailboxEl;
+}
+
+function createTownNameElem(town) {
+  const nameEl = document.createElement("span");
+  nameEl.style.position = "relative";
+  nameEl.style.left = `${town.width / 2 - 5}px`;
+  nameEl.style.bottom = `25px`;
+  nameEl.innerText = town.name;
+  return nameEl;
 }
