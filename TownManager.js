@@ -20,21 +20,31 @@ class TownManager {
 
   validateTown(town2) {
     // this.towns 순회한다.
-    // 현재타운 x, y 
-    
-    
-    this.towns.every((town) => {
-      
-    })
+    // 현재타운 x, y
+
+    this.towns.every((town) => {});
   }
-  
+
   isOverlap(town1, town2) {
     const townLoca1 = this.get4location(town1);
     const townLoca2 = this.get4location(town2);
 
     // 안에 있는지 체크
-    if(townLoca1.x1 > townLoca2.x1 && townLoca1.x2 > townLoca2.x2 && townLoca1.x3 > townLoca2.x3 && townLoca1.x4 > townLoca2.x4 && townLoca1.y1 > townLoca2.y1 && townLoca1.y2 > townLoca2.y2 && townLoca1.y3 > townLoca2.y3 && townLoca1.y4 > townLoca2.y4)
+    const isInner = checkInside(townLoca1, townLoca2);
     // 밖에 있는지 체크
+    const isOutter = !checkInside(townLoca1, townLoca2);
+    return isInner && isOutter;
+  }
+
+  checkInside(baseTown, checkTown) {
+    for (let point in checkTown) {
+      const checkX = point[0] > baseTown.p1[0] && point[0] < baseTown.p2[0];
+      const checkY = point[1] > baseTown.p1[1] && point[1] < baseTown.p3[1];
+      if (!checkX || !checkY) {
+        return false;
+      }
+    }
+    return true;
   }
 
   get4location(town) {
@@ -48,8 +58,10 @@ class TownManager {
     const y4 = y3;
 
     return {
-      x1,y1,x2,y2,x3,y3,x4,y4
-    }
+      p1: [x1, y1],
+      p2: [x2, y2],
+      p3: [x3, y3],
+      p4: [x4, y4],
+    };
   }
-  
 }
