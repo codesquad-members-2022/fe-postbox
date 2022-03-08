@@ -29,9 +29,12 @@ class TownManager {
   }
   
   isOverlap(town1, town2) {
-    const town1location = this.get4location(town1);
-    const town2location = this.get4location(town2);
+    const townLoca1 = this.get4location(town1);
+    const townLoca2 = this.get4location(town2);
 
+    // 안에 있는지 체크
+    if(townLoca1.x1 > townLoca2.x1 && townLoca1.x2 > townLoca2.x2 && townLoca1.x3 > townLoca2.x3 && townLoca1.x4 > townLoca2.x4 && townLoca1.y1 > townLoca2.y1 && townLoca1.y2 > townLoca2.y2 && townLoca1.y3 > townLoca2.y3 && townLoca1.y4 > townLoca2.y4)
+    // 밖에 있는지 체크
   }
 
   get4location(town) {
