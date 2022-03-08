@@ -28,4 +28,4 @@ class Town {
   }
 }
 
-const town = new Town();
+export { Town };

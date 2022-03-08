@@ -1,3 +1,5 @@
+import { RECYCLE_NUMBER } from "./constants.js";
+import { Town } from "./Town.js";
 import { getRandomNumber } from "./utils.js";
 
 class TownManager {
@@ -11,48 +13,43 @@ class TownManager {
     });
   }
 
+  makeTowns() {
+    Array.from({ length: RECYCLE_NUMBER }).forEach(() => this.addTown());
+  }
+
   addTown() {
-    const town2 = new Town();
-    // town2의 유효성 검사
-
-    // 통과 시 this.towns.push(curToww)
+    const town = new Town();
+    if (!this.towns.length) {
+      this.towns.push(town);
+      return;
+    }
+    if (this.validateTown(town)) {
+      this.towns.push(town);
+    }
   }
 
-  validateTown(town2) {
-    // this.towns 순회한다.
-    // 현재타운 x, y
-
-    this.towns.every((town) => {});
+  validateTown(targetTown) {
+    return this.towns.every((town) => {
+      return !this.isOverlap(town, targetTown);
+    });
   }
 
-  isOverlap(townLoca1, townLoca2) {
-    // const townLoca1 = this.get4location(town1);
-    // const townLoca2 = this.get4location(town2);
+  isOverlap(town1, town2) {
+    const townLoca1 = this.get4location(town1);
+    const townLoca2 = this.get4location(town2);
 
     // 안에 있는지 체크
     const isInner = this.checkInside(townLoca1, townLoca2);
     // 밖에 있는지 체크
-    const isOutter = this.checkOutside(townLoca1, townLoca2);
-    return !isInner && !isOutter
+    const isOutter = this.checkInside(townLoca2, townLoca1);
+    return !isInner && !isOutter;
   }
 
   checkInside(baseTown, checkTown) {
     for (let key in checkTown) {
-      const point = checkTown[key]
+      const point = checkTown[key];
       const checkX = point[0] > baseTown.p1[0] && point[0] < baseTown.p2[0];
       const checkY = point[1] > baseTown.p1[1] && point[1] < baseTown.p3[1];
-      if (!checkX || !checkY) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  checkOutside(baseTown, checkTown) {
-    for (let key in checkTown) {
-      const point = checkTown[key]
-      const checkX = point[0] < baseTown.p1[0] || point[0] > baseTown.p2[0];
-      const checkY = point[1] < baseTown.p1[1] || point[1] > baseTown.p3[1];
       if (!checkX || !checkY) {
         return false;
       }
@@ -80,32 +77,3 @@ class TownManager {
 }
 
 const manager = new TownManager();
-const town1 = {
-  p1: [0, 0],
-  p2: [10, 0],
-  p3: [0, 10],
-  p4: [10, 10]
-}
-const town2 = {
-  p1: [1, 1],
-  p2: [5, 1],
-  p3: [1, 5],
-  p4: [5, 5]
-}
-const town3 = {
-  p1: [0, 0],
-  p2: [5, 0],
-  p3: [0, 12],
-  p4: [5, 12]
-}
-const town4 = {
-  p1: [-1, -1],
-  p2: [12, -1],
-  p3: [-1, 12],
-  p4: [12, 12]
-}
-
-console.log(manager.isOverlap(town1, town2))
-console.log(manager.isOverlap(town1, town3))
-console.log(manager.isOverlap(town1, town4))
-console.log(manager.isOverlap(town3, town4))
