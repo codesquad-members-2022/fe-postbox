@@ -12,11 +12,41 @@ class TownManager {
   }
 
   addTown() {
-    const curTown = new Town();
-    // curTown의 유효성 검사
+    const town2 = new Town();
+    // town2의 유효성 검사
 
     // 통과 시 this.towns.push(curToww)
   }
 
-  validation(towns, curTown) {}
+  validateTown(town2) {
+    // this.towns 순회한다.
+    // 현재타운 x, y 
+    
+    
+    this.towns.every((town) => {
+      
+    })
+  }
+  
+  isOverlap(town1, town2) {
+    const town1location = this.get4location(town1);
+    const town2location = this.get4location(town2);
+
+  }
+
+  get4location(town) {
+    const x1 = town.location.x;
+    const y1 = town.location.y;
+    const x2 = x1 + town.width;
+    const y2 = y1;
+    const x3 = x1;
+    const y3 = y1 + town.height;
+    const x4 = x2;
+    const y4 = y3;
+
+    return {
+      x1,y1,x2,y2,x3,y3,x4,y4
+    }
+  }
+  
 }
