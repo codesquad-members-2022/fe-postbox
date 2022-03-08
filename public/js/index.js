@@ -1,1 +1,1 @@
-import { getElementByClassName } from "./util/dom-lib.js";
+import { getElementsByClassName } from "./util/dom-lib.js";
