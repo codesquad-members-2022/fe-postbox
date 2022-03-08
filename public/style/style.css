@@ -1,6 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap");
+* {
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+html,
+body,
+h1,
+h2,
+a,
+ul,
+li,
+article,
+aside,
+header,
+footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+footer,
+header,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0;
+}
+
 .main {
-  width: 800px;
-  height: 500px;
+  width: 1000px;
+  height: 700px;
   margin: 20px auto;
   border: 1px solid;
 }
@@ -29,9 +80,31 @@
   border: 1px solid;
 }
 
+.map-cell {
+  position: relative;
+}
+
+.map-cell > .town {
+  position: absolute;
+  top: 20%;
+  left: 40%;
+}
+
 .town {
   border: 3px solid #0076b9;
   border-radius: 10px;
+  padding: 5px;
+  min-width: 30%;
+  min-height: 50%;
+  width: 70%;
+}
+
+.town-title {
+  display: inline-block;
+}
+
+.mailbox {
+  font-size: 1rem;
 }
 
 .info-container {
