@@ -1,0 +1,31 @@
+1. 마을의 충돌
+마을의 최대 크기
+웹브라우저 밖에 안나가게하기
+
+2. 마을의 무한
+3. Node 탐색 api
+탐색 알고리즘을 이용해 document.body.nextElementChild의 tagName을 비교해가며 재귀적으로 탐색한다.
+
+body.
+querySeletctor
+앞 글자가 . 이면 className을 비교한다.
+앞 글자가 # 이면 idName을 비교한다.
+앞 글자가 . 또는 #이 아닐시 tagName을 비교한다.
+
+맞으면 해당 element를 반환한다.
+
+querySeletctorAll
+
+
+class로 만듬
+
+class NodeFinder {
+
+}
+
+
+2 마을의 충돌
+3 마을의 무한
+
+마을의 크기가 우체통의 크기보다는 작을 수 없게 설정(우체통의 크기 최대 크기)
+우체통 크기 rem으로 설정 폰트랑 같이
