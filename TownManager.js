@@ -1,4 +1,4 @@
-import { RECYCLE_NUMBER } from "./constants.js";
+import { RECYCLE_NUMBER, MARGIN } from "./constants.js";
 import { Town } from "./Town.js";
 import { getRandomNumber } from "./utils.js";
 
@@ -46,10 +46,7 @@ class TownManager {
   isOverlap(town1, town2) {
     const townLoca1 = this.get4location(town1);
     const townLoca2 = this.get4location(town2);
-
-    // 안에 있는지 체크
     const isInner = this.checkInside(townLoca1, townLoca2);
-    // 밖에 있는지 체크
     const isOutter = this.checkOutside(townLoca1, townLoca2);
     return !isInner && !isOutter;
   }
@@ -57,8 +54,12 @@ class TownManager {
   checkOutside(baseTown, checkTown) {
     for (let key in checkTown) {
       const point = checkTown[key];
-      const checkX = point[0] < baseTown.p1[0] || point[0] > baseTown.p2[0];
-      const checkY = point[1] < baseTown.p1[1] || point[1] > baseTown.p3[1];
+      const checkX =
+        point[0] < baseTown.p1[0] - MARGIN ||
+        point[0] > baseTown.p2[0] + MARGIN;
+      const checkY =
+        point[1] < baseTown.p1[1] - MARGIN ||
+        point[1] > baseTown.p3[1] + MARGIN;
       if (!checkX || !checkY) {
         return false;
       }
@@ -69,8 +70,12 @@ class TownManager {
   checkInside(baseTown, checkTown) {
     for (let key in checkTown) {
       const point = checkTown[key];
-      const checkX = point[0] > baseTown.p1[0] && point[0] < baseTown.p2[0];
-      const checkY = point[1] > baseTown.p1[1] && point[1] < baseTown.p3[1];
+      const checkX =
+        point[0] > baseTown.p1[0] + MARGIN &&
+        point[0] < baseTown.p2[0] - MARGIN;
+      const checkY =
+        point[1] > baseTown.p1[1] + MARGIN &&
+        point[1] < baseTown.p3[1] - MARGIN;
       if (!checkX || !checkY) {
         return false;
       }
