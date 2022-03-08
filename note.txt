@@ -1,6 +1,37 @@
 1. 마을의 충돌
 마을의 최대 크기
 웹브라우저 밖에 안나가게하기
+const villagePos = [{x: 1600, y: 900}]
+
+for(let i=0; i<villagePos; i++) {
+  if(left+width < villagePos.x && top+height < && villagePos[i].y) {
+    마을 생성();
+    villagePos.push({x: 생성한마을의 x값, y: 생성한 마을의 y값})
+  }
+}
+
+A의 마을을 생성
+A마을의 left+width가 .container의 width보다 작아야한다.
+A마을의 top+height가 .container의 height보다 작아야한다.
+---------------------------------------------------------
+B의 마을을 생성
+B마을의 left+width가 .container의 width보다 작아야한다.
+B마을의 top+height가 .container의 height보다 작아야한다.
+
+A마을과 left+width 값과 top+height 값이 같을 경우 다시 랜덤값을 받아온다.
+A마을과 left+width 값이 작거나 같을 경우 top+height 값이 다를 경우에 마을을 생성한다.
+A마을과 top+height 값이 작거나 같을 경우 left+width 값이 다를 경우에 마을을 생성한다.
+A마을과 left+width 값과 top+height 값이 다를 경우에 마을을 생성한다.
+---------------------------------------------------------
+C의 마을을 생성
+C마을의 left+width가 .container의 width보다 작아야한다.
+C마을의 top+height가 .container의 height보다 작아야한다.
+
+B마을과 left+width 값과 top+height 값이 같을 경우 다시 랜덤값을 받아온다.
+B마을과 left+width 값만 같을 경우 top+height 값이 다를 경우에 마을을 생성한다.
+B마을과 top+height 값만 같을 경우 left+width 값이 다를 경우에 마을을 생성한다.
+B마을과 left+width 값과 top+height 값이 다를 경우에 마을을 생성한다.
+---------------------------------------------------------
 
 2. 마을의 무한
 3. Node 탐색 api

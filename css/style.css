@@ -11,6 +11,7 @@
 }
 .village--pos {
     position: absolute;
-    width: 1700px;
-    height: 1200px;
+}
+.village {
+    box-sizing: border-box;
 }
