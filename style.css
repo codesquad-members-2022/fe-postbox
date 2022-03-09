@@ -1,0 +1,16 @@
+#map {
+  width: 1800px;
+  height: 800px;
+  border: 2px solid blue;
+  position: relative;
+}
+
+.village-name {
+  position: absolute;
+  left: 50%;
+  top: -20px;
+}
+
+.village {
+  border: 2px solid;
+}
