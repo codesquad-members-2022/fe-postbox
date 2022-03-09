@@ -29,6 +29,7 @@ h1 {
   font-size: var(--font-middle);
   margin-left: 4px;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .postbox-info {

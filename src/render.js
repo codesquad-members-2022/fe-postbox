@@ -5,6 +5,12 @@ function renderTownInfo(towns) {
   postboxInfoEl.innerText = `${towns.join(', ')} 총 ${towns.length} 개의 마을입니다.`
 }
 
+//TODO: Size 순으로 정렬해서 렌더링
+function renderMailboxInfo(towns) {
+  const postboxInfoEl = document.querySelectorAll('.postbox-info')[1];
+  postboxInfoEl.innerText = `우체통의 크기는 ${towns.join(', ')} 순입니다.`
+}
+
 function sizeMap() {
   const contentsEl = document.querySelector(".contents");
   contentsEl.style.width = `${MAP_SIZE.MAX}px`
@@ -47,4 +53,4 @@ function createTownNameElem(town) {
   return nameEl;
 }
 
-export { renderTown, sizeMap, renderTownInfo }
+export { renderTown, sizeMap, renderTownInfo, renderMailboxInfo }

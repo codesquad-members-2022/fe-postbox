@@ -1,4 +1,4 @@
-import { renderTownInfo } from "./render.js";
+import { renderTownInfo, renderMailboxInfo } from "./render.js";
 
 function handleCheckBtn(e) {
     let towns = [];
@@ -9,6 +9,7 @@ function handleCheckBtn(e) {
         }
     })
     renderTownInfo(towns)
+    renderMailboxInfo(towns)
 }
 
 export { handleCheckBtn }
