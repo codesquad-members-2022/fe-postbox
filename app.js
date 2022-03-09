@@ -31,7 +31,7 @@ const villageTemplate = () => {
 
   villageName.innerHTML = String.fromCharCode(villageAlphabet);
   villageName.classList.add("village-name");
-  villageAlphabet++;
+  villageAlphabet += 1;
   village.append(villageName);
   return village;
 };
@@ -73,8 +73,10 @@ const getInnerVillage = (outerWidth, outerHeight) => {
   if (
     innerVillageProperty.height < LENGTH_MIN ||
     innerVillageProperty.width < LENGTH_MIN
-  )
+  ) {
+    villageAlphabet -= 1;
     return null;
+  }
 
   styleVillage(innerVillage, innerVillageProperty);
 
