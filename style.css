@@ -1,17 +1,21 @@
 .container {
   width: 1000px;
-  height: 600px;
   border: 2px solid #000;
   text-align: center;
 }
 .map-element {
   display: flex;
+  /* border: 2px solid blue; */
 }
 .village-info {
   width: 800px;
-  height: 500px;
   border: 2px solid red;
-  margin: 25px 0px 0px 50px;
+  margin: 25px 0px 50px 50px;
+}
+.village {
+  border: 2px solid green;
+  display: inline-block;
+  margin: 30px;
 }
 .red-button-info {
   margin: 25px 0px 0px 15px;
