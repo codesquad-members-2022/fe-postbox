@@ -6,4 +6,8 @@ const getLengthWithoutPixel = (length) => {
   return Number(length.slice(0, -2));
 };
 
-export { range, getLengthWithoutPixel };
+const randomNumber = ({ max, min }) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+export { range, getLengthWithoutPixel, randomNumber };

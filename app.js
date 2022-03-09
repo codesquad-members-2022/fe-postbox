@@ -1,4 +1,4 @@
-import { range, getLengthWithoutPixel } from "./utils.js";
+import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
 
 const map = document.querySelector("#map");
 const MAP_WIDTH = 1800;
@@ -26,12 +26,7 @@ const villageTemplate = () => {
   return document.createElement("div");
 };
 
-const randomNumber = ({ max, min }) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-const getInnerVillage = (width, height) => {
-  const innerVillage = villageTemplate();
+const getVillageProperty = (width, height) => {
   const innerHeight = randomNumber({
     min: LENGTH_MIN,
     max: height - 2 * BORDER - DISTANCE_MIN,
@@ -48,6 +43,16 @@ const getInnerVillage = (width, height) => {
     min: DISTANCE_MIN,
     max: width - 2 * BORDER - innerWidth,
   });
+
+  return { innerHeight, innerWidth, innerTop, innerLeft };
+};
+
+const getInnerVillage = (width, height) => {
+  const innerVillage = villageTemplate();
+  const { innerHeight, innerWidth, innerTop, innerLeft } = getVillageProperty(
+    width,
+    height
+  );
 
   if (innerHeight < LENGTH_MIN || innerWidth < LENGTH_MIN) return null;
 
@@ -72,13 +77,13 @@ const getVillageChunk = (number) => {
     division.left +
     randomNumber({
       min: DISTANCE_MIN,
-      max: LENGTH_MAX - DISTANCE_MIN - width,
+      max: MAP_WIDTH / 2 - DISTANCE_MIN - width,
     });
   const top =
     division.top +
     randomNumber({
       min: DISTANCE_MIN,
-      max: LENGTH_MAX - DISTANCE_MIN - height,
+      max: MAP_HEIGHT / 2 - DISTANCE_MIN - height,
     });
 
   village.style.width = `${width}px`;
