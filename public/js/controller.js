@@ -2,6 +2,7 @@ import {
   getElementByClassName,
   getElementsByClassName,
 } from "./util/dom-lib.js";
+import { delay } from "./util/util.js";
 
 // -[x] 타운 클래스를 가진 모든 노드 가져오기
 // -[x] 배열에서 우체통을 가진 노드 찾기
@@ -27,7 +28,7 @@ const mailboxEventHandler = () => {
       [...town.children].some((child) => child.classList.contains("mailbox"))
     )
     .map((town) => {
-      town.classList.add("has-mailbox");
+      delay(2000).then(() => town.classList.add("has-mailbox"));
       towns.push(getElementByClassName("town-title", town).innerText);
       return town;
     })
