@@ -1,0 +1,78 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1080px;
+  padding: 20px;
+  border: 3px solid black;
+  text-align: center;
+}
+
+.map__container {
+  display: flex;
+}
+
+.map__wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 80%;
+  height: 520px;
+  margin-right: 20px;
+  border: 1px solid black;
+}
+
+.map__town {
+  position: relative;
+  padding: 12px;
+}
+
+.first,
+.second,
+.third,
+.fourth {
+  padding: 0 20px;
+  border: 2px solid cornflowerblue;
+  border-radius: 20px;
+}
+
+.first {
+  position: absolute;
+  top: 50%;
+}
+
+.town__name {
+  width: 100%;
+  display: inline-block;
+  padding: 8px;
+}
+
+.postBox {
+  border-color: red;
+}
+
+.map__info {
+  width: 20%;
+  padding: 20px;
+  border: 1px solid black;
+  text-align: start;
+}
+
+.info__btn {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(234, 67, 54);
+}
+
+.info__town {
+  margin-bottom: 20px;
+}
