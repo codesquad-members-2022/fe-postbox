@@ -5,9 +5,10 @@ const MAP_WIDTH = 1800;
 const MAP_HEIGHT = 800;
 
 const BORDER = 2;
-const LENGTH_MIN = 50;
-const LENGTH_MAX = Math.min(MAP_HEIGHT, MAP_WIDTH) / 2;
 const DISTANCE_MIN = 20;
+const LENGTH_MIN = 50;
+const WIDTH_MAX = MAP_WIDTH / 2 - DISTANCE_MIN;
+const HEIGHT_MAX = MAP_HEIGHT / 2 - DISTANCE_MIN;
 
 const division1 = { left: 0, top: 0 };
 const division2 = { left: MAP_WIDTH / 2, top: 0 };
@@ -76,19 +77,19 @@ const getVillageChunk = (number) => {
   const division = getRandomDivision();
 
   let village = outerVillage;
-  let width = randomNumber({ min: LENGTH_MIN, max: LENGTH_MAX });
-  let height = randomNumber({ min: LENGTH_MIN, max: LENGTH_MAX });
+  let width = randomNumber({ min: LENGTH_MIN, max: WIDTH_MAX });
+  let height = randomNumber({ min: LENGTH_MIN, max: HEIGHT_MAX });
   const left =
     division.left +
     randomNumber({
       min: DISTANCE_MIN,
-      max: MAP_WIDTH / 2 - DISTANCE_MIN - width,
+      max: WIDTH_MAX - width,
     });
   const top =
     division.top +
     randomNumber({
       min: DISTANCE_MIN,
-      max: MAP_HEIGHT / 2 - DISTANCE_MIN - height,
+      max: HEIGHT_MAX - height,
     });
 
   styleVillage(village, { width, height, left, top });
@@ -97,7 +98,6 @@ const getVillageChunk = (number) => {
     const innerVillage = getInnerVillage(width, height);
     if (innerVillage) {
       village.append(innerVillage);
-
       width = getLengthWithoutPixel(innerVillage.style.width);
       height = getLengthWithoutPixel(innerVillage.style.height);
       village = innerVillage;
