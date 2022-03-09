@@ -10,14 +10,6 @@ const getElementById = (id, curNode = root) => {
   }
 };
 
-const searchPostBox = (postBoxes = []) => {
-  if (curNode.dataset.hasPostbox) return postBoxes.push(curNode);
-  if (curNode.children.length === 0) return null;
+const searchPostBoxes = () => {};
 
-  for (let i = 0; i < curNode.children.length; i++) {
-    const node = getElementById(id, curNode.children[i]);
-    if (node !== null) return node;
-  }
-};
-
-export { getElementById };
+export { getElementById, searchPostBoxes };

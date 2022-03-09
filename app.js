@@ -30,6 +30,7 @@ const villageTemplate = () => {
   const villageNameBlock = document.createElement("div");
   const villageName = String.fromCharCode(villageAlphabet);
 
+  village.classList.add("village");
   village.dataset.name = villageName;
   villageNameBlock.innerHTML = villageName;
   villageNameBlock.classList.add("village-name");
@@ -64,7 +65,6 @@ const styleVillage = (village, property, isPositionAbsolute) => {
   village.style.height = `${property.height}px`;
   village.style.top = `${property.top}px`;
   village.style.left = `${property.left}px`;
-  village.style.border = `${BORDER}px solid`;
   village.style.position = isPositionAbsolute ? "absolute" : "relative";
 };
 
