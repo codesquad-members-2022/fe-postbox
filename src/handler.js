@@ -1,19 +1,27 @@
-import { renderTownInfo, renderMailboxInfo, changeBorderColor } from "./render.js";
+import {
+  renderTownInfo,
+  renderMailboxInfo,
+  changeBorderColor,
+} from "./render.js";
+import { getDatasetNames } from "./utils.js";
 
 function handleCheckBtn(e) {
-    const townNodes = document.querySelector('.contents').childNodes;
-    const hasMailboxSize = (town) => town.dataset.mailboxSize !== 'null';
-    const mailboxTowns = Array.from(townNodes).filter(hasMailboxSize)
+  const hasMailboxSize = (town) => town.dataset.mailboxSize !== "null";
+  const sortByMailboxSize = (a, b) =>
+    b.dataset.mailboxSize - a.dataset.mailboxSize;
+  mailboxTowns.sort(sortByMailboxSize);
 
-    let townNames = [];
-    mailboxTowns.forEach(town => {
-        townNames = [...townNames, town.dataset.name];
-        changeBorderColor({el: town, color: 'var(--red)'})
-    })
+  const townNodes = document.querySelector(".contents").childNodes;
+  const mailboxTowns = Array.from(townNodes).filter(hasMailboxSize);
 
-    renderTownInfo(townNames)
-    renderMailboxInfo(townNames)
+  mailboxTowns.forEach((town) =>
+    changeBorderColor({ el: town, color: "var(--red)" })
+  );
 
+  const townNames = getDatasetNames(mailboxTowns);
+  renderTownInfo(townNames);
+  const sortedTownNames = getDatasetNames(mailboxTowns);
+  renderMailboxInfo(sortedTownNames);
 }
 
-export { handleCheckBtn }
+export { handleCheckBtn };

@@ -4,4 +4,12 @@ function getRandomNumber({ min, max }) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export { getRandomNumber };
+function getDatasetNames(nodes) {
+  let names = [];
+  nodes.forEach((node) => {
+    names = [...names, node.dataset.name];
+  });
+  return names;
+}
+
+export { getRandomNumber, getDatasetNames };
