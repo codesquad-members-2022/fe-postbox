@@ -4,10 +4,13 @@
 }
 
 .map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 1080px;
-  border: 3px solid black;
-  margin: auto;
   padding: 20px;
+  border: 3px solid black;
   text-align: center;
 }
 
@@ -16,10 +19,36 @@
 }
 
 .map__wrapper {
+  position: relative;
   width: 80%;
   height: 520px;
   margin-right: 20px;
   border: 1px solid black;
+}
+
+.map__town {
+  width: 50%;
+  margin: auto;
+  padding: 12px;
+}
+
+.first,
+.second,
+.third,
+.fourth {
+  padding: 0 20px;
+  border: 2px solid cornflowerblue;
+  border-radius: 20px;
+}
+
+.town__name {
+  width: 100%;
+  display: inline-block;
+  padding: 8px;
+}
+
+.postBox {
+  border-color: red;
 }
 
 .map__info {
@@ -32,30 +61,13 @@
 .info__btn {
   width: 100%;
   display: inline-block;
-  padding: 10px;
   margin-bottom: 20px;
+  padding: 10px;
   border: none;
   border-radius: 20px;
   background-color: rgb(234, 67, 54);
-  color: #fff;
 }
 
 .info__town {
   margin-bottom: 20px;
-}
-.map__wrapper span {
-  display: inline-block;
-}
-
-.map__town {
-  width: 40%;
-  padding: 20px;
-}
-
-.first,
-.second,
-.third,
-.fourth {
-  padding: 20px;
-  border: 1px solid black;
 }
