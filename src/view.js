@@ -1,7 +1,8 @@
+import { TraverseDOM } from './util.js';
+
 export class View {
   constructor() {
-    // 임의로 구한 값
-    this.mapWrapper = document.childNodes[1].childNodes[2].childNodes[1].childNodes[3].childNodes[1];
+    this.mapWrapper = TraverseDOM.querySelector(document, 'map__wrapper');
   }
 
   renderTown(data) {
