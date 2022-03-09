@@ -14,3 +14,29 @@
 - 마을의 left, top 좌표는 0 ~ 부모 박스의 가로, 세로 1/2 중에서 랜덤으로 정한다.
 - 마을의 가로, 세로는 부모 박스의 가로, 세로의 1/2 ~ 부모박스의 가로, 세로 - left, top 좌표 중에서 랜덤으로 정한다.
 - 우체통이 들어가기로 정해진 마을의 자식 마을의 left, top 좌표는 우체통의 최대 크기 ~ 부모 마을의 가로, 세로 1/2 중에서 랜덤으로 정한다.(우체통이 왼쪽 상단에 있으므로)
+
+### 디렉토리 구조
+```
+├── 📁 static
+│   ├── 📁 resources
+│   │   ├── 📁 css
+│   │   │   ├── reset.css
+│   │   │   └── style.css
+│   └── 📁 src
+│       ├── 📁 controllers
+│       │   └── postBoxButton.js
+│       ├── 📁 models
+│       │   ├── 📁 data
+│       │   │   ├── town.js (json)
+│       │   │   └── postBox.js (json)
+│       │   ├── 📁 dataManager
+│       │   │   ├── town.js
+│       │   │   └── postBox.js
+│       ├── 📁 utils
+│       │   └── util.js
+│       ├── 📁 views
+│       │   ├── map.js
+│       │   └── postBoxInfo.js
+│       └── main.js
+└─── index.html
+```
