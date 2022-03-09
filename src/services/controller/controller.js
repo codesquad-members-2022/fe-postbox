@@ -1,4 +1,4 @@
-import Village from "./village.js";
+import Village from "../model/village.js";
 
 class Controller {
   constructor(mapSize) {

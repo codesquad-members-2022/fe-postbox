@@ -1,5 +1,5 @@
-import Controller from "./src/services/controller.js";
-import View from "./src/services/view.js";
+import Controller from "./src/services/controller/controller.js";
+import View from "./src/services/view/view.js";
 
 const MAP_SIZE = 600;
 
