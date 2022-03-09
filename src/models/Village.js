@@ -7,7 +7,8 @@ export class Village {
     this.height = height;
     this.parent = null;
     this.children = [];
-    this.postbox = { exist: false, size: 100 };
+    this.postbox = null;
+    this.initPostbox();
   }
 
   initChildren() {
@@ -15,11 +16,21 @@ export class Village {
     //마을의 크기는 100부터 1/2 width까지
     //높이는 50부터 1/2 height까지
     //width가 200보다 작거나, height가 100보다 작으면 child를 생성하지 않음
+    const count = range(1, 3);
+    for (let i = 0; i < count; i++) {}
   }
 
   toJSON() {
     const { name, width, height, parent, children, postbox } = this;
     return { name, width, height, parent, children, postbox };
+  }
+
+  initPostbox() {
+    const chance = range(0, 101);
+    if (chance < 20) {
+      const size = range(1, 1000);
+      this.postbox = { exist: true, size: size };
+    }
   }
 }
 
@@ -43,12 +54,3 @@ export class RootVillage extends Village {
     this.yPos = yPos;
   }
 }
-
-// Village 공통적인
-
-// tl[1 2 3 4 5 6]
-// tr[7 8 9]
-// bl[a b c]
-// br[d e f]
-
-// tl tr bl br
