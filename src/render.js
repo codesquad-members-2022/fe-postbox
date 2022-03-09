@@ -1,20 +1,22 @@
 import { MAP_SIZE } from "./constants.js";
 
 function renderTownInfo(towns) {
-  const postboxInfoEl = document.querySelector('.postbox-info');
-  postboxInfoEl.innerText = `${towns.join(', ')} 총 ${towns.length} 개의 마을입니다.`
+  const postboxInfoEl = document.querySelector(".postbox-info");
+  postboxInfoEl.innerText = `${towns.join(", ")} 총 ${
+    towns.length
+  } 개의 마을입니다.`;
 }
 
 //TODO: Size 순으로 정렬해서 렌더링
 function renderMailboxInfo(towns) {
-  const postboxInfoEl = document.querySelectorAll('.postbox-info')[1];
-  postboxInfoEl.innerText = `우체통의 크기는 ${towns.join(', ')} 순입니다.`
+  const postboxInfoEl = document.querySelectorAll(".postbox-info")[1];
+  postboxInfoEl.innerText = `우체통의 크기는 ${towns.join(", ")} 순입니다.`;
 }
 
 function sizeMap() {
   const contentsEl = document.querySelector(".contents");
-  contentsEl.style.width = `${MAP_SIZE.MAX}px`
-  contentsEl.style.height = `${MAP_SIZE.MAX}px`
+  contentsEl.style.width = `${MAP_SIZE.MAX}px`;
+  contentsEl.style.height = `${MAP_SIZE.MAX}px`;
 }
 
 function renderTown(town) {
@@ -32,7 +34,7 @@ function createTownElem(town) {
   townEl.style.left = `${town.location.x}px`;
   townEl.style.border = "1px solid";
   townEl.dataset.name = town.name;
-  townEl.dataset.mailbox = town.mailBox;
+  townEl.dataset.mailboxSize = town.mailboxSize;
   townEl.appendChild(createTownNameElem(town));
   townEl.appendChild(createMailboxElem(town));
   return townEl;
@@ -40,7 +42,7 @@ function createTownElem(town) {
 
 function createMailboxElem(town) {
   const mailboxEl = document.createElement("span");
-  mailboxEl.innerText = town.mailBox ? "📮" : "";
+  mailboxEl.innerText = town.mailboxSize ? "📮" : "";
   return mailboxEl;
 }
 
@@ -53,4 +55,4 @@ function createTownNameElem(town) {
   return nameEl;
 }
 
-export { renderTown, sizeMap, renderTownInfo, renderMailboxInfo }
+export { renderTown, sizeMap, renderTownInfo, renderMailboxInfo };

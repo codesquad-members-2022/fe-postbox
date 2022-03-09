@@ -1,5 +1,11 @@
 import { getRandomNumber } from "./utils.js";
-import { MAP_SIZE, MARGIN, TOWN_SIZE } from "./constants.js";
+import {
+  MAILBOX_PROBABILITY,
+  MAILBOX_SIZE,
+  MAP_SIZE,
+  MARGIN,
+  TOWN_SIZE,
+} from "./constants.js";
 
 class Town {
   constructor() {
@@ -12,12 +18,19 @@ class Town {
       min: TOWN_SIZE.MIN,
       max: TOWN_SIZE.MAX,
     });
-    this.mailBox = this.getRandomBoolean();
+    this.mailboxSize = this.getRandomBoolean() ? this.getMailboxSize() : null;
     this.name = null;
   }
 
+  getMailboxSize() {
+    return getRandomNumber({
+      min: MAILBOX_SIZE.MIN,
+      max: MAILBOX_SIZE.MAX,
+    });
+  }
+
   getRandomBoolean() {
-    return getRandomNumber({ min: 0, max: 10 }) > 7;
+    return getRandomNumber({ min: 0, max: 10 }) > MAILBOX_PROBABILITY;
   }
 
   getRandomLocation() {
