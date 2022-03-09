@@ -1,0 +1,18 @@
+.container {
+  width: 1000px;
+  height: 600px;
+  border: 2px solid #000;
+  text-align: center;
+}
+.map-element {
+  display: flex;
+}
+.village-info {
+  width: 800px;
+  height: 500px;
+  border: 2px solid red;
+  margin: 25px 0px 0px 50px;
+}
+.red-button-info {
+  margin: 25px 0px 0px 15px;
+}
