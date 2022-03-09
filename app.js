@@ -1,19 +1,20 @@
 import { range, getLengthWithoutPixel } from "./utils.js";
 
-const BORDER = 2;
-const LENGTH_MIN = 50;
-const LENGTH_MAX = 500;
-const DISTANCE_MIN = 20;
-
 const map = document.querySelector("#map");
 const MAP_WIDTH = 1800;
 const MAP_HEIGHT = 800;
+
+const BORDER = 2;
+const LENGTH_MIN = 50;
+const LENGTH_MAX = Math.min(MAP_HEIGHT, MAP_WIDTH) / 2;
+const DISTANCE_MIN = 20;
 
 const division1 = { left: 0, top: 0 };
 const division2 = { left: MAP_WIDTH / 2, top: 0 };
 const division3 = { left: 0, top: MAP_HEIGHT / 2 };
 const division4 = { left: MAP_WIDTH / 2, top: MAP_HEIGHT / 2 };
 const divisions = [division1, division2, division3, division4];
+
 const getRandomDivision = () => {
   const randomDivisionIndex = randomNumber({ min: 0, max: divisions.length });
   const randomDivision = divisions[randomDivisionIndex];
@@ -63,17 +64,22 @@ const getInnerVillage = (width, height) => {
 const getVillageChunk = (number) => {
   const outerVillage = villageTemplate();
   const division = getRandomDivision();
+
   let village = outerVillage;
   let width = randomNumber({ min: LENGTH_MIN, max: LENGTH_MAX });
   let height = randomNumber({ min: LENGTH_MIN, max: LENGTH_MAX });
-  const left = randomNumber({
-    min: DISTANCE_MIN + division.left,
-    max: MAP_WIDTH - DISTANCE_MIN - width,
-  });
-  const top = randomNumber({
-    min: DISTANCE_MIN + division.top,
-    max: MAP_HEIGHT - DISTANCE_MIN - height,
-  });
+  const left =
+    division.left +
+    randomNumber({
+      min: DISTANCE_MIN,
+      max: LENGTH_MAX - DISTANCE_MIN - width,
+    });
+  const top =
+    division.top +
+    randomNumber({
+      min: DISTANCE_MIN,
+      max: LENGTH_MAX - DISTANCE_MIN - height,
+    });
 
   village.style.width = `${width}px`;
   village.style.height = `${height}px`;
