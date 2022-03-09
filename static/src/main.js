@@ -1,3 +1,9 @@
-import {getElementsByClassName} from "./utils/util.js"
+import { getElementsByClassName } from "./utils/util.js";
+import { PostboxButtonController } from "./controllers/postboxButton.js";
 
-// getElementsByClassName("town");
+const init = () => {
+  const postboxButtonController = new PostboxButtonController();
+  postboxButtonController.addPostboxButtonEventListener();
+};
+
+init();
