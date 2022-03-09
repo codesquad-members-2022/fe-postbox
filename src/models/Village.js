@@ -1,31 +1,41 @@
-class Village {
-  constructor(grade, xPos, yPos) {
-    this.size = { grade, width: null, height: null }; //1~6
-    this.xPos = null;
-    this.yPos = null;
-    this.initSize();
+export class Village {
+  constructor({ name, width, height, parent }) {
+    this.name = name;
+    this.width = width;
+    this.height = height;
+    this.parent = null;
+    this.children = [];
+    this.postbox = { exist: false, size: 100 };
   }
 
-  initSize() {
-    const { grade } = this.size;
-    const { width, height } = villageSize[grade];
-    this.size.width = width;
-    this.size.height = height;
+  initChildren() {
+    //자식 마을은 1개 혹은 2개
+    //마을의 크기는 100부터 1/2 width까지
+    //높이는 50부터 1/2 height까지
+    //width가 200보다 작거나, height가 100보다 작으면 child를 생성하지 않음
   }
 
-  setPos(pos) {}
+  toJSON() {
+    const { name, width, height, parent, children, postbox } = this;
+    return { name, width, height, parent, children, postbox };
+  }
 }
 
-const villageSize = {
-  1: { width: 200, height: 200 },
-  2: { width: 260, height: 210 },
-  3: { width: 320, height: 220 },
-  4: { width: 380, height: 230 },
-  5: { width: 440, height: 240 },
-  6: { width: 500, height: 250 },
-};
+export class RootVillage extends Village {
+  constructor({ props, sectionWidth, sectionHeight }) {
+    super(props);
+    this.xPos = null;
+    this.yPos = null;
+    this.sectionWidth = sectionWidth;
+    this.sectionHeight = sectionHeight;
+  }
 
-export default Village;
+  initPos() {
+    //sectionWidth와 height 참고해서 생성
+    //xPon 0~(sectionWidth-width)
+    //yPon 0~(sectionHHeight-height)
+  }
+}
 
 // Village 공통적인
 
