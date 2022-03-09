@@ -49,13 +49,13 @@ const getInnerVillageProperty = (outerWidth, outerHeight) => {
   return { height, width, top, left };
 };
 
-const styleVillage = (village, property) => {
+const styleVillage = (village, property, isPositionAbsolute) => {
   village.style.width = `${property.width}px`;
   village.style.height = `${property.height}px`;
   village.style.top = `${property.top}px`;
   village.style.left = `${property.left}px`;
-  village.style.position = "relative";
   village.style.border = `${BORDER}px solid`;
+  village.style.position = isPositionAbsolute ? "absolute" : "relative";
 };
 
 const getInnerVillage = (outerWidth, outerHeight) => {
@@ -93,7 +93,7 @@ const getVillageChunk = (number) => {
       max: HEIGHT_MAX - height,
     });
 
-  styleVillage(village, { width, height, left, top });
+  styleVillage(village, { width, height, left, top }, true);
 
   range(number).forEach((_) => {
     const innerVillage = getInnerVillage(width, height);
@@ -108,6 +108,13 @@ const getVillageChunk = (number) => {
   return outerVillage;
 };
 
-const vilageChunk = getVillageChunk(2);
+const addVillages = () => {
+  const count = randomNumber({ max: 4, min: 1 });
+  for (let i = 0; i < count; i++) {
+    const innerCount = randomNumber({ max: 5, min: 0 });
+    const villageChunk = getVillageChunk(innerCount);
+    map.append(villageChunk);
+  }
+};
 
-map.append(vilageChunk);
+addVillages();
