@@ -61,35 +61,38 @@ function renderChild($child, $parentNode, layer) {
 }
 
 function renderPostBox(townNumber, $parentNode) {
-  if (townNumber < 1) {
+  if (townNumber < 2) {
     return;
   }
   // 일단 넣고, 크기 및 위치는 추후에 수정할 예정
   const $postBox = document.createElement('div');
   $postBox.innerHTML = `📮`;
+  $postBox.style.fontSize = `${getRandomNumber(5, 30)}px`;
   $parentNode.appendChild($postBox);
 }
 
 function renderTown($parentNode, layer) {
-  if (layer > 3) {
+  let townNumber = getRandomNumber(0, 3); // 최대 렌더링 할 수 있는 자식 요소
+  // 우체통 넣을지 말지 결정
+  renderPostBox(townNumber, $parentNode);
+  // layer가 마지막 층이면 자식요소 렌더링하지 않음
+  if (layer > 2) {
     return;
   }
   getLocation($parentNode);
-  let townNumber = getRandomNumber(0, 3); // 최대 렌더링 할 수 있는 자식 요소
   // 0번째 층에서 마을이 하나라도 렌더링되게 예외처리
   if (layer === 0 && townNumber === 0) {
     townNumber = 1;
   }
-  // 우체통 넣을지 말지 결정
-  renderPostBox(townNumber, $parentNode);
+
   // 자식요소 렌더링
   for (let i = 0; i < townNumber; i++) {
     console.log(`${layer}층: ${i}`);
     const $child = document.createElement('div');
     renderChild($child, $parentNode, layer);
-
     // 자식을 렌더링하는 함수
     // 렌더링할 마을 개수: 0~2
+
     renderTown($child, layer + 1);
   }
 }
