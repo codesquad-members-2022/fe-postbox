@@ -2,11 +2,13 @@
 @import url('./css/base/custom.css');
 
 #title {
-  padding: 20px;
   font-size: 30px;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-#title,
 #main {
   width: 1500px;
   margin: 0 auto;
@@ -49,6 +51,7 @@
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 }
 
 .section {
@@ -87,8 +90,8 @@
 .vil-tl {
   top: 100px;
   left: 10px;
-  width: 100px;
-  height: 100px;
+  width: 260px;
+  height: 210px;
 }
 
 .vil-tr {
