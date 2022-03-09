@@ -49,7 +49,7 @@ class Village {
         minX < newX && newX < minX + maxX && minY < newY && newY < minY + maxY;
 
       if (isInsideBox) {
-        getPosition();
+        this.getPosition();
       }
     }
     return [newX, newY];
