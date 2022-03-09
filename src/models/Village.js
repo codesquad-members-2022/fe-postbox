@@ -1,23 +1,35 @@
 import { range } from '../utils/utils.js';
 
 export class Village {
-  constructor({ name, width, height, parent }) {
-    this.name = name;
+  static names = Array.from({ length: 26 }).map((_, idx) =>
+    String.fromCodePoint(idx + 65)
+  );
+
+  constructor({ width, height, parent = null }) {
+    this.name = null;
     this.width = width;
     this.height = height;
-    this.parent = null;
+    this.parent = parent;
     this.children = [];
     this.postbox = null;
+    this.initName();
     this.initPostbox();
+    this.initChildren();
   }
 
   initChildren() {
+    //name, width, height
     //자식 마을은 1개 혹은 2개
     //마을의 크기는 100부터 1/2 width까지
     //높이는 50부터 1/2 height까지
-    //width가 200보다 작거나, height가 100보다 작으면 child를 생성하지 않음
+    //width가 100보다 작거나, height가 50보다 작으면 child를 생성하지 않음
     const count = range(1, 3);
-    for (let i = 0; i < count; i++) {}
+    for (let i = 0; i < count; i++) {
+      if (this.width <= 100 || this.height <= 50) break;
+      const width = range(100, (1 + this.width / 2) >> 0);
+      const height = range(50, (1 + this.height / 2) >> 0);
+      this.children.push(new Village({ width, height, parent: this }));
+    }
   }
 
   toJSON() {
@@ -31,6 +43,11 @@ export class Village {
       const size = range(1, 1000);
       this.postbox = { exist: true, size: size };
     }
+  }
+
+  initName() {
+    const index = range(0, Village.names.length);
+    this.name = Village.names.splice(index, 1)[0];
   }
 }
 
