@@ -1,5 +1,10 @@
 import { MAP_SIZE } from "./constants.js";
 
+function renderTownInfo(towns) {
+  const postboxInfoEl = document.querySelector('.postbox-info');
+  postboxInfoEl.innerText = `${towns.join(', ')} 총 ${towns.length} 개의 마을입니다.`
+}
+
 function sizeMap() {
   const contentsEl = document.querySelector(".contents");
   contentsEl.style.width = `${MAP_SIZE.MAX}px`
@@ -20,6 +25,8 @@ function createTownElem(town) {
   townEl.style.top = `${town.location.y}px`;
   townEl.style.left = `${town.location.x}px`;
   townEl.style.border = "1px solid";
+  townEl.dataset.name = town.name;
+  townEl.dataset.mailbox = town.mailBox;
   townEl.appendChild(createTownNameElem(town));
   townEl.appendChild(createMailboxElem(town));
   return townEl;
@@ -40,4 +47,4 @@ function createTownNameElem(town) {
   return nameEl;
 }
 
-export { renderTown, sizeMap }
+export { renderTown, sizeMap, renderTownInfo }
