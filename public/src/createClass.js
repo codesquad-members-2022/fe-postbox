@@ -1,6 +1,6 @@
 import { Map } from './map.js';
 import { Town } from './town.js';
-import { renderTown } from './renderTown.js';
+import { renderTown, placeTown } from './renderTown.js';
 
 const createTownInstance = (parent) => {
   const townWidth = Number((parent.width * generatePercent()).toFixed());
@@ -34,8 +34,9 @@ const makeInnerTown = (map, node) => {
     const parentSize = map.towns[i].getSize();
     const minChildSize = map.towns[i].getSize() / 20;
     let space = Math.floor(parentSize / 3);
-
-    renderTown(map.towns[i], node);
+    
+    const positionData = [];
+    placeTown(map, map.towns[i], node, positionData);
     
     while (space > minChildSize) {
       const newTown = createTownInstance(map.towns[i]);

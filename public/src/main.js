@@ -37,6 +37,7 @@ const main = () => {
 
   makeBiggestTown(map, $map);
   makeInnerTown(map, $map);
-  console.log(map)
+  
 }
+
 main();
