@@ -24,7 +24,6 @@ class Model {
     };
 
     this.createInitialVillage(getVillageInfo);
-    console.log(this.village);
   }
 
   createInitialVillage(getVillageInfo) {
@@ -45,7 +44,7 @@ class Model {
       let villageWidth = this.getVillageWidth(village.width / childNum);
       let villageHeight = this.getVillageHeight(village.height / childNum);
 
-      if (villageWidth > 20 && villageHeight > 20) {
+      if (villageWidth > 10 && villageHeight > 10) {
         village.child.push(
           getVillageInfo(villageWidth, villageHeight, this.getPostbox())
         );
@@ -78,12 +77,16 @@ class Model {
   }
 
   check50Percent() {
-    return Math.round(Math.random());
+    return (Math.round(Math.random() * 10) + 1) % 2;
   }
 
   getChildNum(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
   }
+
+  getVillage() {
+    return this.village;
+  }
 }
 
-const model = new Model();
+export const model = new Model();
