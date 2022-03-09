@@ -1,6 +1,10 @@
-import Village from './src/village/Village.js';
+import { Village, RootVillage } from './src/models/Village.js';
+import { range } from './src/utils/utils.js';
 
-for (let i = 0; i < 6; i++) {
-  const village = new Village(i + 1);
-  console.log(village.size.width, village.size.height);
-}
+const village = new RootVillage({
+  props: { width: 400, height: 250, parent: null },
+  sectionWidth: 600,
+  sectionHeight: 300,
+});
+
+console.log(village.toJSON());
