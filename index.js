@@ -1,24 +1,13 @@
 import Village from "./src/services/village.js";
-
-function getRandomVillageCount() {
-  const NUM = 10;
-  return Math.random() * NUM + 1;
-}
-
-let villageCount = getRandomVillageCount();
-
-const villageContainer = [];
+import Controller from "./src/services/controller.js";
 
 const MAP_SIZE = 600;
 
-for (let i = 0; i < villageCount; i++) {
-  const village = new Village(villageContainer, MAP_SIZE);
-
-  villageContainer.push(village.townSize);
-}
+const villageController = new Controller(MAP_SIZE);
+villageController.initService();
 
 const makeBox = () => {
-  for (const villageInfo of villageContainer) {
+  for (const villageInfo of villageController.villageContainer) {
     const {
       x: [left, width],
       y: [bottom, height],
