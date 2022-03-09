@@ -1,5 +1,9 @@
 import { MAP_SIZE } from "./constants.js";
 
+function changeBorderColor({el, color}) {
+  el.style.borderColor = color
+}
+
 function renderTownInfo(towns) {
   const postboxInfoEl = document.querySelector(".postbox-info");
   postboxInfoEl.innerText = `${towns.join(", ")} 총 ${
@@ -55,4 +59,4 @@ function createTownNameElem(town) {
   return nameEl;
 }
 
-export { renderTown, sizeMap, renderTownInfo, renderMailboxInfo };
+export { renderTown, sizeMap, renderTownInfo, renderMailboxInfo, changeBorderColor };
