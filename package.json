@@ -2,7 +2,7 @@
   "name": "fe-postbox",
   "version": "1.0.0",
   "description": "### Class 마을",
-  "main": "Town.js",
+  "main": "src/Town.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
