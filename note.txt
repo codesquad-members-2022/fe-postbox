@@ -1,4 +1,7 @@
 1. 마을의 충돌
+겹쳐지는 이유 2번째 마을 left가 작아도 1번째 width 보다 2번째 width가 크면 겹쳐짐
+1번마을 left 100 width 300 pos 400
+2번마을 left 50 width 400 pos 450
 마을의 최대 크기
 웹브라우저 밖에 안나가게하기
 const villagePos = [{x: 1600, y: 900}]
