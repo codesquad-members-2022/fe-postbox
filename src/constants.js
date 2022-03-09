@@ -17,7 +17,7 @@ const MAILBOX_SIZE = {
   MAX: 10,
 };
 
-const MAILBOX_PROBABILITY = 7;
+const MAILBOX_PROBABILITY = 5;
 
 export {
   MAP_SIZE,

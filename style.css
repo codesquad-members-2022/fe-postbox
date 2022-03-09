@@ -33,7 +33,7 @@ h1 {
   cursor: pointer;
 }
 
-.postbox-info {
+.box-gray {
   font-size: var(--font-middle);
   color: #7f8c8d;
   margin: 50px 10px;

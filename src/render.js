@@ -1,19 +1,19 @@
 import { MAP_SIZE } from "./constants.js";
 
-function changeBorderColor({el, color}) {
-  el.style.borderColor = color
+function changeBorderColor({ el, color }) {
+  el.style.borderColor = color;
 }
 
 function renderTownInfo(towns) {
-  const postboxInfoEl = document.querySelector(".postbox-info");
+  const postboxInfoEl = document.querySelector(".mailbox-names");
   postboxInfoEl.innerText = `${towns.join(", ")} 총 ${
     towns.length
   } 개의 마을입니다.`;
 }
 
-//TODO: Size 순으로 정렬해서 렌더링
+// TODO: Size 순으로 정렬해서 렌더링
 function renderMailboxInfo(towns) {
-  const postboxInfoEl = document.querySelectorAll(".postbox-info")[1];
+  const postboxInfoEl = document.querySelector(".mailbox-sizes");
   postboxInfoEl.innerText = `우체통의 크기는 ${towns.join(", ")} 순입니다.`;
 }
 
@@ -59,4 +59,10 @@ function createTownNameElem(town) {
   return nameEl;
 }
 
-export { renderTown, sizeMap, renderTownInfo, renderMailboxInfo, changeBorderColor };
+export {
+  renderTown,
+  sizeMap,
+  renderTownInfo,
+  renderMailboxInfo,
+  changeBorderColor,
+};

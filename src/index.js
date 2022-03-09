@@ -6,7 +6,7 @@ function init() {
   sizeMap();
   const manager = new TownManager();
   manager.makeTowns();
-  manager.nameTowns();
+  manager.setNames();
   manager.towns.forEach(renderTown);
   addCheckBtnEvent();
 }

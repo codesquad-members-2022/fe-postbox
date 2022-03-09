@@ -19,7 +19,7 @@ class TownManager {
     });
   }
 
-  nameTowns() {
+  setNames() {
     this.towns.forEach((town, i) => {
       const name = String.fromCharCode(65 + i);
       town.nameTown(name);
