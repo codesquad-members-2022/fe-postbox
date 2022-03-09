@@ -1,9 +1,10 @@
-import { TownManager } from "./TownManager.js";
+import { MAP_SIZE } from "./constants.js";
 
-const manager = new TownManager();
-manager.makeTowns();
-manager.nameTowns();
-manager.towns.forEach(renderTown);
+function sizeMap() {
+  const contentsEl = document.querySelector(".contents");
+  contentsEl.style.width = `${MAP_SIZE.MAX}px`
+  contentsEl.style.height = `${MAP_SIZE.MAX}px`
+}
 
 function renderTown(town) {
   const contentsEl = document.querySelector(".contents");
@@ -38,3 +39,5 @@ function createTownNameElem(town) {
   nameEl.innerText = town.name;
   return nameEl;
 }
+
+export { renderTown, sizeMap }
