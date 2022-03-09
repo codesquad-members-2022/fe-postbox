@@ -27,12 +27,14 @@ const getRandomDivision = () => {
 
 const villageTemplate = () => {
   const village = document.createElement("div");
-  const villageName = document.createElement("div");
+  const villageNameBlock = document.createElement("div");
+  const villageName = String.fromCharCode(villageAlphabet);
 
-  villageName.innerHTML = String.fromCharCode(villageAlphabet);
-  villageName.classList.add("village-name");
+  village.dataset.name = villageName;
+  villageNameBlock.innerHTML = villageName;
+  villageNameBlock.classList.add("village-name");
   villageAlphabet += 1;
-  village.append(villageName);
+  village.append(villageNameBlock);
   return village;
 };
 
@@ -68,8 +70,9 @@ const styleVillage = (village, property, isPositionAbsolute) => {
 
 const getPostbox = () => {
   const postbox = document.createElement("span");
+  const size = randomNumber({ max: 30, min: 10 });
   postbox.innerHTML = "📮";
-  const size = randomNumber({ max: 30, min: 5 });
+  postbox.style.position = "absolute";
   postbox.style.fontSize = `${size}px`;
   postbox.dataset.size = `${size}`;
 
@@ -82,6 +85,7 @@ const addPostboxRandomly = (village) => {
   if (hasPostbox) {
     const postbox = getPostbox();
     village.append(postbox);
+    village.dataset.hasPostbox = true;
   }
 };
 
