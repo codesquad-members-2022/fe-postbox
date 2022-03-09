@@ -19,7 +19,8 @@
 }
 
 .map__wrapper {
-  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   width: 80%;
   height: 520px;
   margin-right: 20px;
@@ -27,8 +28,7 @@
 }
 
 .map__town {
-  width: 50%;
-  margin: auto;
+  position: relative;
   padding: 12px;
 }
 
@@ -39,6 +39,11 @@
   padding: 0 20px;
   border: 2px solid cornflowerblue;
   border-radius: 20px;
+}
+
+.first {
+  position: absolute;
+  top: 50%;
 }
 
 .town__name {
