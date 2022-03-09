@@ -1,6 +1,7 @@
 import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
 import { getElementById } from "./search.js";
 
+let villageAlphabet = 65;
 const map = getElementById("map");
 const MAP_WIDTH = 1800;
 const MAP_HEIGHT = 800;
@@ -25,7 +26,14 @@ const getRandomDivision = () => {
 };
 
 const villageTemplate = () => {
-  return document.createElement("div");
+  const village = document.createElement("div");
+  const villageName = document.createElement("div");
+
+  villageName.innerHTML = String.fromCharCode(villageAlphabet);
+  villageName.classList.add("village-name");
+  villageAlphabet++;
+  village.append(villageName);
+  return village;
 };
 
 const getInnerVillageProperty = (outerWidth, outerHeight) => {
