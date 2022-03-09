@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin-top: 100px;
+}
+
+button {
+  background-color: #fff;
+  border: 0;
+  cursor: pointer;
+}
