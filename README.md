@@ -57,7 +57,7 @@
 - [ ] querySelector 구현
 - [x] 버튼 이벤트
   - [x] 빨간색으로 변경
-- [ ] setTimeout에 Promise 패턴 적용
+- [x] setTimeout에 Promise 패턴 적용
 - [x] 폴더 구조 변경
 - [ ] 정렬 알고리즘 구현
 - [x] 우체통 사이즈 추가

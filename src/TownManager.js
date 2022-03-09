@@ -44,8 +44,8 @@ class TownManager {
   }
 
   isOverlap(town1, town2) {
-    const townLoca1 = this.get4location(town1);
-    const townLoca2 = this.get4location(town2);
+    const townLoca1 = this.getCoordinates(town1);
+    const townLoca2 = this.getCoordinates(town2);
     const isInner = this.checkInside(townLoca1, townLoca2);
     const isOutter = this.checkOutside(townLoca1, townLoca2);
     return !isInner && !isOutter;
@@ -83,21 +83,12 @@ class TownManager {
     return true;
   }
 
-  get4location(town) {
-    const x1 = town.location.x;
-    const y1 = town.location.y;
-    const x2 = x1 + town.width;
-    const y2 = y1;
-    const x3 = x1;
-    const y3 = y1 + town.height;
-    const x4 = x2;
-    const y4 = y3;
-
+  getCoordinates(town) {
     return {
-      p1: [x1, y1],
-      p2: [x2, y2],
-      p3: [x3, y3],
-      p4: [x4, y4],
+      p1: [town.location.x, town.location.y],
+      p2: [town.location.x + town.width, town.location.y],
+      p3: [town.location.x, town.location.y + town.height],
+      p4: [town.location.x + town.width, town.location.y + town.height],
     };
   }
 }
