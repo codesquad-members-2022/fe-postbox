@@ -1,63 +1,41 @@
 import { Map } from './map.js';
 import { Town } from './town.js';
 
-const makeBiggestTown = (map) => {
-  let currentSize = map.getHalfSize();
-  while (currentSize > 10000) {
-    const newTown = createTownInstance(currentSize);
-    if (newTown !== undefined) {
-      currentSize -= newTown.size;
-      map.towns.push(newTown);
-    } else {
-      break;
-    }
+const makeBiggestTown = map => {
+  let space = map.getSize();
+
+  while (space > 10000) {
+    const newTown = createTownInstance(map);
+    space -= newTown.getSize();
+    map.towns.push(newTown);
   }
+};
+
+const createTownInstance = (parent) => {
+  const townWidth = parent.width * generatePercent();
+  const townHeight = parent.height * generatePercent();
+  return new Town(townHeight, townWidth);
 }
 
-const createTownInstance = (currentSize) => {
-  const townWidth = generateRandom();
-  const townHeight = generateRandom();
-  if (isValidSize(townWidth, townHeight, currentSize)) {
-    return new Town(townHeight * townWidth);
-  }
-}
+const makeInnerTown = map => {
+  for (let i = 0; i < map.towns.length; i++) {
+    const parentSize = map.towns[i].getSize();
+    const minChildSize = map.towns[i].getSize() / 50;
 
-const makeTown = (map) => {
-  for (let i = 0; i < map.towns.length;i++) {
-    let currentSize = Math.floor(map.towns[i].size / 2); // 부모마을의 2분의1 사이즈가 자식 마을의 최대 크기
-    while (currentSize > (map.towns[i].size / 5)) { //자식 마을의 최소크기가 부모마을의 5분의1
-      if (currentSize <= 1000) {// 마을의 크기가 우체통보다 작으면 리턴
-        return;
-      }
-      // debugger;
-      const newTown = createTownInstance(currentSize);//조건에 맞으면 마을객체를 만들고 부모마을의 배열에 넣어준다
-      if (newTown !== undefined) {
-        currentSize -= newTown.size;
-        map.towns[i].towns.push(newTown);
-      } else {
-        break;
-      }
+    let space = Math.floor(parentSize / 3);
+
+    while (space > minChildSize) {
+      const newTown = createTownInstance(map.towns[i]);
+      space -= newTown.getSize();
+      map.towns[i].towns.push(newTown);
     }
-    makeTown(map.towns[i]);//부모마을의 자식마을 배열로 들어가면서 무한루프
-  };
+
+    makeInnerTown(map.towns[i]);
+  }
+};
+
+const generatePercent = () => {
+  return (Math.random().toFixed(2))
 }
 
-
-// const makeInnerTown = (towns) => {
-//   towns.forEach(town => {
-    
-//   });
-// }
-
-
-
-const generateRandom = () => {
-  return Math.floor(Math.random() * Math.sqrt(302500)) + 100;
-}
-
-const isValidSize = (width, height, currentSize) => {
-  if (width * height < currentSize) return true;
-  
-}
-
-export { makeTown, makeBiggestTown };
+export { makeInnerTown, makeBiggestTown };
