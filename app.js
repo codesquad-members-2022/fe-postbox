@@ -1,6 +1,7 @@
 import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
+import { getElementById } from "./search.js";
 
-const map = document.querySelector("#map");
+const map = getElementById("map");
 const MAP_WIDTH = 1800;
 const MAP_HEIGHT = 800;
 
