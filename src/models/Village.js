@@ -1,3 +1,5 @@
+import { range } from '../utils/utils.js';
+
 export class Village {
   constructor({ name, width, height, parent }) {
     this.name = name;
@@ -33,7 +35,12 @@ export class RootVillage extends Village {
   initPos() {
     //sectionWidth와 height 참고해서 생성
     //xPon 0~(sectionWidth-width)
-    //yPon 0~(sectionHHeight-height)
+    //yPon 0~(sectionHeight-height)
+    const { width, height, sectionWidth, sectionHeight } = this;
+    const xPos = range(0, sectionWidth - width);
+    const yPos = range(0, sectionHeight - height);
+    this.xPos = xPos;
+    this.yPos = yPos;
   }
 }
 
