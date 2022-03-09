@@ -26,42 +26,47 @@ const villageTemplate = () => {
   return document.createElement("div");
 };
 
-const getVillageProperty = (width, height) => {
-  const innerHeight = randomNumber({
+const getInnerVillageProperty = (outerWidth, outerHeight) => {
+  const height = randomNumber({
     min: LENGTH_MIN,
-    max: height - 2 * BORDER - DISTANCE_MIN,
+    max: outerHeight - 2 * BORDER - DISTANCE_MIN,
   });
-  const innerWidth = randomNumber({
+  const width = randomNumber({
     min: LENGTH_MIN,
-    max: width - 2 * BORDER - DISTANCE_MIN,
+    max: outerWidth - 2 * BORDER - DISTANCE_MIN,
   });
-  const innerTop = randomNumber({
+  const top = randomNumber({
     min: DISTANCE_MIN,
-    max: height - 2 * BORDER - innerHeight,
+    max: outerHeight - 2 * BORDER - height,
   });
-  const innerLeft = randomNumber({
+  const left = randomNumber({
     min: DISTANCE_MIN,
-    max: width - 2 * BORDER - innerWidth,
+    max: outerWidth - 2 * BORDER - width,
   });
 
-  return { innerHeight, innerWidth, innerTop, innerLeft };
+  return { height, width, top, left };
 };
 
-const getInnerVillage = (width, height) => {
+const styleVillage = (village, property) => {
+  village.style.width = `${property.width}px`;
+  village.style.height = `${property.height}px`;
+  village.style.top = `${property.top}px`;
+  village.style.left = `${property.left}px`;
+  village.style.position = "relative";
+  village.style.border = `${BORDER}px solid`;
+};
+
+const getInnerVillage = (outerWidth, outerHeight) => {
   const innerVillage = villageTemplate();
-  const { innerHeight, innerWidth, innerTop, innerLeft } = getVillageProperty(
-    width,
-    height
-  );
+  const innerVillageProperty = getInnerVillageProperty(outerWidth, outerHeight);
 
-  if (innerHeight < LENGTH_MIN || innerWidth < LENGTH_MIN) return null;
+  if (
+    innerVillageProperty.height < LENGTH_MIN ||
+    innerVillageProperty.width < LENGTH_MIN
+  )
+    return null;
 
-  innerVillage.style.width = `${innerWidth}px`;
-  innerVillage.style.height = `${innerHeight}px`;
-  innerVillage.style.border = `${BORDER}px solid`;
-  innerVillage.style.top = `${innerTop}px`;
-  innerVillage.style.left = `${innerLeft}px`;
-  innerVillage.style.position = "relative";
+  styleVillage(innerVillage, innerVillageProperty);
 
   return innerVillage;
 };
@@ -86,12 +91,7 @@ const getVillageChunk = (number) => {
       max: MAP_HEIGHT / 2 - DISTANCE_MIN - height,
     });
 
-  village.style.width = `${width}px`;
-  village.style.height = `${height}px`;
-  village.style.top = `${top}px`;
-  village.style.left = `${left}px`;
-  village.style.position = "relative";
-  village.style.border = `${BORDER}px solid`;
+  styleVillage(village, { width, height, left, top });
 
   range(number).forEach((_) => {
     const innerVillage = getInnerVillage(width, height);
