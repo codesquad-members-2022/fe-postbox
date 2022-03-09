@@ -34,10 +34,10 @@ import { customQuerySelector } from './util.js';
 const main = () => {
   const map = new Map();
   const $map = customQuerySelector('map');
+  console.log(map)
 
   makeBiggestTown(map, $map);
   makeInnerTown(map, $map);
-  
 }
 
 main();

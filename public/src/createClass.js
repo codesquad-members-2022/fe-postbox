@@ -28,14 +28,14 @@ const makeBiggestTown = map => {
   }
 };
 
-
 const makeInnerTown = (map, node) => {
+  const positionData = [];
+  
   for (let i = 0; i < map.towns.length; i++) {
     const parentSize = map.towns[i].getSize();
     const minChildSize = map.towns[i].getSize() / 20;
     let space = Math.floor(parentSize / 3);
     
-    const positionData = [];
     placeTown(map, map.towns[i], node, positionData);
     
     while (space > minChildSize) {
