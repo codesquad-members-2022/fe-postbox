@@ -1,12 +1,10 @@
-class Model {
+export default class Model {
   constructor() {
     this.village = [];
     this.makeVillage();
   }
-
   makeVillage() {
     let ASCII = 0;
-
     const getVillageInfo = (width, height, postbox) => {
       const village = {
         name: String.fromCharCode(ASCII++ + 65),
@@ -43,7 +41,6 @@ class Model {
     for (let i = 0; i < childNum; i++) {
       let villageWidth = this.getVillageWidth(village.width / childNum);
       let villageHeight = this.getVillageHeight(village.height / childNum);
-
       if (villageWidth > 10 && villageHeight > 10) {
         village.child.push(
           getVillageInfo(villageWidth, villageHeight, this.getPostbox())
@@ -69,10 +66,12 @@ class Model {
       size: 0,
       exist: 0,
     };
+
     if (this.check50Percent()) {
       postbox.exist++;
       postbox.size = Math.floor(Math.random() * 10) + 1;
     }
+
     return postbox;
   }
 
@@ -88,5 +87,3 @@ class Model {
     return this.village;
   }
 }
-
-export const model = new Model();
