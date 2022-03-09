@@ -66,6 +66,25 @@ const styleVillage = (village, property, isPositionAbsolute) => {
   village.style.position = isPositionAbsolute ? "absolute" : "relative";
 };
 
+const getPostbox = () => {
+  const postbox = document.createElement("span");
+  postbox.innerHTML = "📮";
+  const size = randomNumber({ max: 30, min: 5 });
+  postbox.style.fontSize = `${size}px`;
+  postbox.dataset.size = `${size}`;
+
+  return postbox;
+};
+
+const addPostboxRandomly = (village) => {
+  const hasPostbox = randomNumber({ max: 2, min: 0 });
+
+  if (hasPostbox) {
+    const postbox = getPostbox();
+    village.append(postbox);
+  }
+};
+
 const getInnerVillage = (outerWidth, outerHeight) => {
   const innerVillage = villageTemplate();
   const innerVillageProperty = getInnerVillageProperty(outerWidth, outerHeight);
@@ -79,6 +98,8 @@ const getInnerVillage = (outerWidth, outerHeight) => {
   }
 
   styleVillage(innerVillage, innerVillageProperty);
+
+  addPostboxRandomly(innerVillage);
 
   return innerVillage;
 };
@@ -104,6 +125,8 @@ const getVillageChunk = (number) => {
     });
 
   styleVillage(village, { width, height, left, top }, true);
+
+  addPostboxRandomly(village);
 
   range(number).forEach((_) => {
     const innerVillage = getInnerVillage(width, height);
