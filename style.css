@@ -4,8 +4,8 @@ html {
 }
 
 .town-map {
-  width: 800px;
-  height: 800px;
+  width: 900px;
+  height: 900px;
   border: 4px solid black;
   display: flex;
   flex-wrap: wrap;
