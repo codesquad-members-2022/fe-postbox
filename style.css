@@ -1,13 +1,38 @@
+:root {
+  --font-middle: 20px;
+}
 
 .row {
-    display: flex;
+  display: flex;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .contents {
-    position: relative;
+  position: relative;
+  border: 5px solid;
+}
+
+h1 {
+  position: relative;
+  left: 440px;
+}
+
+.check-btn {
+  width: 200px;
+  height: 50px;
+  background-color: #e74c3c;
+  color: #fff;
+  font-size: var(--font-middle);
+  margin-left: 4px;
+  border-radius: 10px;
+}
+
+.postbox-info {
+  font-size: var(--font-middle);
+  color: #7f8c8d;
+  margin: 50px 10px;
 }

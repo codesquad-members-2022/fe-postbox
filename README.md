@@ -44,8 +44,8 @@
 
 ### TODO
 
-- [ ] HTML 추가
-- [ ] CSS 추가
+- [x] HTML 추가
+- [x] CSS 추가
 - [ ] querySelector 구현
 - [ ] 버튼 이벤트
 

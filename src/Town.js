@@ -1,5 +1,5 @@
 import { getRandomNumber } from "./utils.js";
-import { MAP_SIZE, TOWN_SIZE } from "./constants.js";
+import { MAP_SIZE, MARGIN, TOWN_SIZE } from "./constants.js";
 
 class Town {
   constructor() {
@@ -22,8 +22,14 @@ class Town {
 
   getRandomLocation() {
     return {
-      x: getRandomNumber({ min: MAP_SIZE.MIN, max: MAP_SIZE.MAX }),
-      y: getRandomNumber({ min: MAP_SIZE.MIN, max: MAP_SIZE.MAX }),
+      x: getRandomNumber({
+        min: MAP_SIZE.MIN,
+        max: MAP_SIZE.MAX - TOWN_SIZE.MAX,
+      }),
+      y: getRandomNumber({
+        min: MAP_SIZE.MIN + MARGIN,
+        max: MAP_SIZE.MAX - TOWN_SIZE.MAX,
+      }),
     };
   }
 
