@@ -1,22 +1,22 @@
-const $townMap = document.querySelector("#town-map");
+const $townMap = document.querySelector('#town-map');
 
 const JUSTIFY_CONTENT = {
-  0: "center",
-  1: "space-between",
-  2: "space-evenly",
-  3: "start",
+  0: 'center',
+  1: 'space-between',
+  2: 'space-evenly',
+  3: 'start',
 };
 
 const ALIGN_ITEMS = {
-  0: "center",
-  1: "start",
-  2: "end",
-  3: "stretch",
+  0: 'center',
+  1: 'start',
+  2: 'end',
+  3: 'stretch',
 };
 
 const FLEX_DIRECTION = {
-  0: "column",
-  1: "row",
+  0: 'column',
+  1: 'row',
 };
 
 // 나중에 랜덤값으로 바꿀 예정
@@ -28,10 +28,10 @@ const LAYER_SIZE = {
 };
 
 const LAYER_COLOR = {
-  0: "red",
-  1: "blue",
-  2: "green",
-  3: "tomato",
+  0: 'red',
+  1: 'blue',
+  2: 'green',
+  3: 'tomato',
 };
 function getRandomNumber(min, max) {
   min = Math.ceil(min);
@@ -56,8 +56,18 @@ function renderChild($child, $parentNode, layer) {
   $child.style.width = `${randomWidth}px`;
   $child.style.height = `${randomHeight}px`;
   $child.style.border = `1px solid ${LAYER_COLOR[layer]}`;
-  $child.classList.add("town");
+  $child.classList.add('town');
   $parentNode.appendChild($child);
+}
+
+function renderPostBox(townNumber, $parentNode) {
+  if (townNumber < 1) {
+    return;
+  }
+  // 일단 넣고, 크기 및 위치는 추후에 수정할 예정
+  const $postBox = document.createElement('div');
+  $postBox.innerHTML = `📮`;
+  $parentNode.appendChild($postBox);
 }
 
 function renderTown($parentNode, layer) {
@@ -65,10 +75,17 @@ function renderTown($parentNode, layer) {
     return;
   }
   getLocation($parentNode);
-  const townNumber = getRandomNumber(0, 3); // 최대 렌더링 할 수 있는 자식 요소
+  let townNumber = getRandomNumber(0, 3); // 최대 렌더링 할 수 있는 자식 요소
+  // 0번째 층에서 마을이 하나라도 렌더링되게 예외처리
+  if (layer === 0 && townNumber === 0) {
+    townNumber = 1;
+  }
+  // 우체통 넣을지 말지 결정
+  renderPostBox(townNumber, $parentNode);
+  // 자식요소 렌더링
   for (let i = 0; i < townNumber; i++) {
     console.log(`${layer}층: ${i}`);
-    const $child = document.createElement("div");
+    const $child = document.createElement('div');
     renderChild($child, $parentNode, layer);
 
     // 자식을 렌더링하는 함수
@@ -81,4 +98,4 @@ function init() {
   renderTown($townMap, 0);
 }
 
-window.addEventListener("DOMContentLoaded", init);
+window.addEventListener('DOMContentLoaded', init);
