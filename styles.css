@@ -66,6 +66,8 @@
 .vil {
   display: flex;
   flex-wrap: wrap;
+  border: 2px solid blue;
+  border-radius: 10px;
 }
 
 .vil-name {
@@ -116,13 +118,3 @@
 }
 
 /* postbox border */
-
-.without-postbox {
-  border: 2px solid blue;
-  border-radius: 10px;
-}
-
-.with-postbox {
-  border: 2px solid red;
-  border-radius: 10px;
-}
