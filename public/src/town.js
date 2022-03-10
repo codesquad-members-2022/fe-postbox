@@ -3,7 +3,7 @@ export class Town {
       this.width = width;
       this.height = height;
       this.towns = [];
-      this.postBox = null;
+      this.postBoxSize = 0;
   }
   
   getSize() {

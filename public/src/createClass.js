@@ -23,6 +23,7 @@ const makeBiggestTown = townMap => {
 
   while (space > 100000) {
     const newTown = createBiggestInstance(space);
+    insertPostBox(newTown);
     space -= newTown.getSize();
     townMap.towns.push(newTown);
   }
@@ -40,6 +41,7 @@ const makeInnerTown = (townMap, node) => {
     
     while (space > minChildSize) {
       const newTown = createTownInstance(townMap.towns[i]);
+      insertPostBox(newTown);
       if (newTown.getSize() < 500) return;
       space -= newTown.getSize();
       townMap.towns[i].towns.push(newTown);
@@ -52,5 +54,13 @@ const makeInnerTown = (townMap, node) => {
 const generatePercent = () => { //자식마을의 크기를 부모마을에 따라 상대적으로 줄어들게 하기 위한 퍼센트
   return (Number(Math.random().toFixed(2))*0.85) + 0.01
 }
+
+const insertPostBox = (town) => {
+  const boolNumber = Math.round(Math.random()); //0 아니면 1 할당
+  if (boolNumber) {
+    town.postBoxSize = Math.floor((Math.random() * 499) + 1);
+  }
+}
+
 
 export { makeInnerTown, makeBiggestTown };
