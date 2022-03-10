@@ -10,4 +10,10 @@ const randomNumber = ({ max, min }) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-export { range, getLengthWithoutPixel, randomNumber };
+const delay = (time) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, time);
+  });
+};
+
+export { range, getLengthWithoutPixel, randomNumber, delay };

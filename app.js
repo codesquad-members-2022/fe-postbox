@@ -1,4 +1,4 @@
-import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
+import { range, getLengthWithoutPixel, randomNumber, delay } from "./utils.js";
 import { getElementById, searchPostBoxes } from "./search.js";
 
 let villageAlphabet = 65;
@@ -162,12 +162,6 @@ const getVillageWithPostbox = (postbox) => {
 
 const getVillageName = (postbox) => {
   return getVillageWithPostbox(postbox).dataset.name;
-};
-
-const delay = (time) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, time);
-  });
 };
 
 const changeBorderColor = (postboxes) => {
