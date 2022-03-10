@@ -40,4 +40,15 @@ export class DataGenerator {
 
     return children;
   }
+
+  static createTownNode(data) {
+    const town = convertStringToHTML(new Town(data).template());
+
+    for (let i = 0; i < data.children.length; i++) {
+      const child = DataGenerator.createTownNode(data.children[i]);
+      town.append(child);
+    }
+
+    return town;
+  }
 }
