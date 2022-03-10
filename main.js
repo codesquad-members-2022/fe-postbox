@@ -1,10 +1,10 @@
 import { NodeFinder } from './js/NodeFinder.js'
 
 const containerInfo = {
-  CONTAINER_MAX_X : 700,
-  CONTAINER_MAX_Y : 700,
-  CONTAINER_MIN_X : 300,
-  CONTAINER_MIN_Y : 300
+  MAX_X : 700,
+  MAX_Y : 700,
+  MIN_X : 300,
+  MIN_Y : 300
 }
 
 const villageInfo = {
@@ -13,10 +13,10 @@ const villageInfo = {
   posX: [],
   posY: [],
   villageCnt: 0,
-  VILLAGE_MAX_WIDTH : 200,
-  VILLAGE_MAX_HEIGHT : 200,
-  VILLAGE_MIN_WIDTH : 100,
-  VILLAGE_MIN_HEIGHT : 100,
+  MAX_X : 200,
+  MAX_Y : 200,
+  MIN_X : 100,
+  MIN_Y : 100,
 }
 
 function setVillagePos(coordinate, villageSize) {
@@ -31,29 +31,23 @@ function setVillagePos(coordinate, villageSize) {
   villageInfo.villageCnt++;
 }
 
-function createRandomCoordinate() {
+function createRandomSize(sizeInfo) {
   // 마을 좌표 랜덤 생성
-  const x = Math.floor(Math.random() * (containerInfo.CONTAINER_MAX_X - containerInfo.CONTAINER_MIN_X) + containerInfo.CONTAINER_MIN_X);
-  const y = Math.floor(Math.random() * (containerInfo.CONTAINER_MAX_Y - containerInfo.CONTAINER_MIN_Y) + containerInfo.CONTAINER_MIN_Y);
+  const size = sizeInfo;
+
+  const x = Math.floor(Math.random() * (size.MAX_X - size.MIN_X) + size.MIN_X);
+  const y = Math.floor(Math.random() * (size.MAX_Y - size.MIN_Y) + size.MIN_Y);
 
   return [x, y];
 }
 
-function createRandomSize() {
-  // 마을 크기 랜덤 생성
-  const width = Math.floor(Math.random() * (villageInfo.VILLAGE_MAX_WIDTH - villageInfo.VILLAGE_MIN_WIDTH) + villageInfo.VILLAGE_MIN_WIDTH);
-  const height = Math.floor(Math.random() * (villageInfo.VILLAGE_MAX_HEIGHT - villageInfo.VILLAGE_MIN_HEIGHT) + villageInfo.VILLAGE_MIN_HEIGHT);
-
-  return [width, height];
-}
-
-function createVillage() {
+function createVillage(container, village) {
   // 해당 좌표에 생성할 수 있는지 확인
   while(true) {
-    const coordinate = createRandomCoordinate();
-    const villageSize = createRandomSize();
+    const coordinate = createRandomSize(container);
+    const villageSize = createRandomSize(village);
     const pos = [coordinate[0] + villageSize[0], coordinate[1] + villageSize[1]];
-    if(pos[0] < containerInfo.CONTAINER_MAX_X && pos[1] < containerInfo.CONTAINER_MAX_Y) {
+    if(pos[0] < containerInfo.MAX_X && pos[1] < containerInfo.MAX_Y) {
       villageInfo.coordinateX.push(coordinate[0]);
       villageInfo.coordinateY.push(coordinate[1]);
       villageInfo.posX.push(pos[0]);
@@ -64,11 +58,11 @@ function createVillage() {
   }
 }
 
-function isVillage() {
+function isVillage(container, village) {
   // 해당 좌표에 마을이 존재하는지
   let flag = -20;
-  const coordinate = createRandomCoordinate();
-  const villageSize = createRandomSize();
+  const coordinate = createRandomSize(container);
+  const villageSize = createRandomSize(village);
 
   function isTrue(A, B) {
     return A || B;
@@ -82,7 +76,7 @@ function isVillage() {
     const bottom = villageInfo.posY.every(e => e < coordinate[1]);
     
 
-    if((isTrue(left, right) || isTrue(top, bottom)) && (pos[0] < containerInfo.CONTAINER_MAX_X && pos[1] < containerInfo.CONTAINER_MAX_Y)) {
+    if((isTrue(left, right) || isTrue(top, bottom)) && (pos[0] < containerInfo.MAX_X && pos[1] < containerInfo.MAX_Y)) {
       villageInfo.coordinateX.push(coordinate[0]);
       villageInfo.coordinateY.push(coordinate[1]);
       villageInfo.posX.push(pos[0]);
@@ -108,6 +102,6 @@ function addVillageHTML() {
   container.appendChild(newVillage);
 }
 
-createVillage();
-isVillage();
-isVillage();
+createVillage(containerInfo, villageInfo);
+isVillage(containerInfo, villageInfo);
+isVillage(containerInfo, villageInfo);

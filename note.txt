@@ -4,6 +4,9 @@
 2번마을 left 50 width 400 pos 450
 마을의 최대 크기
 웹브라우저 밖에 안나가게하기
+
+while문에서 if 조건문에 isTrue를 사용할시 
+
 const villagePos = [{x: 1600, y: 900}]
 
 for(let i=0; i<villagePos; i++) {
