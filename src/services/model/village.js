@@ -1,18 +1,20 @@
 class Village {
-  constructor(villageContainer, mapSize) {
-    this.mapSize = mapSize;
+  constructor(villageContainer, mapWidth, mapHeight) {
+    this.mapWidth = mapWidth;
+    this.mapHeight = mapHeight;
     this.blankSize = 1;
     this.villageContainer = villageContainer;
     this.position = this.getPosition();
     this.townSize = this.getTownSize();
+    this.hasChild = false;
   }
 
   getTownSize() {
     const [positionX, positionY] = this.position;
-
-    let minWidth = this.mapSize;
-    let minHeight = this.mapSize;
-    this.villageContainer.forEach(({ x, y }) => {
+    let minWidth = this.mapWidth;
+    let minHeight = this.mapHeight;
+    this.villageContainer.forEach(({ townSize }) => {
+      const { x, y } = townSize;
       const [existX] = x;
       const [existY] = y;
 
@@ -26,9 +28,9 @@ class Village {
     });
 
     const newWidth =
-      Math.floor(Math.random() * (minWidth - positionX - this.blankSize)) + 1;
+      Math.floor(Math.random() * (minWidth - positionX - 10)) + 1;
     const newHeight =
-      Math.floor(Math.random() * (minHeight - positionY - this.blankSize)) + 1;
+      Math.floor(Math.random() * (minHeight - positionY - 10)) + 1;
 
     return {
       x: [positionX, newWidth],
@@ -37,19 +39,22 @@ class Village {
   }
 
   getPosition() {
-    const newX =
-      Math.floor(Math.random() * (this.mapSize - this.blankSize)) + 1;
-    const newY =
-      Math.floor(Math.random() * (this.mapSize - this.blankSize)) + 1;
-    for (const { x, y } of this.villageContainer) {
+    const newX = Math.floor(Math.random() * (this.mapWidth - 1)) + 1;
+    const newY = Math.floor(Math.random() * (this.mapHeight - 1)) + 1;
+
+    for (const { townSize } of this.villageContainer) {
+      const { x, y } = townSize;
       const [minX, maxX] = x;
       const [minY, maxY] = y;
 
       const isInsideBox =
-        minX < newX && newX < minX + maxX && minY < newY && newY < minY + maxY;
+        minX - 5 <= newX &&
+        newX <= minX + maxX + 5 &&
+        minY - 5 <= newY &&
+        newY <= minY + maxY + 5;
 
       if (isInsideBox) {
-        this.getPosition();
+        return this.getPosition();
       }
     }
     return [newX, newY];

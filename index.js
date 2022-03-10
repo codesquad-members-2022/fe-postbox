@@ -3,7 +3,7 @@ import View from "./src/services/view/view.js";
 
 const MAP_SIZE = 600;
 
-const villageController = new Controller(MAP_SIZE);
+const villageController = new Controller(MAP_SIZE, MAP_SIZE);
 
 villageController.initService();
 
