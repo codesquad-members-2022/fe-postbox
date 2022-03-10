@@ -10,7 +10,9 @@ export const mailboxEventHandler = () => {
   const $towns = getElementsByClassName("town");
   const sortedTowns = $towns
     .filter((town) =>
-      [...town.children].some((child) => child.classList.contains("mailbox"))
+      [...town.children[0].children].some((child) =>
+        child.classList.contains("mailbox")
+      )
     )
     .map((town) => {
       delay(2000).then(() => town.classList.add("has-mailbox"));
