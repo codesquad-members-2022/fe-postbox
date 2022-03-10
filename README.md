@@ -54,7 +54,7 @@
   - 구성: 마을 div > 우체통 div, 이름 div
 - [x] HTML 추가
 - [x] CSS 추가
-- [ ] querySelector 구현
+- [x] querySelector 구현
   - [x] getElementByClassName 구현
 - [x] 버튼 이벤트
   - [x] 빨간색으로 변경
