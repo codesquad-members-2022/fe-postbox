@@ -10,7 +10,7 @@
 }
 
 #title {
-  font-size: 30px;
+  font-size: 50px;
   position: absolute;
   top: -60px;
   left: 50%;
@@ -31,7 +31,8 @@
   border-radius: 10px;
   background-color: var(--red);
   color: white;
-  font-size: 20px;
+  font-size: 25px;
+  font-weight: 700;
 }
 
 .interaction {
@@ -49,7 +50,7 @@
 
 .interaction-result__row {
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 /* map */
@@ -73,24 +74,23 @@
 
 .vil {
   display: inline-flex;
-  flex-wrap: wrap;
+  align-items: center;
   border: 3px solid var(--blue);
   border-radius: 10px;
   position: relative;
   flex: 1 1 auto;
-  width: 20%;
   margin: var(--vil-margin);
   position: relative;
 }
 
 .vil-name {
+  font-size: 20px;
   position: absolute;
-  top: -20px;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.vil-inner {
-  flex: 1 1 auto;
-  width: 20%;
-  margin: 10px;
-  position: relative;
+.postbox {
+  font-size: 20px;
 }
