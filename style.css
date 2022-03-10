@@ -16,3 +16,6 @@ html {
 .town {
   display: flex;
 }
+.town__name {
+  font-weight: bold;
+}
