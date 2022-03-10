@@ -1,6 +1,6 @@
-import { MAX_CHILD, MAX_LAYER, STYLE } from './constants.js';
-import Town from './template/Town.js';
-import { assignStyles, getRandomNumber } from './utils.js';
+import { MAX_CHILD, MAX_LAYER, STYLE } from "./constants.js";
+import Town from "./template/Town.js";
+import { assignStyles, getRandomNumber } from "./utils.js";
 const {
   JUSTIFY_CONTENT,
   ALIGN_ITEMS,
@@ -9,7 +9,7 @@ const {
   LAYER_SIZE,
 } = STYLE;
 
-const $townMap = document.querySelector('#town-map');
+const $townMap = document.querySelector("#town-map");
 
 function getLocation($element) {
   const styleObj = {
@@ -27,8 +27,9 @@ function renderPostBox(townNumber, $parentNode) {
     return;
   }
   // 일단 넣고, 크기 및 위치는 추후에 수정할 예정
-  const $postBox = document.createElement('div');
-  const styleObj = { fontSize: `${getRandomNumber(5, 30)}px` };
+  const $postBox = document.createElement("div");
+  const styleObj = { fontSize: `${getRandomNumber(5, 20)}px` };
+  $postBox.classList.add("post-box");
   $postBox.innerHTML = `📮`;
   assignStyles($postBox, styleObj);
   $parentNode.appendChild($postBox);
@@ -65,4 +66,4 @@ function init() {
   renderTown($townMap, 0);
 }
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener("DOMContentLoaded", init);
