@@ -1,6 +1,14 @@
 @import url('./css/base/reset.css');
 @import url('./css/base/custom.css');
 
+:root {
+  --blue: #3485ff;
+  --red: #ff4c38;
+  --vil-margin: 10px;
+  --container-width: 1200px;
+  --container-height: 1200px;
+}
+
 #title {
   font-size: 30px;
   position: absolute;
@@ -10,7 +18,6 @@
 }
 
 #main {
-  width: 1500px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -20,16 +27,16 @@
 .check-btn {
   width: 100%;
   height: 50px;
-  border: 1px solid red;
+  border: 1px solid var(--red);
   border-radius: 10px;
-  background-color: red;
+  background-color: var(--red);
   color: white;
   font-size: 20px;
 }
 
 .interaction {
+  max-width: 300px;
   margin-left: 10px;
-  width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -41,13 +48,14 @@
 }
 
 .interaction-result__row {
+  width: 100%;
   margin-bottom: 30px;
 }
 
 /* map */
 .container {
-  width: 1200px;
-  height: 600px;
+  width: calc(var(--vil-margin) * 2 + var(--container-width));
+  height: calc(var(--vil-margin) * 2 + var(--container-height));
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
@@ -64,10 +72,15 @@
 /* vil, position */
 
 .vil {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
-  border: 2px solid blue;
+  border: 3px solid var(--blue);
   border-radius: 10px;
+  position: relative;
+  flex: 1 1 auto;
+  width: 20%;
+  margin: var(--vil-margin);
+  position: relative;
 }
 
 .vil-name {
@@ -81,40 +94,3 @@
   margin: 10px;
   position: relative;
 }
-
-.vil-tl,
-.vil-tr,
-.vil-bl,
-.vil-br {
-  position: absolute;
-}
-
-.vil-tl {
-  top: 100px;
-  left: 10px;
-  width: 260px;
-  height: 210px;
-}
-
-.vil-tr {
-  width: 100px;
-  height: 100px;
-  top: 20px;
-  left: 50px;
-}
-
-.vil-bl {
-  width: 100px;
-  height: 100px;
-  top: 0px;
-  left: 70px;
-}
-
-.vil-br {
-  width: 100px;
-  height: 100px;
-  top: 50px;
-  left: 90px;
-}
-
-/* postbox border */
