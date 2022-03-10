@@ -27,6 +27,8 @@ app.get('/api/villages', (req, res) => {
   const chance = 30;
   const length = 4;
 
+  RootVillage.initNameList();
+
   const rootVillages = Array.from({ length }) //
     .map(() => {
       if (isChanceLowerThan(chance)) return {};

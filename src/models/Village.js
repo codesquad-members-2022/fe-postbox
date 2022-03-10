@@ -1,9 +1,13 @@
 const { range } = require('../utils/utils.js');
 
 class Village {
-  static names = Array.from({ length: 26 }).map((_, idx) =>
-    String.fromCodePoint(idx + 65)
-  );
+  static nameList;
+
+  static initNameList() {
+    Village.nameList = Array.from({ length: 26 }).map((_, idx) =>
+      String.fromCodePoint(idx + 65)
+    );
+  }
 
   constructor({ width, height, parent = null }) {
     this.name = null;
@@ -47,8 +51,8 @@ class Village {
   }
 
   initName() {
-    const index = range(0, Village.names.length);
-    this.name = Village.names.splice(index, 1)[0];
+    const index = range(0, Village.nameList?.length);
+    this.name = Village.nameList.splice(index, 1)[0];
   }
 }
 
