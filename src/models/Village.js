@@ -28,9 +28,9 @@ class Village {
     //width가 100보다 작거나, height가 50보다 작으면 child를 생성하지 않음
     const count = range(1, 3);
     for (let i = 0; i < count; i++) {
-      if (this.width <= 100 || this.height <= 50) break;
-      const width = range(100, (1 + this.width / 2) >> 0);
-      const height = range(50, (1 + this.height / 2) >> 0);
+      if (this.width <= 150 || this.height <= 150) break;
+      const width = range(100, (this.width / 2) >> 0);
+      const height = range(100, (this.height / 2) >> 0);
       this.children.push(new Village({ width, height, parent: this }));
     }
   }
