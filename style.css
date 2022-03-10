@@ -8,14 +8,19 @@
 }
 .village-info {
   width: 800px;
-  border: 2px solid red;
-  margin: 25px 0px 50px 50px;
+  border: 2px solid blue;
+  margin: 20px 0px 50px 35px;
 }
 .village {
   border: 2px solid green;
   display: inline-block;
-  margin: 30px;
+  margin: 5px;
 }
 .red-button-info {
   margin: 25px 0px 0px 15px;
+  width: 150px;
+}
+.village-total,
+.postbox-size {
+  margin-top: 30px;
 }
