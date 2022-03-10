@@ -6,8 +6,9 @@ const getElementById = (id, curNode = root) => {
 
   for (let i = 0; i < curNode.children.length; i++) {
     const node = getElementById(id, curNode.children[i]);
-    if (node !== null) return node;
+    if (node) return node;
   }
+  return null;
 };
 
 const searchPostBoxes = (curNode, postboxes = []) => {

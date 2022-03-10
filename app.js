@@ -2,6 +2,7 @@ import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
 import { getElementById, searchPostBoxes } from "./search.js";
 
 let villageAlphabet = 65;
+const delayTime = 2000;
 const map = getElementById("map");
 const btn = getElementById("btn");
 const MAP_WIDTH = 1000;
@@ -155,8 +156,25 @@ const addVillages = () => {
   }
 };
 
+const getVillageWithPostbox = (postbox) => {
+  return postbox.closest(".village");
+};
+
 const getVillageName = (postbox) => {
-  return postbox.closest(".village").dataset.name;
+  return getVillageWithPostbox(postbox).dataset.name;
+};
+
+const delay = (time) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, time);
+  });
+};
+
+const changeBorderColor = (postboxes) => {
+  postboxes.forEach((postbox) => {
+    const village = getVillageWithPostbox(postbox);
+    village.style.borderColor = "red";
+  });
 };
 
 const showVillagesWithPostbox = (postboxes) => {
@@ -168,6 +186,8 @@ const showVillagesWithPostbox = (postboxes) => {
   villagesTextBox.innerText = `${villagesWithPostbox.join(", ")} 총 ${
     villagesWithPostbox.length
   }개의 마을입니다.`;
+
+  delay(delayTime).then(() => changeBorderColor(postboxes));
 };
 
 const showSortedPostbox = () => {};
