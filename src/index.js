@@ -1,9 +1,11 @@
-import { Village, RootVillage } from './src/models/Village.js';
-import { range } from './src/utils/utils.js';
+import { Village, RootVillage } from './models/Village.js';
+import { range } from './utils/utils.js';
 import {
   getElementByClassName,
   getElementsByClassName,
-} from './src/dom/getElement.js';
+} from './dom/getElement.js';
+import { createRootVillage } from './views/village.js';
+
 const sectionWidth = 1200 / 2;
 const sectionHeight = 600 / 2;
 const minWidth = 300;
@@ -32,4 +34,15 @@ const rootVillages = Array.from({ length: 4 }).map(() => {
   return new RootVillage({ props, sectionHeight, sectionWidth });
 });
 
-console.log(rootVillages);
+const $$section = getElementsByClassName('section');
+
+const $$rootVillage = rootVillages.map((rootVillage) =>
+  createRootVillage(rootVillage)
+);
+
+$$rootVillage.forEach(($rootVillage, idx) => {
+  if ($rootVillage) $$section[idx].appendChild($rootVillage);
+});
+
+// if ($rootVillage) selector('section').appendChild($rootVillage);
+// console.log(getElementByClassName('section'));
