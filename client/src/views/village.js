@@ -10,8 +10,13 @@ const createVillage = (village) => {
   const $vilName = createElement('span', 'vil-name');
   $vilName.textContent = village.name;
   $village.appendChild($vilName);
+
   if (village.postbox.exist) {
     addClass('with-postbox', $village);
+    const $post = createElement('span', 'postbox');
+    $post.textContent = '📭';
+    $post.style.position = 'absolute';
+    $village.appendChild($post);
   }
 
   const { width, height } = village;
@@ -36,7 +41,13 @@ const appendChildren = ($parent, children) => {
 
 export const createRootVillage = (rootVillage) => {
   const $rootVillage = createVillage(rootVillage);
-  const { children } = rootVillage;
+  const { children, xPos, yPos } = rootVillage;
+
+  if ($rootVillage) {
+    $rootVillage.style.position = 'absolute';
+    $rootVillage.style.left = xPos + 'px';
+    $rootVillage.style.top = yPos + 'px';
+  }
 
   appendChildren($rootVillage, children);
   return $rootVillage;

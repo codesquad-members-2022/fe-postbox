@@ -38,7 +38,9 @@ app.get('/api/villages', (req, res) => {
         height: range(minHeight, maxHeight + 1),
       };
 
-      return new RootVillage({ props, sectionHeight, sectionWidth });
+      const vil = new RootVillage({ props, sectionHeight, sectionWidth });
+      return vil.toObject();
+      /* return vil 하는 경우 json 변환 과정에서 상속받은 프로퍼티만 생성됨 */
     });
 
   res.json(rootVillages);
