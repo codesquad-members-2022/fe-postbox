@@ -11,7 +11,7 @@ html {
 
 .town {
   display: flex;
-  margin: 5px;
+  margin: 3px;
   padding: min(5%, 20px);
   box-sizing: border-box;
   position: relative;
@@ -19,7 +19,7 @@ html {
 .town__name {
   font-weight: bold;
   position: absolute;
-  left: 30%;
+  left: 20%;
   top: 0%;
 }
 .post-box {
