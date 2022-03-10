@@ -14,7 +14,7 @@ export const addClass = (className, element) => {
 };
 
 export const range = (from, to) => {
-  const diff = to - from;
+  const diff = Math.abs(to - from);
   return (Math.random() * diff + from) >> 0;
   // from ~ to-1
 };
