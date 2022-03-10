@@ -1,15 +1,15 @@
-import { getLocation, getRandomNumber } from './utils.js';
-import { MAX_CHILD, MAX_LAYER, STYLE } from './constants.js';
-import Town from './template/Town.js';
-import PostBox from './template/PostBox.js';
+import { getClassNameAll, getLocation, getRandomNumber } from "./utils.js";
+import { MAX_CHILD, MAX_LAYER, STYLE } from "./constants.js";
+import Town from "./template/Town.js";
+import PostBox from "./template/PostBox.js";
 const { LAYER_SIZE } = STYLE;
 
-const $townMap = document.querySelector('#town-map');
+const $townMap = document.querySelector("#town-map");
 
 function renderTown($parentNode, layer) {
   let townNumber = getRandomNumber(0, MAX_CHILD); // 최대 렌더링 할 수 있는 자식 요소
   // 우체통 넣을지 말지 결정
-  const postBox = new PostBox(`${getRandomNumber(5, 18)}px`);
+  const postBox = new PostBox({ size: `${getRandomNumber(5, 18)}px` });
   const $postBox = postBox.render();
   $postBox && $parentNode.appendChild($postBox);
 
@@ -26,7 +26,7 @@ function renderTown($parentNode, layer) {
   // 자식요소 렌더링
   for (let i = 0; i < townNumber; i++) {
     console.log(`${layer}층: ${i}`);
-    const newTown = new Town(LAYER_SIZE[layer]);
+    const newTown = new Town({ size: LAYER_SIZE[layer] });
     const $child = newTown.render(layer);
     $parentNode.appendChild($child);
     // 자식을 렌더링하는 함수
@@ -38,6 +38,7 @@ function renderTown($parentNode, layer) {
 
 function init() {
   renderTown($townMap, 0);
+  getClassNameAll();
 }
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener("DOMContentLoaded", init);

@@ -30,3 +30,17 @@ class post extends template {
   }
 }
 ```
+
+- [ ] 탐색 api 구현
+
+- 버튼이벤트
+
+- setTimeout()(1초 딜레이)
+
+- 탐색 api
+
+```js
+
+for (let items in childNodes){  if( childNodes.contains(특정클래스) 실행  }
+
+```

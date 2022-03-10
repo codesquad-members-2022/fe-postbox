@@ -1,7 +1,7 @@
-import Template from './Template.js';
+import Template from "./Template.js";
 
 class PostBox extends Template {
-  constructor(size) {
+  constructor({ size }) {
     super(size);
   }
   render(townNumber) {
@@ -9,8 +9,8 @@ class PostBox extends Template {
       return;
     }
     const styleObj = { fontSize: this.size };
-    const className = 'post-box';
-    const contents = '📮';
+    const className = "post-box";
+    const contents = "📮";
     return super.render({ styleObj, className, contents });
   }
 }

@@ -1,4 +1,4 @@
-import { STYLE } from './constants.js';
+import { STYLE } from "./constants.js";
 
 const { JUSTIFY_CONTENT, ALIGN_ITEMS, FLEX_DIRECTION } = STYLE;
 
@@ -22,4 +22,17 @@ export function getLocation($element) {
       FLEX_DIRECTION[getRandomNumber(0, Object.keys(FLEX_DIRECTION).length)],
   };
   assignStyles($element, styleObj);
+}
+
+export function getClassNameAll() {
+  function recursive($element) {
+    if ($element.childNodes.length === 0) return;
+
+    for (const childNode of $element.children) {
+      console.log(childNode);
+      recursive(childNode);
+    }
+  }
+  const townMap = document.querySelector("#town-map");
+  recursive(townMap);
 }
