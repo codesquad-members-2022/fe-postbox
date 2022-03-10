@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+.page-title {
+  margin-top: 3vh;
+  font-size: 30px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-around;
+  max-width: 80vw;
+  min-width: 1000px;
+  height: calc(90vh - 45px);
+  min-height: 700px;
+  margin: 3vh auto 0;
+  padding: 0 30px;
+}
+
+.map {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 80%;
+  height: 100%;
+  background: #fffaeb;
+}
+
+.town {
+  position: relative;
+  border: 2px solid #c3a77c;
+  border-radius: 10px;
+  background: #fff;
+}
+.postbox-town {
+  display: flex;
+}
+.postbox-town--active {
+  border-color: #ff0000;
+}
+
+.town-name {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  padding: 0 2px;
+  background: #fff;
+}
+
+.postbox {
+  display: inline-block;
+  font-size: 25px;
+}
+
+.postbox-button-wrap {
+  width: 20%;
+  padding-left: 30px;
+}
+.postbox-button {
+  padding: 10px 15px;
+  margin: 20px 0 30px;
+  border-radius: 5px;
+  font-size: 22px;
+  color: #fff;
+  background: #f00;
+}
+
+.postbox-info-text {
+  font-size: 20px;
+  line-height: 1.5;
+}
