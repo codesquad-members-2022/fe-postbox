@@ -22,7 +22,6 @@ const mailboxEventHandler = () => {
   let towns = [],
     sortedTowns = [];
   const $towns = getElementsByClassName("town");
-
   $towns
     .filter((town) =>
       [...town.children].some((child) => child.classList.contains("mailbox"))
@@ -43,6 +42,5 @@ const mailboxEventHandler = () => {
 
   renderMailboxInfo(towns, sortedTowns);
 };
-
 const $mailboxBtn = getElementByClassName("mailbox-btn");
 $mailboxBtn.addEventListener("click", mailboxEventHandler);

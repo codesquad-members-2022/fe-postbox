@@ -1,0 +1,17 @@
+// TODO README에 적기
+export const MIN = {
+  WIDTH: 30,
+  HEIGHT: 50,
+  POSITION: 0,
+  MAILBOX_SIZE: 2,
+  MAILBOX_EXIST: 1,
+  CHILDREN: 0,
+};
+
+export const MAX = {
+  WIDTH: 100,
+  HEIGHT: 100,
+  MAILBOX_SIZE: 6,
+  MAILBOX_EXIST: 3,
+  CHILDREN: 3,
+};
