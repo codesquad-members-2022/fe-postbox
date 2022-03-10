@@ -22,8 +22,8 @@ export default class Model {
     for (let i = 0; i < 4; i++) {
       village.push(
         getVillageInfo(
-          this.getVillageWidth(400),
-          this.getVillageHeight(300),
+          this.getVillageWidth(500),
+          this.getVillageHeight(400),
           this.getPostbox()
         )
       );
@@ -32,9 +32,11 @@ export default class Model {
   addChildren(village, getVillageInfo) {
     let childNum = this.getChildNum(1, 5);
     for (let i = 0; i < childNum; i++) {
-      let villageWidth = this.getVillageWidth(village.width / childNum);
-      let villageHeight = this.getVillageHeight(village.height / childNum);
-      if (villageWidth > 10 && villageHeight > 5) {
+      let villageWidth = this.getVillageWidth((village.width / childNum) * 0.8);
+      let villageHeight = this.getVillageHeight(
+        (village.height / childNum) * 0.8
+      );
+      if (villageWidth > 40 && villageHeight > 40) {
         village.child.push(
           getVillageInfo(villageWidth, villageHeight, this.getPostbox())
         );
@@ -56,12 +58,13 @@ export default class Model {
       size: 0,
       exist: 0,
     };
-    if (this.check50Percent() && this.check50Percent()) {
+    if (this.check50Percent()) {
       postbox.exist++;
-      postbox.size = this.getRandomNumber(9);
+      postbox.size = this.getRandomNumber(9) + 1;
     }
     return postbox;
   }
+
   getRandomNumber(num) {
     return Math.floor(Math.random() * num);
   }
@@ -71,6 +74,7 @@ export default class Model {
   getChildNum(min, max) {
     return this.getRandomNumber(max - min) + min;
   }
+
   getVillage() {
     return this.makeVillage();
   }
