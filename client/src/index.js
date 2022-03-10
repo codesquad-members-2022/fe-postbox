@@ -5,17 +5,32 @@ import {
 } from './dom/selector.js';
 
 import { createRootVillage } from './views/village.js';
+import { getData } from './fakeServer/data.js';
 
-const $$section = getElementsByClassName('section');
+const demo = true;
 
-fetch('http://localhost:3000/api/villages')
-  .then((res) => res.json())
-  .then((rootVillages) => {
-    const $$rootVillage = rootVillages.map((rootVillage) =>
-      createRootVillage(rootVillage)
-    );
+const renderVillages = (rootVillages) => {
+  const $$section = getElementsByClassName('section');
+  const $$rootVillage = rootVillages.map((rootVillage) =>
+    createRootVillage(rootVillage)
+  );
 
-    $$rootVillage.forEach(($rootVillage, idx) => {
-      if ($rootVillage) $$section[idx].appendChild($rootVillage);
-    });
+  $$rootVillage.forEach(($rootVillage, idx) => {
+    if ($rootVillage) $$section[idx].appendChild($rootVillage);
   });
+};
+
+const main = () => {
+  if (demo) {
+    renderVillages(getData());
+    return;
+  }
+
+  fetch('http://localhost:3000/api/villages')
+    .then((res) => res.json())
+    .then((rootVillages) => {
+      renderVillages(rootVillages);
+    });
+};
+
+main();
