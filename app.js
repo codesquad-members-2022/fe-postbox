@@ -19,11 +19,11 @@ app.use((req, res, next) => {
 
 app.get('/api/villages', (req, res) => {
   const sectionWidth = 1200 / 2;
-  const sectionHeight = 600 / 2;
+  const sectionHeight = 1200 / 2;
   const minWidth = 300;
   const maxWidth = 600;
-  const minHeight = 150;
-  const maxHeight = 300;
+  const minHeight = 300;
+  const maxHeight = 600;
   const chance = 30;
   const length = 4;
 
