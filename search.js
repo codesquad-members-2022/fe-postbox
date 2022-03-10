@@ -10,25 +10,25 @@ const getElementById = (id, curNode = root) => {
   }
 };
 
-const searchPostBoxes = (curNode, postboxes) => {
+const postboxes = [];
+
+const searchPostBoxes = (curNode = map) => {
   if (curNode.tagName === "SPAN") return curNode;
   if (curNode.children.length === 0) return null;
-
-  if (
-    curNode.classList.contains("village") &&
-    curNode.dataset.hasPostbox === "true"
-  ) {
-    for (let i = 0; i < curNode.length; i++) {
-      const temp = searchPostBoxes(curNode.children[i]);
-      if (!temp) {
-        postboxes.push(temp);
-      }
-    }
-  }
+  curNode.children.forEach((childNode) => {
+    const temp = searchPostBoxes(childNode);
+    if (temp) postboxes.push(temp);
+  });
 };
 
 /*
-지도에서 시작해서 
+지도에서 시작
+첫 번째 노드확인 => 자식있을 시 들어감 (재귀)
+현재의 노드가 postbox인지 확인 => 맞을 시 배열에 추가 
+=> 추가적으로 들어가서 자신이 마지막일 경우 빠져나옴
+=> 형제 노드가 있을 경우 형제 노드로 이동해서 들어가도록 함 (재귀)
+
+
 
 마을로 가서 그 마을이 우체통이 있는 마을인지 체크
 우체통이 있는 마을이면 우체통을 찾아서 배열에 추가
@@ -36,4 +36,4 @@ const searchPostBoxes = (curNode, postboxes) => {
 마을이 있으면 반복
 */
 
-export { getElementById };
+export { getElementById, searchPostBoxes, postboxes };

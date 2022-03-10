@@ -1,5 +1,5 @@
 import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
-import { getElementById } from "./search.js";
+import { getElementById, searchPostBoxes, postboxes } from "./search.js";
 
 let villageAlphabet = 65;
 const map = getElementById("map");
@@ -155,3 +155,5 @@ const addVillages = () => {
 };
 
 addVillages();
+searchPostBoxes();
+console.log(postboxes);
