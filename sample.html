@@ -1,0 +1,97 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    .map-in-canvas {
+        background-color: yellowgreen;
+    }
+    .postbox-button {
+        background-color: red;
+        border-radius: 10px;
+        border: none;
+        margin: 10px;
+    }
+</style>
+</head>
+<body>
+<main>
+    <canvas class="map-in-canvas" id="canvas" width="500" height="500">canvas</canvas>
+    <div class="map-info">
+        <button class="postbox-button">빨간우체통위치</button>
+    </div>
+</main>
+<script type="module">
+
+const mapInCanvas = document.querySelector('.map-in-canvas');
+const randomNum = (min, max) => {
+    let rand = Math.floor(Math.random() * (max-min)) + min;
+    if (rand < 10){ // 마을 크기가 너무 작은 것을 방지.
+        return rand + 10;
+    } else {
+        return rand;
+    }
+};
+let std = [[0,300,0,200]]; // Standard [minx, maxx, miny, maxy]
+let llth = [[100,200]]; // LineLength 1사분면 마을 크기
+
+let opllth = [[100,100]]; // 4사붐면 마을 크기
+let townIn = 2; // 중첩되는 마을 갯수
+
+if(mapInCanvas.getContext){
+    const ctx = mapInCanvas.getContext('2d');
+    console.log('start');
+
+    // 마을정보.. linked list로 querySelector를 대체할 예정.
+    let newTown = {
+        townName : 'A',
+        locationX : 1,
+        locationY : 1,
+        childTowns : 'B'    
+    };
+
+    while (townIn > 0) {
+        // 1사분면에 있는 마을 좌표 생성
+        const xx = randomNum(std[0][0], std[0][1]);
+        const yy = randomNum(std[0][2], std[0][3]);
+        const xxWidth = llth[0][0];
+        const yyHeight = llth[0][1];
+        std.unshift([xx, xx+xxWidth, yy, yy+yyHeight]);
+        llth.unshift([xxWidth/3, yyHeight/3]);
+
+        // 1사분면에 있는 마을 안에 우체통 생성
+        const redBoxx = randomNum(xx, xx+xxWidth);
+        const redBoxy = randomNum(yy, yy+yyHeight);
+
+        // 4사분면에 있는 마을 좌표 생성
+        const opxx = randomNum(xx + xxWidth + 10, std[0][1]);
+        const opyy = randomNum(std[0][2], std[0][3]);
+        const opxxWidth = opllth[0][0];
+        const opyyHeight = opllth[0][1];
+        opllth.unshift([opllth[0][0]/3, opllth[0][1]/3])
+
+        // 여기에 마을이름/마을좌표/마을크기 담긴 객체를 생성.. 아직 어떻게 생성해야할지 모르겠다...
+        // const firstTown = Object.assign({}, newTown, {townName:'B', townHeight: firstTownLocationX, townWidth:firstTownLocationY});
+
+        // 1사분면과 4사분면에 마을을 그린다.
+        ctx.strokeRect(xx,yy,xxWidth,yyHeight);
+        ctx.strokeRect(opxx,opyy,opxxWidth,opyyHeight);
+        ctx.strokeStyle = 'rgb(0, ' + Math.floor(255 - townIn) + ', ' + Math.floor(255 - townIn) + ')';
+
+        // 빨간점으로 우체통을 찍는다.
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+        ctx.fillRect(redBoxx,redBoxy,5,5);
+
+        townIn -= 1;
+
+        // console.log(xx,yy,xxWidth,yyHeight);
+        // console.log(opxx,opyy,opxxWidth,opyyHeight);
+
+    }
+
+} else {
+    console.log('no canvas');       
+}
+
+</script>
+</body>
+</html>
