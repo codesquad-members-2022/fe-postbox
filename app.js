@@ -3,6 +3,7 @@ import { getElementById, searchPostBoxes } from "./search.js";
 
 let villageAlphabet = 65;
 const map = getElementById("map");
+const btn = getElementById("btn");
 const MAP_WIDTH = 1000;
 const MAP_HEIGHT = 800;
 
@@ -154,5 +155,27 @@ const addVillages = () => {
   }
 };
 
+const getVillageName = (postbox) => {
+  return postbox.closest(".village").dataset.name;
+};
+
+const showVillagesWithPostbox = (postboxes) => {
+  const villagesTextBox = getElementById("villages-have-postbox");
+  const villagesWithPostbox = postboxes.map((postbox) =>
+    getVillageName(postbox)
+  );
+
+  villagesTextBox.innerText = `${villagesWithPostbox.join(", ")} 총 ${
+    villagesWithPostbox.length
+  }개의 마을입니다.`;
+};
+
+const showSortedPostbox = () => {};
+
+btn.addEventListener("click", () => {
+  showVillagesWithPostbox(postboxes);
+  showSortedPostbox();
+});
+
 addVillages();
-console.log(searchPostBoxes(map));
+const postboxes = searchPostBoxes(map);
