@@ -1,7 +1,3 @@
-function getRandomNumber({ min, max }) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function getDatasetNames(nodes) {
   let names = [];
   nodes.forEach((node) => {
@@ -25,4 +21,4 @@ function getElementByClassName(className) {
   return null;
 }
 
-export { getRandomNumber, getDatasetNames, getElementByClassName };
+export { getDatasetNames, getElementByClassName };

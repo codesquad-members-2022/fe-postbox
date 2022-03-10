@@ -1,4 +1,4 @@
-import { getRandomNumber } from "./utils.js";
+import { getRandomNumber } from "./util.js";
 import {
   MAILBOX_PROBABILITY,
   MAILBOX_SIZE,

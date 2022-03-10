@@ -1,13 +1,14 @@
-import { TownManager } from "./TownManager.js";
 import { sizeMap, renderTown } from "./render.js";
 import { addCheckBtnEvent } from "./event.js";
 
-function init() {
+async function init() {
   sizeMap();
-  const manager = new TownManager();
-  manager.makeTowns();
-  manager.setNames();
-  manager.towns.forEach(renderTown);
+
+  const towns = await fetch("http://localhost:3000/towns").then((res) =>
+    res.json()
+  );
+
+  towns.forEach(renderTown);
   addCheckBtnEvent();
 }
 

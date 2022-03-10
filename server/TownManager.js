@@ -6,6 +6,10 @@ class TownManager {
     this.towns = [];
   }
 
+  getTowns() {
+    return this.towns;
+  }
+
   makeTowns() {
     Array.from({ length: RECYCLE_NUMBER }).forEach(() => {
       this.addTown();

@@ -1,5 +1,9 @@
-import { MAP_SIZE } from "./constants.js";
 import { getElementByClassName } from "./utils.js";
+
+const MAP_SIZE = {
+  MIN: 0,
+  MAX: 1000,
+};
 
 function changeBorderColor({ el, color }) {
   el.style.borderColor = color;
@@ -7,7 +11,6 @@ function changeBorderColor({ el, color }) {
 
 function renderTownInfo(towns) {
   const postboxInfoEl = getElementByClassName("mailbox-names");
-  console.log("postboxInfoEl", postboxInfoEl);
   postboxInfoEl.innerText = `${towns.join(", ")} 총 ${
     towns.length
   } 개의 마을입니다.`;

@@ -55,15 +55,15 @@
 - [x] HTML 추가
 - [x] CSS 추가
 - [ ] querySelector 구현
-    - [x] getElementByClassName 구현
+  - [x] getElementByClassName 구현
 - [x] 버튼 이벤트
   - [x] 빨간색으로 변경
 - [x] setTimeout에 Promise 패턴 적용
 - [x] 폴더 구조 변경
 - [ ] 정렬 알고리즘 구현
 - [x] 우체통 사이즈 추가
-- [ ] 서버
+- [x] 서버
   - [x] express 띄우기
-  - [ ] JSON 생성
-  - [ ] 마을 위치 랜덤하게 생성하는 로직 서버에서 처리
-- [ ] JSON fetch
+  - [x] JSON 생성
+  - [x] 마을 위치 랜덤하게 생성하는 로직 서버에서 처리
+- [x] JSON fetch
