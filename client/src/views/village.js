@@ -41,12 +41,3 @@ export const createRootVillage = (rootVillage) => {
   appendChildren($rootVillage, children);
   return $rootVillage;
 };
-
-/* rootVillage */
-// children []
-// width
-// height
-// name
-// postbox
-
-// parent
