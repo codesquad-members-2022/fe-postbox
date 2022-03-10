@@ -3,7 +3,7 @@ import { getElementById, searchPostBoxes } from "./search.js";
 
 let villageAlphabet = 65;
 const map = getElementById("map");
-const MAP_WIDTH = 1800;
+const MAP_WIDTH = 1000;
 const MAP_HEIGHT = 800;
 
 const BORDER = 2;
