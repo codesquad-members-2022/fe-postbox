@@ -35,9 +35,8 @@ class Village {
     }
   }
 
-  toJSON() {
-    const { name, width, height, parent, children, postbox } = this;
-    return { name, width, height, parent, children, postbox };
+  toObject() {
+    return { ...this };
   }
 
   initPostbox() {
@@ -63,6 +62,7 @@ class RootVillage extends Village {
     this.yPos = null;
     this.sectionWidth = sectionWidth;
     this.sectionHeight = sectionHeight;
+    this.initPos();
   }
 
   initPos() {
