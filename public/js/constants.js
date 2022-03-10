@@ -13,5 +13,5 @@ export const MAX = {
   HEIGHT: 100,
   MAILBOX_SIZE: 6,
   MAILBOX_EXIST: 3,
-  CHILDREN: 3,
+  CHILDREN: 2,
 };

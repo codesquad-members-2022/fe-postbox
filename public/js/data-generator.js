@@ -1,5 +1,6 @@
-import { getRandomNumber } from "./util/util.js";
+import { convertStringToHTML, getRandomNumber } from "./util/util.js";
 import { MAX, MIN } from "./constants.js";
+import { Town } from "./town.js";
 
 export class DataGenerator {
   constructor() {
@@ -9,6 +10,7 @@ export class DataGenerator {
   createTownData(depth = 1) {
     const townWidth = getRandomNumber(MIN.WIDTH, MAX.WIDTH);
     const townHeight = getRandomNumber(MIN.HEIGHT, MAX.HEIGHT);
+
     return {
       name: String.fromCharCode(this.ASCII++),
       size: {
@@ -39,7 +41,3 @@ export class DataGenerator {
     return children;
   }
 }
-
-const datagenerator = new DataGenerator();
-const data = datagenerator.createTownData();
-console.log(data);
