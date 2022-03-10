@@ -1,6 +1,6 @@
-import { range } from '../utils/utils.js';
+const { range } = require('../utils/utils.js');
 
-export class Village {
+class Village {
   static names = Array.from({ length: 26 }).map((_, idx) =>
     String.fromCodePoint(idx + 65)
   );
@@ -9,7 +9,6 @@ export class Village {
     this.name = null;
     this.width = width;
     this.height = height;
-    this.parent = parent;
     this.children = [];
     this.postbox = { exist: false };
     this.initName();
@@ -53,7 +52,7 @@ export class Village {
   }
 }
 
-export class RootVillage extends Village {
+class RootVillage extends Village {
   constructor({ props, sectionWidth, sectionHeight }) {
     super(props);
     this.xPos = null;
@@ -73,3 +72,8 @@ export class RootVillage extends Village {
     this.yPos = yPos;
   }
 }
+
+module.exports = {
+  RootVillage,
+  Village,
+};

@@ -1,10 +1,45 @@
+const { RootVillage } = require('./src/models/Village.js');
+const { range } = require('./src/utils/utils.js');
 const express = require('express');
-const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static(path.join(__dirname, 'public')));
+const isChanceLowerThan = (x) => {
+  if (!parseInt(x) || x < 1 || x > 100) return false;
 
-app.get('/villages', (req, res) => {});
+  const random = Math.random(); // 0 ~ 1
+  if (random <= parseInt(x) * 0.01) return true;
+  return false;
+};
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
+app.get('/api/villages', (req, res) => {
+  const sectionWidth = 1200 / 2;
+  const sectionHeight = 600 / 2;
+  const minWidth = 300;
+  const maxWidth = 600;
+  const minHeight = 150;
+  const maxHeight = 300;
+  const chance = 30;
+  const length = 4;
+
+  const rootVillages = Array.from({ length }) //
+    .map(() => {
+      if (isChanceLowerThan(chance)) return {};
+
+      const props = {
+        width: range(minWidth, maxWidth + 1),
+        height: range(minHeight, maxHeight + 1),
+      };
+
+      return new RootVillage({ props, sectionHeight, sectionWidth });
+    });
+
+  res.json(rootVillages);
+});
 
 app.listen(port);
