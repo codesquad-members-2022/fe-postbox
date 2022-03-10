@@ -8,3 +8,13 @@ export {
   getElementByClassName,
   getElementsByClassName,
 } from '../dom/getElement.js';
+
+export const createElement = (tagName, className) => {
+  const element = document.createElement(tagName);
+  if (className) element.className = className;
+  return element;
+};
+
+export const addClass = (className, element) => {
+  element.classList.add(className);
+};
