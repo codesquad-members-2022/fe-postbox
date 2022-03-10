@@ -1,8 +1,9 @@
 import { handleCheckBtn } from "./handler.js";
+import { getElementByClassName } from "./utils.js";
 
 function addCheckBtnEvent() {
-    const checkBtnEl = document.querySelector('.check-btn');
-    checkBtnEl.addEventListener('click', handleCheckBtn);
+  const checkBtnEl = getElementByClassName("check-btn");
+  checkBtnEl.addEventListener("click", handleCheckBtn);
 }
 
-export { addCheckBtnEvent }
+export { addCheckBtnEvent };

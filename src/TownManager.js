@@ -1,12 +1,9 @@
 import { RECYCLE_NUMBER, MARGIN } from "./constants.js";
 import { Town } from "./Town.js";
-import { getRandomNumber } from "./utils.js";
 
 class TownManager {
   constructor() {
     this.towns = [];
-
-    console.log(document.querySelector('.name'))
   }
 
   makeTowns() {
