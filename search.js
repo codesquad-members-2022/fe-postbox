@@ -10,15 +10,16 @@ const getElementById = (id, curNode = root) => {
   }
 };
 
-const postboxes = [];
-
-const searchPostBoxes = (curNode = map) => {
-  if (curNode.tagName === "SPAN") return curNode;
+const searchPostBoxes = (curNode, postboxes = []) => {
+  if (curNode.tagName === "SPAN") return [...postboxes, curNode];
   if (curNode.children.length === 0) return null;
-  curNode.children.forEach((childNode) => {
-    const temp = searchPostBoxes(childNode);
-    if (temp) postboxes.push(temp);
+
+  [...curNode.children].forEach((childNode) => {
+    const temp = searchPostBoxes(childNode, postboxes);
+    if (temp) postboxes = temp;
   });
+
+  return postboxes;
 };
 
 /*
@@ -36,4 +37,4 @@ const searchPostBoxes = (curNode = map) => {
 마을이 있으면 반복
 */
 
-export { getElementById, searchPostBoxes, postboxes };
+export { getElementById, searchPostBoxes };
