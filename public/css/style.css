@@ -1,0 +1,19 @@
+@import url('./reset.css');
+
+.flex {
+  display: flex;
+  min-width: 1200px;
+  max-width: 1200px;
+}
+
+.map {
+  position: relative;
+  border: 1px solid #000;
+  width: 1200px;
+  height: 800px;
+}
+
+.town {
+  position: absolute;
+  border: 2px solid blue;
+}
