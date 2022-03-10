@@ -2,7 +2,7 @@
   "name": "fe-postbox",
   "version": "1.0.0",
   "description": "### Class 마을",
-  "main": "src/Town.js",
+  "main": "public/src/Town.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/yongseongjeon/fe-postbox/issues"
   },
-  "homepage": "https://github.com/yongseongjeon/fe-postbox#readme"
+  "homepage": "https://github.com/yongseongjeon/fe-postbox#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
