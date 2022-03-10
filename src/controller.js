@@ -9,7 +9,7 @@ class Controller {
 
   init() {
     this.model.randomCreateTown();
-    this.view.renderTown(this.model.townList);
+    this.view.renderArea(this.model.townList);
   }
 }
 

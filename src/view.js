@@ -5,42 +5,62 @@ export class View {
     this.mapWrapper = TraverseDOM.querySelector(document, 'map__wrapper');
   }
 
-  renderTown(data) {
+  renderArea(data) {
     data.forEach((el) => {
       const newTown = document.createElement('div');
-      newTown.classList.add('map__town');
-      newTown.appendChild(this.renderChildTown(el));
+      newTown.classList.add('map__area');
+      newTown.appendChild(this.renderRootTown(el));
       this.mapWrapper.appendChild(newTown);
     });
   }
 
-  renderChildTown(townData) {
-    const newTown = document.createElement('div');
-    newTown.classList.add('first');
+  renderRootTown(data) {
+    const makeRoot = document.createElement('div');
+    makeRoot.classList.add('root');
 
-    if (townData.childTown.length === 1) {
-      townData.hasPostBox
-        ? (newTown.innerHTML = `<span class="town__name">${townData.childTown}</span><span class="postBox">📮</span>`)
-        : (newTown.innerHTML = `<span class="town__name">${townData.childTown}</span>`);
-    } else {
-      const makeFirst = document.createElement('span');
-      makeFirst.classList.add('town__name');
-      makeFirst.textContent = townData.childTown[0];
-      newTown.appendChild(makeFirst);
-
-      const another = townData.childTown.slice(1);
-      newTown.appendChild(this.renderAnotherChild(another));
-    }
-
-    return newTown;
+    const rootName = this.addTownName(data);
+    this.addChildTown(makeRoot, rootName, data);
+    return makeRoot;
   }
 
-  renderAnotherChild(data) {
-    const makeChild = document.createElement('div');
-    makeChild.classList.add('second');
+  addTownName(data) {
+    const rootName = document.createElement('span');
+    rootName.classList.add('town__name');
+    rootName.innerText = data.name;
+    return rootName;
+  }
 
-    // 구현중
-    makeChild.innerHTML = `<span class="town__name">${data}</span>`;
-    return makeChild;
+  addChildTown(root, name, data) {
+    if (!data.child.length) {
+      root.appendChild(name);
+      if (data.postBox.hasPostBox) {
+        root.appendChild(this.addPostBox(data));
+      }
+    } else {
+      root.appendChild(name);
+      if (data.postBox.hasPostBox) {
+        root.appendChild(this.addPostBox(data));
+      }
+      this.renderChildTown(root, data.child);
+    }
+  }
+
+  addPostBox(data) {
+    const postBox = document.createElement('span');
+    postBox.classList.add('postBox');
+    postBox.dataset.postboxSize = data.postBox.size;
+    postBox.innerText = '📮';
+    return postBox;
+  }
+
+  renderChildTown(root, data) {
+    data.forEach((el) => {
+      const makeChild = document.createElement('div');
+      makeChild.classList.add('child');
+      const childName = this.addTownName(el);
+
+      this.addChildTown(makeChild, childName, el);
+      root.appendChild(makeChild);
+    });
   }
 }

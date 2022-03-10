@@ -27,24 +27,22 @@
   border: 1px solid black;
 }
 
-.map__town {
+.map__area {
   position: relative;
   padding: 12px;
 }
 
-.first,
-.second,
-.third,
-.fourth {
+.root,
+.child {
   padding: 0 20px;
   border: 2px solid cornflowerblue;
   border-radius: 20px;
 }
 
-.first {
+/* .first {
   position: absolute;
   top: 50%;
-}
+} */
 
 .town__name {
   width: 100%;
