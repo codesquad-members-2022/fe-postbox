@@ -1,7 +1,7 @@
 export class TraverseDOM {
   static querySelector(node, findClass) {
     let result;
-    function search(node) {
+    function search(node, findClass) {
       let nodeList = node;
       for (let i = 0; i < nodeList.childNodes.length; i++) {
         // 해당 엘리먼트노드에 클래스가 있는지 확인
@@ -20,7 +20,7 @@ export class TraverseDOM {
 
   static querySelectorAll(node, findClass) {
     let result = [];
-    function search(node) {
+    function search(node, findClass) {
       let nodeList = node;
       for (let i = 0; i < nodeList.childNodes.length; i++) {
         if (nodeList.childNodes[i].className) {
