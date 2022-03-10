@@ -1,4 +1,4 @@
-export class TraverseDOM {
+class TraverseDOM {
   static querySelector(node, findClass) {
     let result;
     function search(node, findClass) {
@@ -36,3 +36,9 @@ export class TraverseDOM {
     return result;
   }
 }
+
+function getRandom(max, min) {
+  return min === undefined ? Math.round(Math.random() * max) : Math.floor(Math.random() * (max - min) + min);
+}
+
+export { TraverseDOM, getRandom };

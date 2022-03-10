@@ -1,43 +1,66 @@
-import { townNameList } from './data/townNameList.js';
+import { getRandom } from './util.js';
 
 class Town {
   constructor() {
-    this.childTown = this.randomChildTown();
-    this.hasPostBox = this.randomPostBox();
+    this.name = this.getTownName();
+    this.postBox = this.getPostBoxInfo();
+    this.child = [];
   }
 
-  getRandom(max, min) {
-    return min === undefined ? Math.round(Math.random() * max) : Math.floor(Math.random() * (max - min) + min);
+  getTownName() {
+    let townName = '';
+    const NAME_LENGTH = 3;
+    for (let i = 0; i < NAME_LENGTH; i++) {
+      const MAX_UPPER_ASCII = 90;
+      const MIN_UPPER_ASCII = 65;
+      townName += String.fromCharCode(getRandom(MAX_UPPER_ASCII, MIN_UPPER_ASCII));
+    }
+    return townName;
   }
 
-  randomChildTown() {
-    const MAX_CHILD_TOWN = 5;
-    const MIN_CHILD_TOWN = 1;
-    return this.getRandom(MAX_CHILD_TOWN, MIN_CHILD_TOWN);
+  getPostBoxInfo() {
+    const postBoxInfo = {};
+
+    const BOOLEAN_RANGE = 1;
+    const hasPostBox = getRandom(BOOLEAN_RANGE);
+    const numToBoolean = Boolean(hasPostBox);
+
+    const MAX_SIZE = 30;
+    const MIN_SIZE = 1;
+    const randomSize = getRandom(MAX_SIZE, MIN_SIZE);
+
+    postBoxInfo['hasPostBox'] = numToBoolean;
+    numToBoolean ? (postBoxInfo['size'] = randomSize) : '';
+
+    return postBoxInfo;
   }
 
-  randomPostBox() {
-    const MAX_POSTBOX = this.childTown;
-    const random = this.getRandom(MAX_POSTBOX);
-    return random;
+  addChildTown() {
+    const MAX_CHILD_TOWN = 3;
+    const MIN_CHILD_TOWN = 0;
+    const randomChildTown = getRandom(MAX_CHILD_TOWN, MIN_CHILD_TOWN);
+
+    for (let i = 0; i < randomChildTown; i++) {
+      this.child.push(new Town());
+    }
   }
 }
 
 export class Map {
   constructor() {
     this.townList = [];
-    this.townNameData = townNameList;
   }
 
   randomCreateTown() {
     // 2 ~ 4개 생성
     const CREATE_TOWN_MAX = 5;
     const CREATE_TOWN_MIN = 2;
-    const random = Math.floor(Math.random() * (CREATE_TOWN_MAX - CREATE_TOWN_MIN) + CREATE_TOWN_MIN);
+    const randomCreateTown = getRandom(CREATE_TOWN_MAX, CREATE_TOWN_MIN);
 
-    for (let i = 0; i < random; i++) {
+    for (let i = 0; i < randomCreateTown; i++) {
       const newTown = new Town();
-      newTown.childTown = this.townNameData.splice(0, newTown.childTown);
+      newTown.addChildTown();
+      newTown.child.forEach((child) => child.addChildTown());
       this.townList.push(newTown);
     }
   }
