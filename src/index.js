@@ -1,5 +1,6 @@
-import { MAX_CHILD, MAX_LAYER, STYLE } from "./constants.js";
-import { assignStyles, getRandomNumber } from "./utils.js";
+import { MAX_CHILD, MAX_LAYER, STYLE } from './constants.js';
+import Town from './template/Town.js';
+import { assignStyles, getRandomNumber } from './utils.js';
 const {
   JUSTIFY_CONTENT,
   ALIGN_ITEMS,
@@ -8,7 +9,7 @@ const {
   LAYER_SIZE,
 } = STYLE;
 
-const $townMap = document.querySelector("#town-map");
+const $townMap = document.querySelector('#town-map');
 
 function getLocation($element) {
   const styleObj = {
@@ -21,31 +22,12 @@ function getLocation($element) {
   };
   assignStyles($element, styleObj);
 }
-
-function getRandomSize(size) {
-  const randomWidth = getRandomNumber(size * 0.5, size);
-  const randomHeight = getRandomNumber(size * 0.5, size);
-  return { randomWidth, randomHeight };
-}
-
-function renderChild($child, $parentNode, layer) {
-  const { randomWidth, randomHeight } = getRandomSize(LAYER_SIZE[layer]);
-  const styleObj = {
-    width: `${randomWidth}px`,
-    height: `${randomHeight}px`,
-    border: `1px solid ${LAYER_COLOR[layer]}`,
-  };
-  assignStyles($child, styleObj);
-  $child.classList.add("town");
-  $parentNode.appendChild($child);
-}
-
 function renderPostBox(townNumber, $parentNode) {
   if (townNumber < 2) {
     return;
   }
   // 일단 넣고, 크기 및 위치는 추후에 수정할 예정
-  const $postBox = document.createElement("div");
+  const $postBox = document.createElement('div');
   const styleObj = { fontSize: `${getRandomNumber(5, 30)}px` };
   $postBox.innerHTML = `📮`;
   assignStyles($postBox, styleObj);
@@ -69,8 +51,9 @@ function renderTown($parentNode, layer) {
   // 자식요소 렌더링
   for (let i = 0; i < townNumber; i++) {
     console.log(`${layer}층: ${i}`);
-    const $child = document.createElement("div");
-    renderChild($child, $parentNode, layer);
+    const newTown = new Town(LAYER_SIZE[layer]);
+    const $child = newTown.renderChild(layer);
+    $parentNode.appendChild($child);
     // 자식을 렌더링하는 함수
     // 렌더링할 마을 개수: 0~2
 
@@ -82,4 +65,4 @@ function init() {
   renderTown($townMap, 0);
 }
 
-window.addEventListener("DOMContentLoaded", init);
+window.addEventListener('DOMContentLoaded', init);
