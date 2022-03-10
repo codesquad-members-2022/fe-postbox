@@ -11,7 +11,7 @@ export class Village {
     this.height = height;
     this.parent = parent;
     this.children = [];
-    this.postbox = null;
+    this.postbox = { exist: false };
     this.initName();
     this.initPostbox();
     this.initChildren();
@@ -41,7 +41,9 @@ export class Village {
     const chance = range(0, 101);
     if (chance < 20) {
       const size = range(1, 1000);
-      this.postbox = { exist: true, size: size };
+      this.postbox.exist = true;
+      this.postbox.size = size;
+      return;
     }
   }
 
