@@ -11,7 +11,9 @@ const searchNode = (currentNode, className) => {
   
   for (let i = 0; i < currentNode.children.length; i++) {
     const returnValue = searchNode(currentNode.children[i], className);
-    if (returnValue) return returnValue;
+    if (returnValue) {
+      return returnValue;
+    }
   }
 }
 

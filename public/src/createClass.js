@@ -1,4 +1,4 @@
-import { Map } from './map.js';
+import { TownMap } from './townMap.js';
 import { Town } from './town.js';
 import { renderTown, placeTown } from './renderTown.js';
 
@@ -12,44 +12,44 @@ const createBiggestInstance = (size) => {
   while (true) {
     const width = Math.floor(((Math.random() * 600) + 20));
     const height = Math.floor(((Math.random() * 600) + 20));
-  if (width * height < size) {
-    return new Town(height, width);
+    if (width * height < size) {
+      return new Town(height, width);
     }
   }
 }
 
-const makeBiggestTown = map => {
-  let space = map.getSize() / 3;
+const makeBiggestTown = townMap => {
+  let space = townMap.getSize() / 3;
 
   while (space > 100000) {
     const newTown = createBiggestInstance(space);
     space -= newTown.getSize();
-    map.towns.push(newTown);
+    townMap.towns.push(newTown);
   }
 };
 
-const makeInnerTown = (map, node) => {
+const makeInnerTown = (townMap, node) => {
   const positionData = [];
   
-  for (let i = 0; i < map.towns.length; i++) {
-    const parentSize = map.towns[i].getSize();
-    const minChildSize = map.towns[i].getSize() / 20;
+  for (let i = 0; i < townMap.towns.length; i++) {
+    const parentSize = townMap.towns[i].getSize();
+    const minChildSize = townMap.towns[i].getSize() / 20;
     let space = Math.floor(parentSize / 3);
     
-    placeTown(map, map.towns[i], node, positionData);
+    placeTown(townMap, townMap.towns[i], node, positionData);
     
     while (space > minChildSize) {
-      const newTown = createTownInstance(map.towns[i]);
+      const newTown = createTownInstance(townMap.towns[i]);
       if (newTown.getSize() < 500) return;
       space -= newTown.getSize();
-      map.towns[i].towns.push(newTown);
+      townMap.towns[i].towns.push(newTown);
     }
 
-    makeInnerTown(map.towns[i], node.children[i]);
+    makeInnerTown(townMap.towns[i], node.children[i]);
   }
 };
 
-const generatePercent = () => {
+const generatePercent = () => { //자식마을의 크기를 부모마을에 따라 상대적으로 줄어들게 하기 위한 퍼센트
   return (Number(Math.random().toFixed(2))*0.85) + 0.01
 }
 

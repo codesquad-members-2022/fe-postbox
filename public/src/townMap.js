@@ -1,6 +1,6 @@
 import { customQuerySelector } from './util.js';
 
-export class Map {
+export class TownMap {
     constructor() {
       this.towns = [];
       this.width = 0;
@@ -8,9 +8,9 @@ export class Map {
     }
 
     getSize() {
-      const map = customQuerySelector('map');
-      this.width = map.offsetWidth;
-      this.height = map.offsetHeight;
+      const townMap = customQuerySelector('map');
+      this.width = townMap.offsetWidth;
+      this.height = townMap.offsetHeight;
       return this.width * this.height;
     }
 }

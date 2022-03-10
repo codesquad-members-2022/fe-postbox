@@ -1,5 +1,5 @@
 import { makeBiggestTown, makeInnerTown } from './createClass.js';
-import { Map } from './map.js';
+import { TownMap } from './townMap.js';
 import { customQuerySelector } from './util.js';
 
 // 구현 목표
@@ -32,12 +32,12 @@ import { customQuerySelector } from './util.js';
   //},b,c,b,e]
   
 const main = () => {
-  const map = new Map();
-  const $map = customQuerySelector('map');
-  console.log(map)
+  const townMap = new TownMap();
+  const $townMap = customQuerySelector('map');
+  console.log(townMap)
 
-  makeBiggestTown(map, $map);
-  makeInnerTown(map, $map);
+  makeBiggestTown(townMap, $townMap);
+  makeInnerTown(townMap, $townMap);
 }
 
 main();
