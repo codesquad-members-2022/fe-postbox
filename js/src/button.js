@@ -53,7 +53,7 @@ export default class Button {
 
   changeBorder($$postbox) {
     $$postbox.forEach(
-      (element) => (element.parentNode.style.border = '2px solid red')
+      (element) => (element.parentNode.style.border = '5px solid #f00')
     );
   }
 }
