@@ -1,0 +1,109 @@
+@import url('./css/base/reset.css');
+@import url('./css/base/custom.css');
+
+:root {
+  --blue: #3485ff;
+  --red: #ff4c38;
+  --red-dark: #8f0c0c;
+  --vil-margin: 10px;
+  --container-width: 1200px;
+  --container-height: 1200px;
+}
+
+body {
+  height: 120vh;
+}
+
+#title {
+  font-size: 50px;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#main {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+/* interaction */
+.check-btn {
+  width: 100%;
+  height: 50px;
+  border: 1px solid var(--red);
+  border-radius: 10px;
+  background-color: var(--red);
+  color: white;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.check-btn:active {
+  background-color: var(--red-dark);
+}
+
+.interaction {
+  max-width: 300px;
+  width: 300px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.interaction-result {
+  margin-top: 40px;
+  font-size: 20px;
+}
+
+.interaction-result__row {
+  width: 100%;
+  margin-bottom: 50px;
+  font-size: 30px;
+}
+
+/* map */
+.container {
+  width: calc(var(--vil-margin) * 2 + var(--container-width));
+  height: calc(var(--vil-margin) * 2 + var(--container-height));
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.section {
+  /* border: 1px solid black; */
+  width: 50%;
+  height: 50%;
+  position: relative;
+}
+
+/* vil, position */
+
+.vil {
+  display: inline-flex;
+  align-items: center;
+  border: 3px solid var(--blue);
+  border-radius: 10px;
+  position: relative;
+  margin: var(--vil-margin);
+  position: relative;
+}
+
+.vil-name {
+  font-size: 20px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.postbox {
+  font-size: 20px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}

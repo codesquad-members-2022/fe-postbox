@@ -1,6 +1,6 @@
-const { range } = require('../utils/utils.js');
+import { range } from '../utils/utils.js';
 
-class Village {
+export class Village {
   static nameList;
 
   static initNameList() {
@@ -55,7 +55,7 @@ class Village {
   }
 }
 
-class RootVillage extends Village {
+export class RootVillage extends Village {
   constructor({ props, sectionWidth, sectionHeight }) {
     super(props);
     this.xPos = null;
@@ -76,8 +76,3 @@ class RootVillage extends Village {
     this.yPos = yPos;
   }
 }
-
-module.exports = {
-  RootVillage,
-  Village,
-};

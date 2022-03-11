@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/bcad1591/fe-postbox/issues"
   },
-  "homepage": "https://github.com/bcad1591/fe-postbox#readme"
+  "homepage": "https://github.com/bcad1591/fe-postbox#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
