@@ -8,8 +8,6 @@ const containerInfo = {
 }
 
 const villageInfo = {
-  coordinateX: [],
-  coordinateY: [],
   posX: [],
   posY: [],
   villageCnt: 0,
@@ -17,6 +15,31 @@ const villageInfo = {
   MAX_Y : 200,
   MIN_X : 100,
   MIN_Y : 100,
+}
+
+const nextContainerSize = {
+  MAX_X: 0,
+  MAX_Y: 0,
+  MIN_X: 0,
+  MIN_Y: 0
+}
+
+const nextVillageSize = {
+  coordinateX: [],
+  coordinateY: [],
+  posX: [],
+  posY: [],
+  villageCnt: 0,
+  MAX_X : 0,
+  MAX_Y : 0,
+  MIN_X : 0,
+  MIN_Y : 0,
+}
+
+function setVillageCounter() {
+  const MAX_COUNT = 4;
+  const MIN_COUNT = 1;
+  return Math.floor(Math.random() * (MAX_COUNT - MIN_COUNT) + MIN_COUNT);
 }
 
 function setVillagePos(coordinate, villageSize) {
@@ -41,6 +64,31 @@ function createRandomSize(sizeInfo) {
   return [x, y];
 }
 
+function pushPrevVillagePos(coordinate, village, pos) {
+  village.coordinateX.push(coordinate[0]);
+  village.coordinateY.push(coordinate[1]);
+  village.posX.push(pos[0]);
+  village.posY.push(pos[1]);
+}
+
+function calcNextContainerSize(coordinate, pos) {
+  let flag = 10;
+  
+  nextContainerSize.MAX_X = pos[0] - flag;
+  nextContainerSize.MAX_Y = pos[1] - flag;
+  nextContainerSize.MIN_X = coordinate[0] + flag;
+  nextContainerSize.MIN_Y = coordinate[1] + flag;
+}
+
+function calcNextVillageSize() {
+  let flag = 0.3;
+  
+  nextVillageSize.MAX_X = Math.floor(villageInfo.MAX_X * flag);
+  nextVillageSize.MAX_Y = Math.floor(villageInfo.MAX_Y * flag);
+  nextVillageSize.MIN_X = Math.floor(villageInfo.MIN_X * flag);
+  nextVillageSize.MIN_Y = Math.floor(villageInfo.MIN_Y * flag);
+}
+
 function createVillage(container, village) {
   // 해당 좌표에 생성할 수 있는지 확인
   while(true) {
@@ -48,39 +96,38 @@ function createVillage(container, village) {
     const villageSize = createRandomSize(village);
     const pos = [coordinate[0] + villageSize[0], coordinate[1] + villageSize[1]];
     if(pos[0] < containerInfo.MAX_X && pos[1] < containerInfo.MAX_Y) {
-      villageInfo.coordinateX.push(coordinate[0]);
-      villageInfo.coordinateY.push(coordinate[1]);
-      villageInfo.posX.push(pos[0]);
-      villageInfo.posY.push(pos[1]);
+      pushPrevVillagePos(coordinate, village, pos);
+      addVillageHTML();
       setVillagePos(coordinate, villageSize);
+      // debugger;
+      calcNextContainerSize(coordinate, pos);
+      calcNextVillageSize();
       break;
     }
   }
+  isVillage(nextContainerSize, nextVillageSize);
 }
 
 function isVillage(container, village) {
   // 해당 좌표에 마을이 존재하는지
+  
+  function isEmpty(dirA, dirB) {
+    return dirA || dirB;
+  }
+  
   let flag = -20;
   const coordinate = createRandomSize(container);
   const villageSize = createRandomSize(village);
 
-  function isTrue(A, B) {
-    return A || B;
-  }
-
   while(true) {
     const pos = [coordinate[0] + villageSize[0], coordinate[1] + villageSize[1]];
-    const left = villageInfo.coordinateX.every(e => e > pos[0]);
-    const top = villageInfo.coordinateY.every(e => e > pos[1]);
-    const right = villageInfo.posX.every(e => e < coordinate[0]);
-    const bottom = villageInfo.posY.every(e => e < coordinate[1]);
+    const left = village.coordinateX.every(e => e > pos[0]);
+    const top = village.coordinateY.every(e => e > pos[1]);
+    const right = village.posX.every(e => e < coordinate[0]);
+    const bottom = village.posY.every(e => e < coordinate[1]);
     
-
-    if((isTrue(left, right) || isTrue(top, bottom)) && (pos[0] < containerInfo.MAX_X && pos[1] < containerInfo.MAX_Y)) {
-      villageInfo.coordinateX.push(coordinate[0]);
-      villageInfo.coordinateY.push(coordinate[1]);
-      villageInfo.posX.push(pos[0]);
-      villageInfo.posY.push(pos[1]);
+    if((isEmpty(left, right) || isEmpty(top, bottom)) && (pos[0] < container.MAX_X && pos[1] < container.MAX_Y)) {
+      pushPrevVillagePos(coordinate, village, pos);
       addVillageHTML();
       setVillagePos(coordinate, villageSize);
       break;
@@ -98,10 +145,11 @@ function addVillageHTML() {
   const newVillage = document.createElement('div');
   
   newVillage.className = `village village--design village--pos village--${villageInfo.villageCnt}`;
-
   container.appendChild(newVillage);
 }
 
-createVillage(containerInfo, villageInfo);
-isVillage(containerInfo, villageInfo);
-isVillage(containerInfo, villageInfo);
+function renderVillages() {
+  createVillage(containerInfo,villageInfo);
+}
+
+renderVillages();
