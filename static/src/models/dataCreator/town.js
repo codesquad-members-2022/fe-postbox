@@ -80,25 +80,36 @@ const getParentTownIndice = (townsCoordinates) => {
   return parentTownIndice;
 };
 
-const getAbsolutePostion = (townsCoordinates, parentTownIndice, postboxTownLengthList, postboxTownIndice) => {
+const getPostboxTowns = (townNumber, postboxNumber) => {
+  const postboxTownIndice = new Set();
+  const postboxTowns = new Array(townNumber).fill(false);
+  while (postboxTownIndice.size < postboxNumber) {
+    const postboxTownIndex = getRandomNumber(0, townNumber - 1);
+    if (postboxTownIndice.has(postboxTownIndex)) continue;
+    postboxTowns[postboxTownIndex] = true;
+    postboxTownIndice.add(postboxTownIndex);
+  }
+  return postboxTowns;
+};
+
+const getAbsolutePostion = (townsCoordinates, parentTownIndice, postboxTowns, postboxTownLengthList) => {
   const absolutePostions = townsCoordinates.map((townsCoordinate, townIndex) => {
     const absolutePosition = {
       top: 0,
       left: 0,
     };
+    let postboxLengthIndex = 0;
     const parentTownIndex = parentTownIndice[townIndex];
     if (parentTownIndex === -1) {
       absolutePosition.top = townsCoordinate.top;
       absolutePosition.left = townsCoordinate.left;
     } else {
-      const postboxLengthIndex = postboxTownIndice.findIndex(
-        (postboxTownIndex) => postboxTownIndex === parentTownIndex
-      );
       absolutePosition.top = townsCoordinate.top - townsCoordinates[parentTownIndex].top;
       absolutePosition.left = townsCoordinate.left - townsCoordinates[parentTownIndex].left;
-      if (postboxLengthIndex === parentTownIndex) {
+      if (postboxTowns[townIndex]) {
         absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
         absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
+        postboxLengthIndex++;
       }
     }
     return absolutePosition;
@@ -130,11 +141,15 @@ export const updateParentTownIndice = (townData) => {
   townData.parentTownIndex = getParentTownIndice(townData.coordinate);
 };
 
-export const updateAbsolutePostion = (townData, postboxData) => {
+export const updatePostboxTowns = (townData, postboxNumber) => {
+  townData.postboxTowns = getPostboxTowns(townData.number, postboxNumber);
+};
+
+export const updateAbsolutePostion = (townData, postboxTownLengthList) => {
   townData.absolutePosition = getAbsolutePostion(
     townData.coordinate,
     townData.parentTownIndex,
-    postboxData.length,
-    postboxData.postboxTownIndex
+    townData.postboxTowns,
+    postboxTownLengthList
   );
 };
