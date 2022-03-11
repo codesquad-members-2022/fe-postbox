@@ -1,0 +1,6 @@
+{
+  "DISTANCE_MIN" : 20,
+  "LENGTH_MIN" : 50,
+  "POSTBOX_MAX" : 30,
+  "POSTBOX_MIN" : 10
+}

@@ -1,14 +1,29 @@
-import { range, getLengthWithoutPixel, randomNumber } from "./utils.js";
-import { getElementById } from "./search.js";
+import {
+  range,
+  getLengthWithoutPixel,
+  randomNumber,
+  delay,
+  sort,
+} from "./utils.js";
+import { getElementById, searchPostBoxes } from "./search.js";
+
+const dataAddress = "http://localhost:3000/size";
+const getSizeData = async (dataAddress) => {
+  const respond = await fetch(dataAddress);
+  return respond.json();
+};
+
+const sizeData = await getSizeData(dataAddress);
+const { DISTANCE_MIN, LENGTH_MIN, POSTBOX_MAX, POSTBOX_MIN } = sizeData;
 
 let villageAlphabet = 65;
+const delayTime = 2000;
 const map = getElementById("map");
-const MAP_WIDTH = 1800;
+const btn = getElementById("btn");
+const MAP_WIDTH = 1000;
 const MAP_HEIGHT = 800;
 
 const BORDER = 2;
-const DISTANCE_MIN = 20;
-const LENGTH_MIN = 50;
 const WIDTH_MAX = MAP_WIDTH / 2 - DISTANCE_MIN;
 const HEIGHT_MAX = MAP_HEIGHT / 2 - DISTANCE_MIN;
 
@@ -61,20 +76,25 @@ const getInnerVillageProperty = (outerWidth, outerHeight) => {
 };
 
 const styleVillage = (village, property, isPositionAbsolute) => {
-  village.style.width = `${property.width}px`;
-  village.style.height = `${property.height}px`;
-  village.style.top = `${property.top}px`;
-  village.style.left = `${property.left}px`;
-  village.style.position = isPositionAbsolute ? "absolute" : "relative";
+  Object.assign(village.style, {
+    width: `${property.width}px`,
+    height: `${property.height}px`,
+    top: `${property.top}px`,
+    left: `${property.left}px`,
+    position: isPositionAbsolute ? "absolute" : "relative",
+  });
 };
 
 const getPostbox = () => {
   const postbox = document.createElement("span");
-  const size = randomNumber({ max: 30, min: 10 });
+  const size = randomNumber({ max: POSTBOX_MAX, min: POSTBOX_MIN });
   postbox.innerHTML = "📮";
-  postbox.style.position = "absolute";
-  postbox.style.fontSize = `${size}px`;
+  postbox.classList.add("postbox");
   postbox.dataset.size = `${size}`;
+  Object.assign(postbox.style, {
+    position: "absolute",
+    fontSize: `${size}px`,
+  });
 
   return postbox;
 };
@@ -134,19 +154,19 @@ const getVillageChunk = (number) => {
 
   range(number).forEach((_) => {
     const innerVillage = getInnerVillage(width, height);
-    if (innerVillage) {
-      village.append(innerVillage);
-      width = getLengthWithoutPixel(innerVillage.style.width);
-      height = getLengthWithoutPixel(innerVillage.style.height);
-      village = innerVillage;
-    }
+    if (!innerVillage) return;
+
+    village.append(innerVillage);
+    width = getLengthWithoutPixel(innerVillage.style.width);
+    height = getLengthWithoutPixel(innerVillage.style.height);
+    village = innerVillage;
   });
 
   return outerVillage;
 };
 
 const addVillages = () => {
-  const count = randomNumber({ max: 4, min: 1 });
+  const count = randomNumber({ max: divisions.length, min: 1 });
   for (let i = 0; i < count; i++) {
     const innerCount = randomNumber({ max: 5, min: 0 });
     const villageChunk = getVillageChunk(innerCount);
@@ -154,4 +174,71 @@ const addVillages = () => {
   }
 };
 
+const getVillageWithPostbox = (postbox) => {
+  return postbox.closest(".village");
+};
+
+const getVillageName = (postbox) => {
+  return getVillageWithPostbox(postbox).dataset.name;
+};
+
+const changeBorderColor = (postboxes) => {
+  postboxes.forEach((postbox) => {
+    const village = getVillageWithPostbox(postbox);
+    village.style.borderColor = "red";
+  });
+};
+
+const showVillagesWithPostbox = (postboxes) => {
+  const villagesTextBox = getElementById("villages-have-postbox");
+  const villagesWithPostbox = postboxes.map((postbox) =>
+    getVillageName(postbox)
+  );
+
+  villagesTextBox.innerText = `${villagesWithPostbox.join(", ")} 총 ${
+    villagesWithPostbox.length
+  }개의 마을입니다.`;
+
+  delay(delayTime).then(() => changeBorderColor(postboxes));
+};
+
+const getPostboxMap = (postboxes) => {
+  const postboxMap = new Map();
+
+  postboxes.forEach((postbox) => {
+    const size = Number(postbox.dataset.size);
+    const villageName = getVillageName(postbox);
+    postboxMap.has(size)
+      ? postboxMap.set(size, [...postboxMap.get(size), villageName])
+      : postboxMap.set(size, [villageName]);
+  });
+
+  return postboxMap;
+};
+
+const showSortedPostbox = (postboxes) => {
+  const sortedPostboxText = getElementById("sort-postboxes");
+  const postboxMap = getPostboxMap(postboxes);
+  const postboxSizes = postboxes.map((postbox) => Number(postbox.dataset.size));
+  const sortedPostbox = sort([...new Set(postboxSizes)]);
+  const sortedVillage = sortedPostbox
+    .map((postbox) => {
+      return postboxMap.get(postbox).join(", ");
+    })
+    .join(", ");
+
+  if (!sortedPostbox.length) return;
+  sortedPostboxText.innerText = `우체통의 크기는 ${sortedVillage}순입니다.`;
+};
+
+btn.addEventListener("click", () => {
+  showVillagesWithPostbox(postboxes);
+  showSortedPostbox(postboxes);
+});
+
+class Postbox {
+  constructor() {}
+}
+
 addVillages();
+const postboxes = searchPostBoxes(map);
