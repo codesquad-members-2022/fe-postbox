@@ -1,12 +1,11 @@
 import Model from './src/model.js';
 import View from './src/view.js';
 import Button from './src/button.js';
-
-const $ = (select) => document.querySelector(select);
+import { myQuerySelector } from './utility/querySelector.js';
 
 (function startSearchVillage() {
-  const villageInfo = $('.village-info');
-  const redButton = $('.red-button');
+  const villageInfo = myQuerySelector(document.body, 'village-info');
+  const redButton = myQuerySelector(document.body, 'red-button');
 
   const model = new Model();
 
