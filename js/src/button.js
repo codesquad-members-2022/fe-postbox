@@ -1,26 +1,27 @@
+import { delay } from '../utility/util.js';
+import { mergeSort } from '../utility/sort.js';
+import { myQuerySelector } from '../utility/querySelector.js';
+import { myQuerySelectorAll } from '../utility/querySelector.js';
 export default class Button {
-  constructor(redButton) {
-    this.redButton = redButton;
-  }
   btnAddEvent() {
-    this.redButton.addEventListener('click', this.startEvent);
+    myQuerySelector(document.body, 'red-button').addEventListener(
+      'click',
+      this.startEvent
+    );
   }
 
   startEvent = () => {
-    const $postbox = document.querySelectorAll('.postbox');
+    const $$postbox = myQuerySelectorAll(document.body, 'postbox');
 
-    const postboxInfo = this.getPostboxInfo($postbox);
+    const postboxInfo = this.getPostboxInfo($$postbox);
 
     this.showPostbox(postboxInfo);
     this.showSortedPostbox(postboxInfo);
-
-    setTimeout(() => {
-      this.changeBorder($postbox);
-    }, 2000);
+    delay(2000).then(() => this.changeBorder($$postbox));
   };
 
-  getPostboxInfo($postbox) {
-    return [...$postbox].map((element) => {
+  getPostboxInfo($$postbox) {
+    return [...$$postbox].map((element) => {
       return {
         name: element.previousElementSibling.innerHTML,
         size: element.style.width,
@@ -28,36 +29,31 @@ export default class Button {
     });
   }
 
-  changeBorder($postbox) {
-    $postbox.forEach(
-      (element) => (element.parentNode.style.border = '2px solid red')
-    );
-  }
-
   showSortedPostbox(postboxInfo) {
-    const $postboxSize = document.querySelector('.postbox-size');
-    let showSortedPostbox = '우체통의 크기는 <br>';
-    const sorted = this.getSort(postboxInfo);
-    sorted.forEach(
-      (element) => (showSortedPostbox += ` ${element.name}(${element.size})`)
-    );
-    showSortedPostbox += '<br>순서 입니다.';
+    const $postboxSize = myQuerySelector(document.body, 'postbox-size');
+    const sorted = mergeSort(postboxInfo);
+
+    const showSortedPostbox =
+      sorted.reduce(
+        (text, curList) => text + ` ${curList.name}(${curList.size})`,
+        '우체통의 크기는 <br>'
+      ) + '<br>순서 입니다.';
     $postboxSize.innerHTML = showSortedPostbox;
   }
 
   showPostbox(postboxInfo) {
-    const $villageTotal = document.querySelector('.village-total');
-    let showPostbox = '';
+    const $villageTotal = myQuerySelector(document.body, 'village-total');
 
-    postboxInfo.forEach((element) => (showPostbox += ` ${element.name}`));
+    const showPostbox =
+      postboxInfo.reduce((pre, cur) => pre + ` ${cur.name}`, '') +
+      `<br> 총 ${postboxInfo.length}개의 마을입니다.`;
 
-    showPostbox += `<br> 총 ${postboxInfo.length}개의 마을입니다.`;
     $villageTotal.innerHTML = showPostbox;
   }
 
-  getSort(postboxInfo) {
-    return [...postboxInfo].sort(
-      (a, b) => b.size.substr(0, 1) - a.size.substr(0, 1)
+  changeBorder($$postbox) {
+    $$postbox.forEach(
+      (element) => (element.parentNode.style.border = '2px solid red')
     );
   }
 }
