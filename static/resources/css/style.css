@@ -19,6 +19,7 @@
 }
 
 .map {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -28,7 +29,7 @@
 }
 
 .town {
-  position: relative;
+  position: absolute;
   border: 2px solid #c3a77c;
   border-radius: 10px;
   background: #fff;
@@ -51,6 +52,7 @@
 }
 
 .postbox {
+  position: absolute;
   display: inline-block;
   font-size: 25px;
 }
