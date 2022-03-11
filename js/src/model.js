@@ -1,35 +1,35 @@
+import { getRandomNumber } from '../utility/util.js';
+import { check50Percent } from '../utility/util.js';
+import { getChildNum } from '../utility/util.js';
 export default class Model {
-  constructor() {
-    this.village = [];
-    this.makeVillage();
-  }
   makeVillage() {
-    let ASCII = 0;
+    const village = [];
+    let ASCII = 65;
+
     const getVillageInfo = (width, height, postbox) => {
-      const village = {
-        name: String.fromCharCode(ASCII++ + 65),
+      const villageInfo = {
+        name: String.fromCharCode(ASCII++),
         width: Math.floor(width),
         height: Math.floor(height),
         postbox: postbox,
         child: [],
       };
-
-      if (this.check50Percent()) {
-        this.addChildren(village, getVillageInfo);
+      if (check50Percent()) {
+        this.addChildren(villageInfo, getVillageInfo);
       }
-
-      return village;
+      return villageInfo;
     };
 
-    this.createInitialVillage(getVillageInfo);
+    this.createInitialVillage(getVillageInfo, village);
+    return village;
   }
 
-  createInitialVillage(getVillageInfo) {
+  createInitialVillage(getVillageInfo, village) {
     for (let i = 0; i < 4; i++) {
-      this.village.push(
+      village.push(
         getVillageInfo(
-          this.getVillageWidth(400),
-          this.getVillageHeight(300),
+          this.getVillageWidth(500),
+          this.getVillageHeight(400),
           this.getPostbox()
         )
       );
@@ -37,11 +37,14 @@ export default class Model {
   }
 
   addChildren(village, getVillageInfo) {
-    let childNum = this.getChildNum(1, 4);
+    let childNum = getChildNum(1, 5);
     for (let i = 0; i < childNum; i++) {
-      let villageWidth = this.getVillageWidth(village.width / childNum);
-      let villageHeight = this.getVillageHeight(village.height / childNum);
-      if (villageWidth > 10 && villageHeight > 10) {
+      let villageWidth = this.getVillageWidth(village.width / childNum - 30);
+      let villageHeight = this.getVillageHeight(village.height / childNum - 30);
+      if (
+        (villageWidth > 20 && villageHeight > 40) ||
+        (villageWidth > 40 && villageHeight > 20)
+      ) {
         village.child.push(
           getVillageInfo(villageWidth, villageHeight, this.getPostbox())
         );
@@ -66,24 +69,14 @@ export default class Model {
       size: 0,
       exist: 0,
     };
-
-    if (this.check50Percent()) {
+    if (check50Percent()) {
       postbox.exist++;
-      postbox.size = Math.floor(Math.random() * 10) + 1;
+      postbox.size = getRandomNumber(9) + 1;
     }
-
     return postbox;
   }
 
-  check50Percent() {
-    return (Math.round(Math.random() * 10) + 1) % 2;
-  }
-
-  getChildNum(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
-
   getVillage() {
-    return this.village;
+    return this.makeVillage();
   }
 }

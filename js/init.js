@@ -1,8 +1,13 @@
 import Model from './src/model.js';
 import View from './src/view.js';
-const $ = (select) => document.querySelector(select);
+import Button from './src/button.js';
+
 (function startSearchVillage() {
-  const villageInfo = $('.village-info');
   const model = new Model();
-  const view = new View(model, villageInfo);
+
+  const view = new View(model);
+  view.renderVillage();
+
+  const button = new Button();
+  button.btnAddEvent();
 })();
