@@ -4,11 +4,8 @@
 }
 
 .map {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 1080px;
+  margin: auto;
   padding: 20px;
   border: 3px solid black;
   text-align: center;
@@ -19,39 +16,28 @@
 }
 
 .map__wrapper {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
   width: 80%;
-  height: 520px;
+  min-height: 520px;
   margin-right: 20px;
   border: 1px solid black;
 }
 
-.map__area {
-  position: relative;
-  padding: 12px;
+.root {
+  margin: 20px;
 }
 
 .root,
 .child {
-  padding: 0 20px;
+  display: inline-block;
   border: 2px solid cornflowerblue;
   border-radius: 20px;
 }
 
-/* .first {
-  position: absolute;
-  top: 50%;
-} */
-
-.town__name {
-  width: 100%;
+.town__name,
+.postbox {
   display: inline-block;
+  width: 100%;
   padding: 8px;
-}
-
-.postBox {
-  border-color: red;
 }
 
 .map__info {
@@ -69,6 +55,7 @@
   border: none;
   border-radius: 20px;
   background-color: rgb(234, 67, 54);
+  cursor: pointer;
 }
 
 .info__town {
