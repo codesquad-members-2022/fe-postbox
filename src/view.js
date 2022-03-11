@@ -5,22 +5,32 @@ export class View {
     this.mapWrapper = TraverseDOM.querySelector(document, 'map__wrapper');
   }
 
-  renderArea(data) {
+  renderRootTown(data) {
     data.forEach((el) => {
-      const newTown = document.createElement('div');
-      newTown.classList.add('map__area');
-      newTown.appendChild(this.renderRootTown(el));
-      this.mapWrapper.appendChild(newTown);
+      const newRoot = document.createElement('div');
+      newRoot.classList.add('root');
+      const rootName = this.addTownName(el);
+      this.addTownStyle(newRoot, el);
+      this.addChildTown(newRoot, rootName, el);
+      this.mapWrapper.appendChild(newRoot);
     });
   }
 
-  renderRootTown(data) {
-    const makeRoot = document.createElement('div');
-    makeRoot.classList.add('root');
+  renderChildTown(root, data) {
+    data.forEach((el) => {
+      const makeChild = document.createElement('div');
+      makeChild.classList.add('child');
+      const childName = this.addTownName(el);
 
-    const rootName = this.addTownName(data);
-    this.addChildTown(makeRoot, rootName, data);
-    return makeRoot;
+      this.addChildTown(makeChild, childName, el);
+      root.appendChild(makeChild);
+    });
+  }
+
+  addTownStyle(el, data) {
+    el.style.width = data.style.width;
+    el.style.padding = data.style.padding;
+    return el.style;
   }
 
   addTownName(data) {
@@ -33,11 +43,13 @@ export class View {
   addChildTown(root, name, data) {
     if (!data.child.length) {
       root.appendChild(name);
+      this.addTownStyle(root, data);
       if (data.postBox.hasPostBox) {
         root.appendChild(this.addPostBox(data));
       }
     } else {
       root.appendChild(name);
+      this.addTownStyle(root, data);
       if (data.postBox.hasPostBox) {
         root.appendChild(this.addPostBox(data));
       }
@@ -47,20 +59,23 @@ export class View {
 
   addPostBox(data) {
     const postBox = document.createElement('span');
-    postBox.classList.add('postBox');
+    postBox.classList.add('postbox');
     postBox.dataset.postboxSize = data.postBox.size;
     postBox.innerText = '📮';
     return postBox;
   }
 
-  renderChildTown(root, data) {
-    data.forEach((el) => {
-      const makeChild = document.createElement('div');
-      makeChild.classList.add('child');
-      const childName = this.addTownName(el);
+  addPostBoxTownText(selector, names, info) {
+    selector.innerText = `${names} \n 총 ${info.length}개의 마을입니다.`;
+  }
 
-      this.addChildTown(makeChild, childName, el);
-      root.appendChild(makeChild);
-    });
+  addPostBoxSortText(selector, result) {
+    selector.innerText = `우체통의 크기는 ${result} 순입니다.`;
+  }
+
+  changeBorderColor(el) {
+    setTimeout(() => {
+      el.parentNode.style.borderColor = 'red';
+    }, 2000);
   }
 }
