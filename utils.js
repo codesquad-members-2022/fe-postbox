@@ -17,7 +17,7 @@ const delay = (time) => {
 };
 
 const sort = (array) => {
-  if (array.length === 1) return array;
+  if (array.length <= 1) return array;
 
   const pivot = array[0];
   const before = [];
@@ -34,4 +34,4 @@ const sort = (array) => {
   return [...sort(before), pivot, ...sort(after)];
 };
 
-export { range, getLengthWithoutPixel, randomNumber, delay };
+export { range, getLengthWithoutPixel, randomNumber, delay, sort };

@@ -1,4 +1,10 @@
-import { range, getLengthWithoutPixel, randomNumber, delay } from "./utils.js";
+import {
+  range,
+  getLengthWithoutPixel,
+  randomNumber,
+  delay,
+  sort,
+} from "./utils.js";
 import { getElementById, searchPostBoxes } from "./search.js";
 
 let villageAlphabet = 65;
@@ -190,11 +196,38 @@ const showVillagesWithPostbox = (postboxes) => {
   delay(delayTime).then(() => changeBorderColor(postboxes));
 };
 
-const showSortedPostbox = () => {};
+const getPostboxMap = (postboxes) => {
+  const postboxMap = new Map();
+
+  postboxes.forEach((postbox) => {
+    const size = Number(postbox.dataset.size);
+    const villageName = getVillageName(postbox);
+    postboxMap.has(size)
+      ? postboxMap.set(size, [...postboxMap.get(size), villageName])
+      : postboxMap.set(size, [villageName]);
+  });
+
+  return postboxMap;
+};
+
+const showSortedPostbox = (postboxes) => {
+  const sortedPostboxText = getElementById("sort-postboxes");
+  const postboxMap = getPostboxMap(postboxes);
+  const postboxSizes = postboxes.map((postbox) => Number(postbox.dataset.size));
+  const sortedPostbox = sort([...new Set(postboxSizes)]);
+  const sortedVillage = sortedPostbox
+    .map((postbox) => {
+      return postboxMap.get(postbox).join(", ");
+    })
+    .join(", ");
+
+  if (!sortedPostbox.length) return;
+  sortedPostboxText.innerText = `우체통의 크기는 ${sortedVillage}순입니다.`;
+};
 
 btn.addEventListener("click", () => {
   showVillagesWithPostbox(postboxes);
-  showSortedPostbox();
+  showSortedPostbox(postboxes);
 });
 
 addVillages();
