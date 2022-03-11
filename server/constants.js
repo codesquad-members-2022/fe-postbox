@@ -19,6 +19,8 @@ const MAILBOX_SIZE = {
 
 const MAILBOX_PROBABILITY = 5;
 
+const ASCII_NUM_A = 65;
+
 export {
   MAP_SIZE,
   RECYCLE_NUMBER,
@@ -26,4 +28,5 @@ export {
   MARGIN,
   MAILBOX_SIZE,
   MAILBOX_PROBABILITY,
+  ASCII_NUM_A,
 };

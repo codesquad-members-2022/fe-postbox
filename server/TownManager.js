@@ -1,4 +1,4 @@
-import { RECYCLE_NUMBER, MARGIN } from "./constants.js";
+import { RECYCLE_NUMBER, MARGIN, ASCII_NUM_A } from "./constants.js";
 import { Town } from "./Town.js";
 
 class TownManager {
@@ -18,7 +18,7 @@ class TownManager {
 
   setNames() {
     this.towns.forEach((town, i) => {
-      const name = String.fromCharCode(65 + i);
+      const name = String.fromCharCode(ASCII_NUM_A + i);
       town.nameTown(name);
     });
   }
