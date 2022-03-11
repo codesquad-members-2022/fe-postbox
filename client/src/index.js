@@ -40,18 +40,35 @@ const renderVillages = (rootVillages) => {
     if ($rootVillage) $$section[idx].appendChild($rootVillage);
   });
 
-  const $btn = getElementByClassName('check-btn');
-  $btn.addEventListener('click', (event) => {
-    delay(2000).then(() => {
-      const $$villages = getElementsByClassName('with-postbox');
+  const $checkBtn = getElementByClassName('check-btn');
+
+  const delayTime = 2000;
+  const isDone = false;
+  $checkBtn.addEventListener(
+    'click',
+    handleBtnClick(rootVillages, delayTime, isDone)
+  );
+};
+
+const handleBtnClick = (rootVillages, delayTime, isDone) => () => {
+  if (isDone) return;
+  isDone = true;
+  const borderColor = 'var(--red)';
+  const $$villages = getElementsByClassName('with-postbox');
+  const $postNameInfo = getElementByClassName('sort-by-name');
+  const $postSizeInfo = getElementByClassName('sort-by-size');
+
+  const villagesWithPostbox = searchVillagesWithPostbox(rootVillages);
+  const postboxCount = villagesWithPostbox.length;
+
+  delay(delayTime) //
+    .then(() => {
       $$villages.forEach(($village) => {
-        $village.style.borderColor = 'var(--red)';
+        $village.style.borderColor = borderColor;
       });
-      const villagesWithPostbox = searchVillagesWithPostbox(rootVillages);
-      const length = villagesWithPostbox.length;
-      if (length === 0) {
-        getElementByClassName('sort-by-name').textContent =
-          '우체통이 없습니다.';
+
+      if (postboxCount === 0) {
+        $postNameInfo.textContent = '우체통이 없습니다.';
         return;
       }
 
@@ -67,21 +84,26 @@ const renderVillages = (rootVillages) => {
         return 0;
       });
 
-      let textContent = '';
-      textContent += villagesSortedByName
+      let innerHTML;
+      innerHTML = villagesSortedByName
         .map((village) => village.name)
-        .join(', ');
-      textContent += ` 총 ${length}개 마을 입니다.`;
-      getElementByClassName('sort-by-name').textContent = textContent;
+        .reduce((result, curStr) => {
+          return result + curStr + '<br />';
+        }, '우체통이 있는 마을은<br />');
+      innerHTML += ` 총 ${postboxCount}개 마을 입니다.`;
+      $postNameInfo.innerHTML = innerHTML;
 
-      textContent = '우체통의 크기는<br />';
-      textContent += villagesSortedByPostboxSize
-        .map((village) => `${village.name} (${village.postbox.size}), <br />`)
-        .join('');
-      textContent += '순입니다.';
-      getElementByClassName('sort-by-size').innerHTML = textContent;
+      innerHTML = villagesSortedByPostboxSize
+        .map((village) => `${village.name} (${village.postbox.size})`)
+        .reduce((result, curStr) => {
+          return result + curStr + '<br />';
+        }, '우체통의 크기는<br />');
+      innerHTML += '순입니다.';
+      $postSizeInfo.innerHTML = innerHTML;
+    })
+    .catch((err) => {
+      console.error(err);
     });
-  });
 };
 
 const main = () => {
