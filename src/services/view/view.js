@@ -11,12 +11,14 @@ class View {
       } = villageInfo;
       const village = document.createElement("div");
 
-      village.style.position = "absolute";
-      village.style.border = "solid 1px black";
-      village.style.left = `${left}px`;
-      village.style.bottom = `${bottom}px`;
-      village.style.height = `${height}px`;
-      village.style.width = `${width}px`;
+      Object.assign(village.style, {
+        position: "absolute",
+        border: "solid 1px black",
+        left: `${left}px`,
+        bottom: `${bottom}px`,
+        height: `${height}px`,
+        width: `${width}px`,
+      });
       document.querySelector(".map").appendChild(village);
     }
   }

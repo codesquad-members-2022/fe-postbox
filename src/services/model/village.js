@@ -1,18 +1,23 @@
 class Village {
-  constructor(villageContainer, mapSize) {
-    this.mapSize = mapSize;
+  constructor(villageContainer, mapWidth, mapHeight) {
+    this.mapWidth = mapWidth;
+    this.mapHeight = mapHeight;
     this.blankSize = 1;
     this.villageContainer = villageContainer;
     this.position = this.getPosition();
     this.townSize = this.getTownSize();
+    this.hasChild = false;
   }
 
   getTownSize() {
-    const [positionX, positionY] = this.position;
+    const interval = 10;
+    const minSize = 20;
 
-    let minWidth = this.mapSize;
-    let minHeight = this.mapSize;
-    this.villageContainer.forEach(({ x, y }) => {
+    const [positionX, positionY] = this.position;
+    let minWidth = this.mapWidth;
+    let minHeight = this.mapHeight;
+    this.villageContainer.forEach(({ townSize }) => {
+      const { x, y } = townSize;
       const [existX] = x;
       const [existY] = y;
 
@@ -25,11 +30,14 @@ class Village {
       }
     });
 
-    const newWidth =
-      Math.floor(Math.random() * (minWidth - positionX - this.blankSize)) + 1;
-    const newHeight =
-      Math.floor(Math.random() * (minHeight - positionY - this.blankSize)) + 1;
-
+    const newWidth = this.getRandomNum(
+      minWidth - positionX - interval,
+      minSize
+    );
+    const newHeight = this.getRandomNum(
+      minHeight - positionY - interval,
+      minSize
+    );
     return {
       x: [positionX, newWidth],
       y: [positionY, newHeight],
@@ -37,22 +45,30 @@ class Village {
   }
 
   getPosition() {
-    const newX =
-      Math.floor(Math.random() * (this.mapSize - this.blankSize)) + 1;
-    const newY =
-      Math.floor(Math.random() * (this.mapSize - this.blankSize)) + 1;
-    for (const { x, y } of this.villageContainer) {
+    const interval = 100;
+    const newX = this.getRandomNum(this.mapWidth - interval, interval);
+    const newY = this.getRandomNum(this.mapHeight - interval, interval);
+
+    for (const { townSize } of this.villageContainer) {
+      const { x, y } = townSize;
       const [minX, maxX] = x;
       const [minY, maxY] = y;
 
       const isInsideBox =
-        minX < newX && newX < minX + maxX && minY < newY && newY < minY + maxY;
+        minX - 5 <= newX &&
+        newX <= minX + maxX + 5 &&
+        minY - 5 <= newY &&
+        newY <= minY + maxY + 5;
 
       if (isInsideBox) {
-        this.getPosition();
+        return this.getPosition();
       }
     }
     return [newX, newY];
+  }
+
+  getRandomNum(maxNum, minNum) {
+    return Math.floor(Math.random() * maxNum) + minNum;
   }
 }
 
