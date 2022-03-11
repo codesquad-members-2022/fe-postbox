@@ -8,27 +8,27 @@ export class PostboxInfo {
 
   mergePostboxTownNameArr(leftArr, rightArr) {
     let results = [];
-    let i = 0;
-    let j = 0;
+    let leftIndex = 0;
+    let rightIndex = 0;
 
-    while (i < leftArr.length && j < rightArr.length) {
-      if (leftArr[i].width > rightArr[j].width) {
-        results.push(leftArr[i]);
-        i++;
+    while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
+      if (leftArr[leftIndex].width > rightArr[rightIndex].width) {
+        results.push(leftArr[leftIndex]);
+        leftIndex++;
       } else {
-        results.push(rightArr[j]);
-        j++;
+        results.push(rightArr[rightIndex]);
+        rightIndex++;
       }
     }
 
-    while (i < leftArr.length) {
-      results.push(leftArr[i]);
-      i++;
+    while (leftIndex < leftArr.length) {
+      results.push(leftArr[leftIndex]);
+      leftIndex++;
     }
 
-    while (j < rightArr.length) {
-      results.push(rightArr[j]);
-      j++;
+    while (rightIndex < rightArr.length) {
+      results.push(rightArr[rightIndex]);
+      rightIndex++;
     }
     return results;
   }
@@ -36,9 +36,9 @@ export class PostboxInfo {
   mergeSortPostbox(postboxTownArr) {
     if (postboxTownArr.length <= 1) return postboxTownArr;
 
-    let mid = Math.floor(postboxTownArr.length / 2);
-    let leftArr = this.mergeSortPostbox(postboxTownArr.slice(0, mid));
-    let rightArr = this.mergeSortPostbox(postboxTownArr.slice(mid));
+    const mid = Math.floor(postboxTownArr.length / 2);
+    const leftArr = this.mergeSortPostbox(postboxTownArr.slice(0, mid));
+    const rightArr = this.mergeSortPostbox(postboxTownArr.slice(mid));
     const sortedPostboxTownNameArr = this.mergePostboxTownNameArr(leftArr, rightArr);
 
     return sortedPostboxTownNameArr;
