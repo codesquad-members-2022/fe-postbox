@@ -1,6 +1,45 @@
 
 #### 우체통 마을 만들기
 
+#### 설계
+
+##### 1. Class 마을
+- 상태
+  - 위치
+  - 우체통 위치
+- 메소드
+  - getLocation
+  - getWidth
+  - getHeight
+  - get기준점
+
+#####2. 렌더
+- 역할
+  - 초기 화면 그리기
+  - 빨간색으로 칠하기
+
+#####3. 마을 관리자
+
+- 마을 지도
+  - 마을 인스턴스들을 가지고 있음.
+  - 랜더함수의 파라미터로 사용됨.
+- 마을 지도에 마을, 우체통 추가하는 validator 역할 수행하는 로직.
+- Validator
+  - 마을을 만들 때 마을 지도안에 있는 위치, 우체통 위치 고려해서 판별.
+  
+#####4. 이벤트
+- `빨간 우체통 확인` 버튼 누르면 찾는 로직 실행
+
+#####5. 정렬
+
+- 배열의 길이가 10 ~ 20일 경우 선택, 삽입 정렬이 사용된다고 함.
+
+#####6. Promise
+
+#####7. express
+
+- 랜덤한 마을 위치 클라이언트에서 구현 후 나중에 서버에서 처리
+
 #### 구현 checklist
 
 - [x] 랜덤하게 마을 생성하기
@@ -11,6 +50,22 @@
     - [x] 생성된 마을 순서대로 이름 지정 - TownManager Class
 - [x] 마을 정보를 활용하여 rendering
     - 구성: 마을 div > 우체통 div, 이름 div
+- [x] HTML 추가
+- [x] CSS 추가
+- [x] querySelector 구현
+  - [x] getElementByClassName 구현
+- [x] 버튼 이벤트
+  - [x] 빨간색으로 변경
+- [x] setTimeout에 Promise 패턴 적용
+- [x] 폴더 구조 변경
+- [ ] 정렬 알고리즘 구현
+- [x] 우체통 사이즈 추가
+- [x] 서버
+  - [x] express 띄우기
+  - [x] JSON 생성
+  - [x] 마을 위치 랜덤하게 생성하는 로직 서버에서 처리
+- [x] JSON fetch
+    - 서버로부터 towns 배열을 JSON 으로 받아 render
     
 #### 구현 과정
 
@@ -78,7 +133,9 @@
                     
                     - 비교마을의 4개 꼭지점이 모두 범위 밖이면 외부에 있으므로 true, 하나라도 안이면 false.
     
-    - 우체통과 이름이 마을 영역 안으로 들어가므로 크기를 고려하여 MARGIN 을 넣어 겹친다고 보는 범위를 더 크게 한다.
+    - 우체통과 이름이 마을 영역 안으로 들어가므로 크기를 고려하여 MARGIN 을 넣어 겹친다고 판단하는 범위를 더 크게 한다.
+    - 기준점의 범위에 MAX 값에 TOWN_SIZE MAX 값 만큼을 빼준다. 기준점이 맵 끝에 생성되어 마을이 밖으로 벗어나는 것을 방지한다.
+    - 이름이 맵 상단에 생성되어 맵을 벗어나는 것을 방지하도록 기준점 y 최소값에 MARGIN 을 준다.
     
 - render
     - TownManger 인스턴스로부터 towns 배열을 받는다.
@@ -100,7 +157,82 @@
                 nameEl.style.left = `${town.width / 2 - 5}px`;
                 nameEl.style.bottom = `25px`;
               ``` 
+    - 이벤트 핸들러에서 town Div 를 찾고 우체통 유무와 이름을 사용할 수 있도록 dataset 도 부여한다.
+        ```javascript
+          townEl.dataset.name = town.name;
+          townEl.dataset.mailboxSize = town.mailboxSize;
+        ```
+              
+- TOWN Class 에 우체통 크기 반영
+    - 단순히 우체통 유무만 랜덤으로 정해지는 방식에서 True 일 경우 우체통 크기를 랜덤하게 설정하는 방식으로 변경
+    ```javascript
+    this.mailboxSize = this.getRandomBoolean() ? this.getMailboxSize() : null;
+    ```
+- 이벤트 설정
+    - event.js : 이벤트리스너 모듈로 check-btn 에 click 이벤트 리스너 추가
+    
+    - handler.js : 이벤트핸들러 모듈로 check-btn 에 click 발생 시 실행되는 함수
+    
+    - 우체통 확인 버튼을 클릭 시 크게 3가지 기능 실행
+        - .mailbox-names Div 에 우체통이 있는 마을 이름 rendering
+        - .mailbox-sizes Div 에 우체통이 있는 마을의 이름을 우체통 크기 순으로 rendering
+        - 우체통이 있는 마을들의 Div Border Color 를 red 로 변경
+    
+    - 이를 위해 contents Div 자식요소들을 찾고, mailboxSize 가 !null 인 요소만 filtering 하고, sort 한다.
+        ```javascript
+        const mailboxTowns = Array.from(townNodes).filter(hasMailboxSize);
+        const sortByMailboxSize = (a, b) => b.dataset.mailboxSize - a.dataset.mailboxSize;
+        mailboxTowns.sort(sortByMailboxSize);
+        ```
+    
+    - border color 변경 시 delay 설정
+        - promise 패턴 사용하여 delay 2초 후 색 바뀌도록 한다.
+        ```javascript
+        const delay = new Promise((res, rej) => {
+            setTimeout(() => res(), 2000);
+          });
+        delay.then(() => changeTownsColor(mailboxTowns));
+        ```
+        
+- 서버 생성
+    - server.js : express 활용하여 townManager 에서 towns 배열 생성하는 로직을 서버에서 수행하도록 한다.
+        - port : 3000
+        - static 폴더 : public 폴더 내 render 모듈, 이벤트,핸들러 모듈, css 를 가진다.
+    
+    - 폴더 구조 분리 : townManager, town, constants 모두 server 폴더로 옮긴다.
+        - 서버에서 towns 데이터를 JSON 형태로 보내고, index.js 에서 데이터를 fetch 하여 render 한다.
+        - 기존에 index.js 에서 실행하던 함수들 대부분 서버에서 실행하고 render 만 수행하도록 변경.
+    - 서버 get ' / ' url : index.html 을 보낸다. 
+    - 서버 get ' /towns ' url : townManager 인스턴스 생성하여 towns 를 만들고 towns 를 JSON 형태로 보낸다.
+    
+- querySelector 구현
+    - DFS 사용하여 getElementByClassName 함수를 만든다.
+        - stack : start 요소만 가지고 시작한다. 
+        - stack 에서 탐색 노드를 pop 하고 className 요소가 없을 경우 자식 요소를 stack 에 추가한다. 이후 stack 이 빌 때까지 반복한다.
+    
+    - 초기에 element.className === className 으로 탐색하였으나, class 가 2개 이상인 경우 탐색이 불가하여 classList 를 활용했다.
+    - document 나 비요소 노드(텍스트, 주석 등) 는 classList 가 없어서 탐색이 불가하다.
+        - 따라서 startElement 는 document.children[0] 즉, html 요소로 지정한다.
+        - el.childNodes 는 비요소 노드도 포함하여 탐색이 불가하다.
+    - classList 는 DOMTokenList 라는 유사배열객체로, contains 메서드를 사용하여 포함된 요소를 찾을 수 있다.  
+    
+    ```javascript
+    function getElementByClassName(className) {
+      const startEl = document.children[0];
+      const stack = [startEl];
+      while (stack.length) {
+        const curEl = stack.pop();
+        if (curEl.classList.contains(className)) {
+          return curEl;
+        }
+        if (curEl.children) {
+          stack.push(...curEl.children);
+        }
+      }
+      return null;
+    }
+    ```
+        
 #### 내일 생각해 볼 것
-- get4location : town class 로 옮겨도 될 듯?
-- 몇가지 magic num : 우체통 확률 등
-- 기준점 설정 max 를 고려하여 width 가 정해져야 하지 않을까?
+- handler : renderTownInfo() 의 매개변수 towns 를 sorted 전에 실행해야 할 듯.
+- colorTowns 도 render 로 옮겨도 될 듯?
