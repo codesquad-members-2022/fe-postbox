@@ -1,10 +1,11 @@
+import { myQuerySelector } from '../utility/querySelector.js';
 export default class View {
-  constructor(model, villageInfo) {
+  constructor(model) {
     this.model = model;
-    this.villageInfo = villageInfo;
   }
   renderVillage() {
     const villageData = this.model.getVillage();
+    const villageInfo = myQuerySelector(document.body, 'village-info');
 
     const addTemplate = (village) => {
       let template = `<div class = 'village' style = 'width:${
@@ -30,6 +31,6 @@ export default class View {
       ''
     );
 
-    this.villageInfo.innerHTML = villageTemplate;
+    villageInfo.innerHTML = villageTemplate;
   }
 }
