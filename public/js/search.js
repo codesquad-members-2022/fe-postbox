@@ -12,7 +12,7 @@ const getElementById = (id, curNode = root) => {
 };
 
 const searchPostBoxes = (curNode, postboxes = []) => {
-  if (curNode.tagName === "SPAN") return [...postboxes, curNode];
+  if (curNode.classList.contains("postbox")) return [...postboxes, curNode];
   if (curNode.children.length === 0) return null;
 
   [...curNode.children].forEach((childNode) => {

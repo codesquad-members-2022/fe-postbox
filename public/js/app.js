@@ -89,6 +89,7 @@ const getPostbox = () => {
   const postbox = document.createElement("span");
   const size = randomNumber({ max: POSTBOX_MAX, min: POSTBOX_MIN });
   postbox.innerHTML = "📮";
+  postbox.classList.add("postbox");
   postbox.dataset.size = `${size}`;
   Object.assign(postbox.style, {
     position: "absolute",
@@ -234,6 +235,10 @@ btn.addEventListener("click", () => {
   showVillagesWithPostbox(postboxes);
   showSortedPostbox(postboxes);
 });
+
+class Postbox {
+  constructor() {}
+}
 
 addVillages();
 const postboxes = searchPostBoxes(map);
