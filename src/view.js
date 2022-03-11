@@ -5,24 +5,24 @@ export class View {
     this.mapWrapper = TraverseDOM.querySelector(document, 'map__wrapper');
   }
 
-  renderRootTown(data) {
-    data.forEach((el) => {
+  renderRootTown(townData) {
+    townData.forEach((data) => {
       const newRoot = document.createElement('div');
       newRoot.classList.add('root');
-      const rootName = this.addTownName(el);
-      this.addTownStyle(newRoot, el);
-      this.addChildTown(newRoot, rootName, el);
+      const rootName = this.addTownName(data);
+      this.addTownStyle(newRoot, data);
+      this.addChildTown(newRoot, rootName, data);
       this.mapWrapper.appendChild(newRoot);
     });
   }
 
-  renderChildTown(root, data) {
-    data.forEach((el) => {
+  renderChildTown(root, childData) {
+    childData.forEach((data) => {
       const makeChild = document.createElement('div');
       makeChild.classList.add('child');
-      const childName = this.addTownName(el);
+      const childName = this.addTownName(data);
 
-      this.addChildTown(makeChild, childName, el);
+      this.addChildTown(makeChild, childName, data);
       root.appendChild(makeChild);
     });
   }
@@ -30,7 +30,6 @@ export class View {
   addTownStyle(el, data) {
     el.style.width = data.style.width;
     el.style.padding = data.style.padding;
-    return el.style;
   }
 
   addTownName(data) {
