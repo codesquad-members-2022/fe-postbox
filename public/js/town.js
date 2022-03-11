@@ -18,11 +18,8 @@ export class Town {
               </div>
             </div>`;
   }
-  // grid-template-columns
-  static setTownStyle(node, style) {
-    // if (grid.row === 1) style.gridTemplateRows = "auto auto";
-    // if (grid.column === 1) style.gridTemplateColumns = "auto auto";
 
+  static setStyle(node, style) {
     Object.assign(node.style, style);
   }
 }
