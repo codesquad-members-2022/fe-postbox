@@ -1,24 +1,19 @@
 import { TOWN_RANGE } from "../../constant.js";
 import { getRandomNumber } from "../../utils/util.js";
-import { townData } from "../data/town.js";
 
 const getTownNumber = (postboxNumber) => {
-  const townNumber = getRandomNumber(postboxNumber, TOWN_RANGE.length.max);
+  const townNumber = getRandomNumber(postboxNumber, TOWN_RANGE.number.max);
   return townNumber;
 };
 
 const getTownNames = (townNumber) => {
   const initialCharcode = 65;
-  const townNames = new Array(townNumber).map((_, townIndex) => String.fromCharCode(initialCharcode + townIndex));
-  return townNames;
-};
-
-const getTownLengthList = (townNumber) => {
-  const townLengthList = new Array(townNumber).map(() => {
-    const townLength = getRandomNumber(TOWN_RANGE.length.min, TOWN_RANGE.length.max - townLeftCoordinate);
-    return townLength;
+  let townNames = new Array(townNumber).fill("").map((_, townIndex) => {
+    const townName = String.fromCharCode(initialCharcode + townIndex);
+    return townName;
   });
-  return townLengthList;
+
+  return townNames;
 };
 
 const getTownTopLeftCoordinate = () => {
@@ -27,12 +22,19 @@ const getTownTopLeftCoordinate = () => {
   return { townTopCoordinate, townLeftCoordinate };
 };
 
-const getTownCoordinates = (townNumber, townLengthList) => {
-  const townCoordinates = new Array(townNumber).map((_, townIndex) => {
+const getTownLengthList = (townNumber) => {
+  const townLengthList = new Array(townNumber).fill(0).map(() => {
+    const townLength = getRandomNumber(TOWN_RANGE.length.min, TOWN_RANGE.length.max);
+    return townLength;
+  });
+  return townLengthList;
+};
+
+const getTownCoordinates = (townNumber, townWidthList, townHeightList) => {
+  const townCoordinates = new Array(townNumber).fill({}).map((_, townIndex) => {
     const { townTopCoordinate, townLeftCoordinate } = getTownTopLeftCoordinate();
-    const { townWidth, townHeight } = townLengthList[townIndex];
-    const townRightCoordinate = townLeftCoordinate + townWidth;
-    const townBottomCoordinate = townTopCoordinate + townHeight;
+    const townRightCoordinate = townLeftCoordinate + townWidthList[townIndex];
+    const townBottomCoordinate = townTopCoordinate + townHeightList[townIndex];
     const townCoordinate = {
       top: townTopCoordinate,
       right: townRightCoordinate,
@@ -46,13 +48,28 @@ const getTownCoordinates = (townNumber, townLengthList) => {
 
 const hasParentTown = (townsCoordinates, childTownCoordinate, childTownIndex) => {
   const singleTownIndex = -1;
-  for (let parentTownIndex = 0; parentTownIndex < townsCoordinates.length; parentTownIndex++) {
-    const parentCoordinate = townsCoordinates[parentTownIndex];
-    if (parentTownIndex !== childTownIndex) continue;
-    if (parentCoordinate.left <= childTownCoordinate.left && childTownCoordinate.left >= parentTownCoordinate.right)
-      return parentTownIndex;
+  let parentTownIndex;
+  let oldParentTownCoordinate;
+  for (let nextTownIndex = 0; nextTownIndex < townsCoordinates.length; nextTownIndex++) {
+    const parentTownCoordinate = townsCoordinates[nextTownIndex];
+    if (nextTownIndex === childTownIndex) continue;
+    if (
+      parentTownCoordinate.left <= childTownCoordinate.left &&
+      childTownCoordinate.left <= parentTownCoordinate.right &&
+      parentTownCoordinate.top <= childTownCoordinate.top &&
+      childTownCoordinate.top <= parentTownCoordinate.bottom
+    ) {
+      if (
+        parentTownIndex !== undefined &&
+        oldParentTownCoordinate.top >= parentTownCoordinate.top &&
+        oldParentTownCoordinate.left >= parentTownCoordinate.left
+      )
+        continue;
+      parentTownIndex = nextTownIndex;
+      oldParentTownCoordinate = townsCoordinates[nextTownIndex];
+    }
   }
-  return singleTownIndex;
+  return parentTownIndex === undefined ? singleTownIndex : parentTownIndex;
 };
 
 const getParentTownIndice = (townsCoordinates) => {
@@ -63,26 +80,61 @@ const getParentTownIndice = (townsCoordinates) => {
   return parentTownIndice;
 };
 
+const getAbsolutePostion = (townsCoordinates, parentTownIndice, postboxTownLengthList, postboxTownIndice) => {
+  const absolutePostions = townsCoordinates.map((townsCoordinate, townIndex) => {
+    const absolutePosition = {
+      top: 0,
+      left: 0,
+    };
+    const parentTownIndex = parentTownIndice[townIndex];
+    if (parentTownIndex === -1) {
+      absolutePosition.top = townsCoordinate.top;
+      absolutePosition.left = townsCoordinate.left;
+    } else {
+      const postboxLengthIndex = postboxTownIndice.findIndex(
+        (postboxTownIndex) => postboxTownIndex === parentTownIndex
+      );
+      absolutePosition.top = townsCoordinate.top - townsCoordinates[parentTownIndex].top;
+      absolutePosition.left = townsCoordinate.left - townsCoordinates[parentTownIndex].left;
+      if (postboxLengthIndex === parentTownIndex) {
+        absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
+        absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
+      }
+    }
+    return absolutePosition;
+  });
+  return absolutePostions;
+};
+
 export const updateTownNumber = (townData, postboxNumber) => {
   townData.number = getTownNumber(postboxNumber);
 };
 
 export const updateTownNames = (townData) => {
-  townData.name = getTownNames(length);
+  townData.name = getTownNames(townData.number);
 };
 
 export const updateTownWidth = (townData) => {
-  townData.width = getTownLengthList(length);
+  townData.width = getTownLengthList(townData.number);
 };
 
 export const updateTownHeight = (townData) => {
-  townData.height = getTownLengthList(length);
+  townData.height = getTownLengthList(townData.number);
 };
 
 export const updateTownCoordinates = (townData) => {
-  townData.coordinate = getTownCoordinates(townData.length, townData.width, townData.height);
+  townData.coordinate = getTownCoordinates(townData.number, townData.width, townData.height);
 };
 
 export const updateParentTownIndice = (townData) => {
-  townData.parentTownIndex = getParentTownIndice(coordinate);
+  townData.parentTownIndex = getParentTownIndice(townData.coordinate);
+};
+
+export const updateAbsolutePostion = (townData, postboxData) => {
+  townData.absolutePosition = getAbsolutePostion(
+    townData.coordinate,
+    townData.parentTownIndex,
+    postboxData.length,
+    postboxData.postboxTownIndex
+  );
 };
