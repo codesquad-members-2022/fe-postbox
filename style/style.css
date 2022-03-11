@@ -31,13 +31,14 @@
   display: inline-block;
   border: 2px solid cornflowerblue;
   border-radius: 20px;
+  vertical-align: middle;
 }
 
 .town__name,
 .postbox {
   display: inline-block;
   width: 100%;
-  padding: 8px;
+  padding: 8px 0;
 }
 
 .map__info {
