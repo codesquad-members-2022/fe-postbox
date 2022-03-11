@@ -4,6 +4,7 @@ class Town {
   constructor() {
     this.name = this.getTownName();
     this.postBox = this.getPostBoxInfo();
+    this.style = this.getRandomStyle();
     this.child = [];
   }
 
@@ -33,6 +34,21 @@ class Town {
     numToBoolean ? (postBoxInfo['size'] = randomSize) : '';
 
     return postBoxInfo;
+  }
+
+  getRandomStyle() {
+    const styleInfo = {};
+    const MAX_WIDTH = 100;
+    const MIN_WIDTH = 30;
+    const randomWidth = getRandom(MAX_WIDTH, MIN_WIDTH);
+
+    const MAX_PADDING = 20;
+    const MIN_PADDING = 1;
+    const randomPadding = getRandom(MAX_PADDING, MIN_PADDING);
+    styleInfo['width'] = randomWidth + '%';
+    styleInfo['padding'] = randomPadding + 'px';
+
+    return styleInfo;
   }
 
   addChildTown() {
