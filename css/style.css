@@ -1,0 +1,17 @@
+.container {
+    width: 750px;
+    height: 750px;
+    position: relative;
+    box-sizing: border-box;
+    margin:10px;
+}
+.village--design {
+    border-radius: 5px;
+    border: 3px solid #148CFF;
+}
+.village--pos {
+    position: absolute;
+}
+.village {
+    box-sizing: border-box;
+}

@@ -1,0 +1,68 @@
+1. 마을의 충돌
+겹쳐지는 이유 2번째 마을 left가 작아도 1번째 width 보다 2번째 width가 크면 겹쳐짐
+1번마을 left 100 width 300 pos 400
+2번마을 left 50 width 400 pos 450
+마을의 최대 크기
+웹브라우저 밖에 안나가게하기
+
+while문에서 if 조건문에 isTrue를 사용할시 
+
+const villagePos = [{x: 1600, y: 900}]
+
+for(let i=0; i<villagePos; i++) {
+  if(left+width < villagePos.x && top+height < && villagePos[i].y) {
+    마을 생성();
+    villagePos.push({x: 생성한마을의 x값, y: 생성한 마을의 y값})
+  }
+}
+
+A의 마을을 생성
+A마을의 left+width가 .container의 width보다 작아야한다.
+A마을의 top+height가 .container의 height보다 작아야한다.
+---------------------------------------------------------
+B의 마을을 생성
+B마을의 left+width가 .container의 width보다 작아야한다.
+B마을의 top+height가 .container의 height보다 작아야한다.
+
+A마을과 left+width 값과 top+height 값이 같을 경우 다시 랜덤값을 받아온다.
+A마을과 left+width 값이 작거나 같을 경우 top+height 값이 다를 경우에 마을을 생성한다.
+A마을과 top+height 값이 작거나 같을 경우 left+width 값이 다를 경우에 마을을 생성한다.
+A마을과 left+width 값과 top+height 값이 다를 경우에 마을을 생성한다.
+---------------------------------------------------------
+C의 마을을 생성
+C마을의 left+width가 .container의 width보다 작아야한다.
+C마을의 top+height가 .container의 height보다 작아야한다.
+
+B마을과 left+width 값과 top+height 값이 같을 경우 다시 랜덤값을 받아온다.
+B마을과 left+width 값만 같을 경우 top+height 값이 다를 경우에 마을을 생성한다.
+B마을과 top+height 값만 같을 경우 left+width 값이 다를 경우에 마을을 생성한다.
+B마을과 left+width 값과 top+height 값이 다를 경우에 마을을 생성한다.
+---------------------------------------------------------
+
+2. 마을의 무한
+3. Node 탐색 api
+탐색 알고리즘을 이용해 document.body.nextElementChild의 tagName을 비교해가며 재귀적으로 탐색한다.
+
+body.
+querySeletctor
+앞 글자가 . 이면 className을 비교한다.
+앞 글자가 # 이면 idName을 비교한다.
+앞 글자가 . 또는 #이 아닐시 tagName을 비교한다.
+
+맞으면 해당 element를 반환한다.
+
+querySeletctorAll
+
+
+class로 만듬
+
+class NodeFinder {
+
+}
+
+
+2 마을의 충돌
+3 마을의 무한
+
+마을의 크기가 우체통의 크기보다는 작을 수 없게 설정(우체통의 크기 최대 크기)
+우체통 크기 rem으로 설정 폰트랑 같이
