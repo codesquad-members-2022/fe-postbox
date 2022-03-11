@@ -38,15 +38,16 @@ class Town {
 
   getRandomStyle() {
     const styleInfo = {};
-    const MAX_WIDTH = 100;
-    const MIN_WIDTH = 30;
+    const MAX_WIDTH = 65;
+    const MIN_WIDTH = 35;
     const randomWidth = getRandom(MAX_WIDTH, MIN_WIDTH);
 
     const MAX_PADDING = 20;
     const MIN_PADDING = 1;
-    const randomPadding = getRandom(MAX_PADDING, MIN_PADDING);
+    const randomPaddingTopBottom = getRandom(MAX_PADDING, MIN_PADDING);
+    const randomPaddingLeftRight = getRandom(randomPaddingTopBottom, 0);
     styleInfo['width'] = randomWidth + '%';
-    styleInfo['padding'] = randomPadding + 'px';
+    styleInfo['padding'] = `${randomPaddingTopBottom}px ${randomPaddingLeftRight}px`;
 
     return styleInfo;
   }
