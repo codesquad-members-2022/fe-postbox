@@ -10,7 +10,7 @@ const main = () => {
 
   makeBiggestTowns(townMap, $townMap);
   makeMap(townMap, $townMap, townWithPostBoxes);
-
+  console.log(townMap)
   const $$townName = customQuerySelectorAll('town-name');
   $$townName.forEach((element, i) => {
     element.textContent = String.fromCharCode(65 + i);
@@ -56,7 +56,7 @@ const main = () => {
 
     $numberOfTown.innerHTML = `${names}\n총 ${sortedTowns.length}개 입니다.`;
     $sizeOfPostBox.innerHTML = `우체통의 크기는 ${sizes}순입니다.`;
-  }, 2000);
+  }, 1000);
   });
 
 };
