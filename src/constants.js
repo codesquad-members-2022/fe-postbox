@@ -23,10 +23,9 @@ export const STYLE = {
     3: 20,
   },
   LAYER_COLOR: {
-    0: 'red',
+    0: 'darkGrey',
     1: 'blue',
     2: 'green',
-    3: 'tomato',
   },
 };
 
