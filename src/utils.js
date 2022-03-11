@@ -1,4 +1,4 @@
-import { STYLE } from "./constants.js";
+import { STYLE } from './constants.js';
 
 const { JUSTIFY_CONTENT, ALIGN_ITEMS, FLEX_DIRECTION } = STYLE;
 
@@ -63,4 +63,8 @@ export function findParentNode($element) {
 
 export function findTownName(townArr) {
   return townArr.map((town) => findParentNode(town));
+}
+
+export function delay(ms) {
+  return new Promise((resolve) => setTimeout(() => resolve(), ms * 1000));
 }
