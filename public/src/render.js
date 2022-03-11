@@ -9,6 +9,10 @@ function changeBorderColor({ el, color }) {
   el.style.borderColor = color;
 }
 
+function changeTownsColor(towns) {
+  towns.forEach((town) => changeBorderColor({ el: town, color: "var(--red)" }));
+}
+
 function renderTownInfo(towns) {
   const postboxInfoEl = getElementByClassName("mailbox-names");
   postboxInfoEl.innerText = `${towns.join(", ")} 총 ${
@@ -70,4 +74,5 @@ export {
   renderTownInfo,
   renderMailboxInfo,
   changeBorderColor,
+  changeTownsColor,
 };

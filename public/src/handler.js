@@ -1,7 +1,7 @@
 import {
   renderTownInfo,
   renderMailboxInfo,
-  changeBorderColor,
+  changeTownsColor,
 } from "./render.js";
 import { getDatasetNames, getElementByClassName } from "./utils.js";
 
@@ -10,26 +10,21 @@ function handleCheckBtn(e) {
   const townNodes = getElementByClassName("contents").childNodes;
   const mailboxTowns = Array.from(townNodes).filter(hasMailboxSize);
 
-  const sortByMailboxSize = (a, b) =>
+  const descendingByMailboxSize = (a, b) =>
     b.dataset.mailboxSize - a.dataset.mailboxSize;
-  mailboxTowns.sort(sortByMailboxSize);
+
   const townNames = getDatasetNames(mailboxTowns);
   renderTownInfo(townNames);
+  mailboxTowns.sort(descendingByMailboxSize);
   const sortedTownNames = getDatasetNames(mailboxTowns);
   renderMailboxInfo(sortedTownNames);
 
-  //TODO: 함수 분리
-  function changeTownsColor(towns) {
-    towns.forEach((town) =>
-      changeBorderColor({ el: town, color: "var(--red)" })
-    );
-  }
-  // setTimeout 2초
-  const delay = new Promise((res, rej) => {
-    setTimeout(() => res(), 2000);
-  });
+  const delay = (ms) =>
+    new Promise((res) => {
+      setTimeout(() => res(), ms);
+    });
 
-  delay.then(() => changeTownsColor(mailboxTowns));
+  delay(2000).then(() => changeTownsColor(mailboxTowns));
 }
 
 export { handleCheckBtn };
