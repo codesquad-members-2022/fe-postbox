@@ -1,4 +1,4 @@
-import { DataGenerator } from "./data-generator.js";
+import { TownDataGenerator } from "./town-data-generator.js";
 import {
   getElementByClassName,
   getElementsByClassName,
@@ -9,13 +9,13 @@ import { getRandomNumber } from "./util/util.js";
 const $info = getElementByClassName("info");
 
 export const renderMapCell = () => {
-  const generator = new DataGenerator();
+  const generator = new TownDataGenerator();
 
   getElementsByClassName("map-cell").forEach((cell) => {
     cell.innerHTML = "";
     if (!getRandomNumber(0, 3)) return;
     const data = generator.createTownData();
-    cell.append(DataGenerator.createTownNode(data));
+    cell.append(TownDataGenerator.createTownNode(data));
   });
 
   $info.innerHTML = "";
