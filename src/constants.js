@@ -15,12 +15,10 @@ export const STYLE = {
     0: 'column',
     1: 'row',
   },
-  // 나중에 랜덤값으로 바꿀 예정
   LAYER_SIZE: {
     0: 500,
     1: 240,
     2: 70,
-    3: 20,
   },
   LAYER_COLOR: {
     0: 'darkGrey',
@@ -29,5 +27,5 @@ export const STYLE = {
   },
 };
 
-export const MAX_LAYER = 3;
+export const MAX_LAYER = 2;
 export const MAX_CHILD = 2;

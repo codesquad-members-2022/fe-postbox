@@ -1,4 +1,4 @@
-import { STYLE } from "./constants.js";
+import { STYLE } from './constants.js';
 
 const { JUSTIFY_CONTENT, ALIGN_ITEMS, FLEX_DIRECTION } = STYLE;
 
@@ -12,7 +12,7 @@ export function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; //최댓값도 포함, 최솟값도 포함
 }
 
-export function getLocation($element) {
+export function getRandomPosition($element) {
   const styleObj = {
     justifyContent:
       JUSTIFY_CONTENT[getRandomNumber(0, Object.keys(JUSTIFY_CONTENT).length)],
@@ -59,10 +59,6 @@ export function getClassNameAll($target, className) {
 
 export function findParentNode($element) {
   return $element.parentNode;
-}
-
-export function findTownName(townArr) {
-  return townArr.map((town) => findParentNode(town));
 }
 
 export function delay(ms) {

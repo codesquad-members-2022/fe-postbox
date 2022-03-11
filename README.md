@@ -3,48 +3,62 @@
 - [x] 매직넘버 리팩토링
 
 - [x] 폴더구조 변경
+
   - postbox, town을 클래스로 변경
   - 사용하는 상수를 constant 폴더에 모아놓는 방식으로 변경
+  - Template을 클래스로 만들고, postbox와 town은 상속받아서 사용
 
-```js
-class town extends template {
-  constructor() {
-    super();
-  }
-}
-```
+    ```js
+    class Template {
+      constructor() {
+        this.size = size;
+      }
+      render() {}
+    }
+    ```
 
-```js
-class template {
-  constructor() {
-    this.size = size;
-  }
-  render() {}
-}
-```
+    ```js
+    class Town extends Template {
+      constructor(size) {
+        super(size);
+      }
+      render() {
+        return super.render();
+      }
+    }
+    ```
 
-```js
-class post extends template {
-  constructor() {
-    super();
-  }
-}
-```
+    ```js
+    class Post extends Template {
+      constructor(size) {
+        super(size);
+      }
+      render() {
+        return super.render();
+      }
+    }
+    ```
 
-- [ ] 탐색 api 구현
+- [x] 탐색 api 구현
 
-- 버튼이벤트
+  - getClassNameAll()
+  - getClassName()
 
-- setTimeout()(1초 딜레이)
+    ```js
+    for (let items in childNodes){
+      if( childNodes.contains(특정클래스) {
+        // 로직
+      }
+      }
+    ```
 
-- 탐색 api
-  - 우체통도 배열에 넣기
-  - 우체통이 있는 마을 이름 배열로 만들기
+- [x] 버튼이벤트
 
-```js
+  - reset(): 새로고침
+  - renderResult(): 결과보여주기
 
-for (let items in childNodes){  if( childNodes.contains(특정클래스) 실행  }
-```
+- [x] setTimeout()(1초 딜레이)
 
-- 정렬 api
-  - 우체통 이름 정렬
+- [x] 정렬 api
+  - quickSort알고리즘 사용
+  - 배열의 요소로 객체를 받아서, 객체의 특정 프로퍼티 기준으로 정렬
