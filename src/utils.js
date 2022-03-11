@@ -1,4 +1,4 @@
-import { STYLE } from "./constants.js";
+import { STYLE } from './constants.js';
 
 const { JUSTIFY_CONTENT, ALIGN_ITEMS, FLEX_DIRECTION } = STYLE;
 
@@ -24,15 +24,43 @@ export function getLocation($element) {
   assignStyles($element, styleObj);
 }
 
-export function getClassNameAll() {
+export function getClassName($target, className) {
+  let answer = null;
   function recursive($element) {
-    if ($element.childNodes.length === 0) return;
+    if ($element.children.length === 0) return;
 
     for (const childNode of $element.children) {
-      console.log(childNode);
+      if (childNode.classList.contains(className)) {
+        answer = childNode;
+        break;
+      }
       recursive(childNode);
     }
   }
-  const townMap = document.querySelector("#town-map");
-  recursive(townMap);
+  recursive($target);
+  return answer;
+}
+
+export function getClassNameAll($target, className) {
+  const result = [];
+  function recursive($element) {
+    if ($element.children.length === 0) return;
+
+    for (const childNode of $element.children) {
+      if (childNode.classList.contains(className)) {
+        result.push(childNode);
+      }
+      recursive(childNode);
+    }
+  }
+  recursive($target);
+  return result;
+}
+
+function findParentNode($element) {
+  return $element.parentNode;
+}
+
+export function findTownName(townArr) {
+  return townArr.map((town) => findParentNode(town));
 }

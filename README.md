@@ -38,9 +38,13 @@ class post extends template {
 - setTimeout()(1초 딜레이)
 
 - 탐색 api
+  - 우체통도 배열에 넣기
+  - 우체통이 있는 마을 이름 배열로 만들기
 
 ```js
 
 for (let items in childNodes){  if( childNodes.contains(특정클래스) 실행  }
-
 ```
+
+- 정렬 api
+  - 우체통 이름 정렬
