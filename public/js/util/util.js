@@ -8,6 +8,7 @@ export const convertStringToHTML = (string) => {
   div.innerHTML = string;
   return div.firstElementChild;
 };
+
 export const quickSort = (list) => {
   if (list.length <= 1) return list;
 

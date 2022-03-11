@@ -73,9 +73,11 @@ export class TownDataGenerator {
 
     return children;
   }
+
   static createTownNode(data) {
     const town = convertStringToHTML(new Town(data).template());
     const mailbox = getElementByClassName("mailbox", town);
+
     Town.setStyle(town, Object.assign(data.style, data.size));
 
     mailbox &&

@@ -1,4 +1,3 @@
-// TODO README에 적기
 export const MIN = {
   WIDTH: 33,
   HEIGHT: 33,

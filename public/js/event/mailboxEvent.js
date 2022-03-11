@@ -6,7 +6,6 @@ import { delay, quickSort } from "../util/util.js";
 import { renderMailboxInfo } from "../render.js";
 
 export const mailboxEventHandler = () => {
-  console.time("시작");
   let towns = [];
   const $towns = getElementsByClassName("town");
 
@@ -19,14 +18,12 @@ export const mailboxEventHandler = () => {
       [...town.children[0].children].some((child) =>
         child.classList.contains("mailbox")
       )
-    ) // FIXME
+    )
     .map((town) => {
       delay(1000).then(() => {
         town.classList.add("has-mailbox");
-        console.timeEnd("시작");
       });
       towns.push(getElementByClassName("town-title", town).innerText);
-
       return {
         name: getElementByClassName("town-title", town).innerText,
         mailboxSize: Number(
