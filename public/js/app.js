@@ -7,6 +7,14 @@ import {
 } from "./utils.js";
 import { getElementById, searchPostBoxes } from "./search.js";
 
+const dataAddress = "http://localhost:3000/size";
+const getSizeData = async (dataAddress) => {
+  const respond = await fetch(dataAddress);
+  return respond.json();
+};
+
+const sizeData = await getSizeData(dataAddress);
+
 let villageAlphabet = 65;
 const delayTime = 2000;
 const map = getElementById("map");
@@ -15,12 +23,12 @@ const MAP_WIDTH = 1000;
 const MAP_HEIGHT = 800;
 
 const BORDER = 2;
-const DISTANCE_MIN = 20;
-const LENGTH_MIN = 50;
+// const DISTANCE_MIN = 20;
+// const LENGTH_MIN = 50;
+// const POSTBOX_MAX = 30;
+// const POSTBOX_MIN = 10;
 const WIDTH_MAX = MAP_WIDTH / 2 - DISTANCE_MIN;
 const HEIGHT_MAX = MAP_HEIGHT / 2 - DISTANCE_MIN;
-const POSTBOX_MAX = 30;
-const POSTBOX_MIN = 10;
 
 const division1 = { left: 0, top: 0 };
 const division2 = { left: MAP_WIDTH / 2, top: 0 };
