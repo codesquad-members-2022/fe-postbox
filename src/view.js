@@ -65,8 +65,10 @@ export class View {
     return postBox;
   }
 
-  addPostBoxTownText(selector, names, info) {
-    selector.innerText = `${names} \n 총 ${info.length}개의 마을입니다.`;
+  addPostBoxTownText(selector, info, names) {
+    info.length === 0
+      ? (selector.innerText = `우체통이 존재하지 않습니다.`)
+      : (selector.innerText = `우체통이 있는 곳은 ${names}, 총 ${info.length}개의 마을입니다.`);
   }
 
   addPostBoxSortText(selector, result) {
