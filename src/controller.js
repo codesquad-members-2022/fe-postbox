@@ -1,6 +1,6 @@
 import { Map } from './model.js';
 import { View } from './view.js';
-import { TraverseDOM } from './util.js';
+import { TraverseDOM, bubbleSort } from './util.js';
 
 class Controller {
   constructor(view, model) {
@@ -25,19 +25,21 @@ class Controller {
       findPostBox.forEach((box) => {
         this.view.changeBorderColor(box);
         if (!infoTown.innerText) {
-          postBoxInfo.push({ name: box.parentNode.firstChild.innerText, size: box.dataset.postboxSize });
+          postBoxInfo.push({ name: box.parentNode.firstChild.innerText, size: Number(box.dataset.postboxSize) });
         }
       });
 
-      const postBoxNames = postBoxInfo.map((box) => box.name).join(', ');
-      this.view.addPostBoxTownText(infoTown, postBoxNames, postBoxInfo);
+      if (postBoxInfo.length === 0) {
+        this.view.addPostBoxTownText(infoTown, postBoxInfo);
+      } else {
+        const postBoxNames = postBoxInfo.map((box) => box.name).join(', ');
+        this.view.addPostBoxTownText(infoTown, postBoxInfo, postBoxNames);
 
-      // 임시로 sort 사용
-      const sortResult = postBoxInfo
-        .sort((a, b) => a.size - b.size)
-        .map((box) => box.name)
-        .join(', ');
-      this.view.addPostBoxSortText(infoPostBox, sortResult);
+        const sortResult = bubbleSort(postBoxInfo.slice())
+          .map((box) => box.name)
+          .join(', ');
+        this.view.addPostBoxSortText(infoPostBox, sortResult);
+      }
     });
   }
 }

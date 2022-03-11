@@ -41,4 +41,17 @@ function getRandom(max, min) {
   return min === undefined ? Math.round(Math.random() * max) : Math.floor(Math.random() * (max - min) + min);
 }
 
-export { TraverseDOM, getRandom };
+function bubbleSort(arr) {
+  for (let i = arr.length; i > 0; i--) {
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j].size > arr[j + 1].size) {
+        let temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+  return arr;
+}
+
+export { TraverseDOM, getRandom, bubbleSort };
