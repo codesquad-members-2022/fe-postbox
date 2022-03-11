@@ -17,7 +17,9 @@ const MAILBOX_SIZE = {
   MAX: 10,
 };
 
-const MAILBOX_PROBABILITY = 7;
+const MAILBOX_PROBABILITY = 5;
+
+const ASCII_NUM_A = 65;
 
 export {
   MAP_SIZE,
@@ -26,4 +28,5 @@ export {
   MARGIN,
   MAILBOX_SIZE,
   MAILBOX_PROBABILITY,
+  ASCII_NUM_A,
 };

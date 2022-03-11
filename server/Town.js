@@ -1,4 +1,4 @@
-import { getRandomNumber } from "./utils.js";
+import { getRandomNumber } from "./util.js";
 import {
   MAILBOX_PROBABILITY,
   MAILBOX_SIZE,
@@ -30,7 +30,7 @@ class Town {
   }
 
   getRandomBoolean() {
-    return getRandomNumber({ min: 0, max: 10 }) > MAILBOX_PROBABILITY;
+    return getRandomNumber({ min: 1, max: 10 }) > MAILBOX_PROBABILITY;
   }
 
   getRandomLocation() {

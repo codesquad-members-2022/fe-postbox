@@ -1,0 +1,4 @@
+
+const COLOR_DELAY_TIME_MS = 2000;
+
+export { COLOR_DELAY_TIME_MS }
