@@ -11,7 +11,7 @@ class Controller {
   }
 
   getRandomVillageCount() {
-    const NUM = 10;
+    const NUM = 3;
     return Math.random() * NUM + 1;
   }
 

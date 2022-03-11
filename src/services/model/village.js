@@ -46,9 +46,8 @@ class Village {
 
   getPosition() {
     const interval = 100;
-
-    const newX = this.getRandomNum(this.mapWidth - 1, 1);
-    const newY = this.getRandomNum(this.mapHeight - 1, 1);
+    const newX = this.getRandomNum(this.mapWidth - interval, interval);
+    const newY = this.getRandomNum(this.mapHeight - interval, interval);
 
     for (const { townSize } of this.villageContainer) {
       const { x, y } = townSize;
