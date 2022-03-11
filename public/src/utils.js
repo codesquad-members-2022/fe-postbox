@@ -21,4 +21,9 @@ function getElementByClassName(className) {
   return null;
 }
 
-export { getDatasetNames, getElementByClassName };
+const delay = (ms) =>
+  new Promise((res) => {
+    setTimeout(() => res(), ms);
+  });
+
+export { getDatasetNames, getElementByClassName, delay };

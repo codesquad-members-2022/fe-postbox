@@ -1,30 +1,27 @@
+import { COLOR_DELAY_TIME_MS } from "../../server/constants.js";
 import {
   renderTownInfo,
   renderMailboxInfo,
   changeTownsColor,
 } from "./render.js";
-import { getDatasetNames, getElementByClassName } from "./utils.js";
+import { delay, getDatasetNames, getElementByClassName } from "./utils.js";
 
 function handleCheckBtn(e) {
   const hasMailboxSize = (town) => town.dataset.mailboxSize !== "null";
-  const townNodes = getElementByClassName("contents").childNodes;
-  const mailboxTowns = Array.from(townNodes).filter(hasMailboxSize);
+  const townNodes = getElementByClassName("contents").children;
+  const townNodesHaveMailbox = Array.from(townNodes).filter(hasMailboxSize);
+  const townNames = getDatasetNames(townNodesHaveMailbox);
 
-  const descendingByMailboxSize = (a, b) =>
-    b.dataset.mailboxSize - a.dataset.mailboxSize;
-
-  const townNames = getDatasetNames(mailboxTowns);
   renderTownInfo(townNames);
-  mailboxTowns.sort(descendingByMailboxSize);
-  const sortedTownNames = getDatasetNames(mailboxTowns);
+  
+  const descendingByMailboxSize = (a, b) =
+    b.dataset.mailboxSize - a.dataset.mailboxSize;
+  townNodesHaveMailbox.sort(descendingByMailboxSize);
+
+  const sortedTownNames = getDatasetNames(townNodesHaveMailbox);
   renderMailboxInfo(sortedTownNames);
 
-  const delay = (ms) =>
-    new Promise((res) => {
-      setTimeout(() => res(), ms);
-    });
-
-  delay(2000).then(() => changeTownsColor(mailboxTowns));
+  delay(COLOR_DELAY_TIME_MS).then(() => changeTownsColor(townNodesHaveMailbox));
 }
 
 export { handleCheckBtn };

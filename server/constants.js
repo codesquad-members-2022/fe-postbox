@@ -17,6 +17,8 @@ const MAILBOX_SIZE = {
   MAX: 10,
 };
 
+const COLOR_DELAY_TIME_MS = 2000;
+
 const MAILBOX_PROBABILITY = 5;
 
 export {
@@ -26,4 +28,5 @@ export {
   MARGIN,
   MAILBOX_SIZE,
   MAILBOX_PROBABILITY,
+  COLOR_DELAY_TIME_MS,
 };
