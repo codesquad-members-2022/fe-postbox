@@ -4,9 +4,14 @@
 :root {
   --blue: #3485ff;
   --red: #ff4c38;
+  --red-dark: #8f0c0c;
   --vil-margin: 10px;
   --container-width: 1200px;
   --container-height: 1200px;
+}
+
+body {
+  height: 120vh;
 }
 
 #title {
@@ -35,8 +40,13 @@
   font-weight: 700;
 }
 
+.check-btn:active {
+  background-color: var(--red-dark);
+}
+
 .interaction {
   max-width: 300px;
+  width: 300px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
@@ -51,6 +61,7 @@
 .interaction-result__row {
   width: 100%;
   margin-bottom: 50px;
+  font-size: 30px;
 }
 
 /* map */
@@ -92,4 +103,7 @@
 
 .postbox {
   font-size: 20px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
