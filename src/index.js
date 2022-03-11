@@ -1,13 +1,13 @@
-import { delay, getClassName, getLocation, getRandomNumber } from './utils.js';
-import { MAX_CHILD, MAX_LAYER, STYLE } from './constants.js';
-import Town from './template/Town.js';
-import PostBox from './template/PostBox.js';
-import { renderResult } from './showResult.js';
+import { delay, getClassName, getLocation, getRandomNumber } from "./utils.js";
+import { MAX_CHILD, MAX_LAYER, STYLE } from "./constants.js";
+import Town from "./template/Town.js";
+import PostBox from "./template/PostBox.js";
+import { renderResult } from "./showResult.js";
 const { LAYER_SIZE } = STYLE;
 
-const $townMap = getClassName(document, 'town-map');
-const $checkButton = getClassName(document, 'check-post__button');
-const $resetButton = getClassName(document, 'reset__button');
+const $townMap = getClassName(document, "town-map");
+const $checkButton = getClassName(document, "check-post__button");
+const $resetButton = getClassName(document, "reset__button");
 
 function renderTown($parentNode, layer) {
   let townNumber = getRandomNumber(0, MAX_CHILD); // 최대 렌더링 할 수 있는 자식 요소
@@ -49,8 +49,8 @@ async function handleDelay() {
 
 function init() {
   renderTown($townMap, 0);
-  $checkButton.addEventListener('click', handleDelay);
-  $resetButton.addEventListener('click', handleReset);
+  $checkButton.addEventListener("click", handleDelay);
+  $resetButton.addEventListener("click", handleReset);
 }
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener("DOMContentLoaded", init);

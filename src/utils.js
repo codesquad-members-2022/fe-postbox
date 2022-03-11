@@ -1,4 +1,4 @@
-import { STYLE } from './constants.js';
+import { STYLE } from "./constants.js";
 
 const { JUSTIFY_CONTENT, ALIGN_ITEMS, FLEX_DIRECTION } = STYLE;
 
@@ -67,4 +67,23 @@ export function findTownName(townArr) {
 
 export function delay(ms) {
   return new Promise((resolve) => setTimeout(() => resolve(), ms * 1000));
+}
+
+export function quickSortwithObj(arr, key) {
+  if (arr.length < 2) return arr;
+  const pivot = arr[0];
+  const left = [];
+  const right = [];
+
+  for (let i = 1; i < arr.length; i++) {
+    const target = arr[i];
+    if (Number(pivot[key]) <= Number(target[key])) {
+      left.push(target);
+    } else {
+      right.push(target);
+    }
+  }
+  const leftSorted = quickSortwithObj(left, key);
+  const rightSorted = quickSortwithObj(right, key);
+  return [...leftSorted, pivot, ...rightSorted];
 }
