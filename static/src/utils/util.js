@@ -36,3 +36,8 @@ export const getElementsByClassName = (parentElement, className) => {
   const elementsByClassName = searchChildElements(parentElement, className);
   return elementsByClassName;
 };
+
+export const getRandomNumber = (min, max) => {
+  const randomNumber = Math.floor((Math.random() * (max - min + 1)) + min);
+  return randomNumber;
+}
