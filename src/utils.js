@@ -1,4 +1,4 @@
-import { STYLE } from './constants.js';
+import { STYLE } from "./constants.js";
 
 const { JUSTIFY_CONTENT, ALIGN_ITEMS, FLEX_DIRECTION } = STYLE;
 
@@ -27,7 +27,7 @@ export function getLocation($element) {
 export function getClassName($target, className) {
   let answer = null;
   function recursive($element) {
-    if ($element.children.length === 0) return;
+    if ($element.children.length === 0 || answer) return;
 
     for (const childNode of $element.children) {
       if (childNode.classList.contains(className)) {
@@ -57,7 +57,7 @@ export function getClassNameAll($target, className) {
   return result;
 }
 
-function findParentNode($element) {
+export function findParentNode($element) {
   return $element.parentNode;
 }
 

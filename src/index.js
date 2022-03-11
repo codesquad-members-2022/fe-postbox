@@ -1,16 +1,11 @@
-import {
-  findTownName,
-  getClassName,
-  getClassNameAll,
-  getLocation,
-  getRandomNumber,
-} from './utils.js';
-import { MAX_CHILD, MAX_LAYER, STYLE } from './constants.js';
-import Town from './template/Town.js';
-import PostBox from './template/PostBox.js';
+import { getClassName, getLocation, getRandomNumber } from "./utils.js";
+import { MAX_CHILD, MAX_LAYER, STYLE } from "./constants.js";
+import Town from "./template/Town.js";
+import PostBox from "./template/PostBox.js";
+import { showResult } from "./showResult.js";
 const { LAYER_SIZE } = STYLE;
 
-const $townMap = document.querySelector('#town-map');
+const $townMap = getClassName(document, "town-map");
 
 function renderTown($parentNode, layer) {
   let townNumber = getRandomNumber(0, MAX_CHILD); // 최대 렌더링 할 수 있는 자식 요소
@@ -43,12 +38,7 @@ function renderTown($parentNode, layer) {
 
 function init() {
   renderTown($townMap, 0);
-  const postBoxArr = getClassNameAll($townMap, 'post-box');
-  const townWithPostBoxArr = findTownName(postBoxArr);
-  const townNames = townWithPostBoxArr.map(
-    ($town) => getClassName($town, 'town__name').innerHTML
-  );
-  console.log(townNames);
+  showResult();
 }
 
-window.addEventListener('DOMContentLoaded', init);
+window.addEventListener("DOMContentLoaded", init);
