@@ -13,8 +13,8 @@ function handleCheckBtn(e) {
   const townNames = getDatasetNames(townNodesHaveMailbox);
 
   renderTownInfo(townNames);
-  
-  const descendingByMailboxSize = (a, b) =
+
+  const descendingByMailboxSize = (a, b) =>
     b.dataset.mailboxSize - a.dataset.mailboxSize;
   townNodesHaveMailbox.sort(descendingByMailboxSize);
 
