@@ -25,4 +25,10 @@ const merge = (left, right, callback) => {
   return arr;
 };
 
-export { mergeSort };
+const delay = (data, time) => {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(data), time);
+  });
+};
+
+export { mergeSort, delay };
