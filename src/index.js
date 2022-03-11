@@ -1,4 +1,4 @@
-import { getClassName, getLocation, getRandomNumber } from './utils.js';
+import { delay, getClassName, getLocation, getRandomNumber } from './utils.js';
 import { MAX_CHILD, MAX_LAYER, STYLE } from './constants.js';
 import Town from './template/Town.js';
 import PostBox from './template/PostBox.js';
@@ -42,9 +42,14 @@ function handleReset() {
   location.reload();
 }
 
+async function handleDelay() {
+  await delay(1);
+  renderResult();
+}
+
 function init() {
   renderTown($townMap, 0);
-  $checkButton.addEventListener('click', renderResult);
+  $checkButton.addEventListener('click', handleDelay);
   $resetButton.addEventListener('click', handleReset);
 }
 
