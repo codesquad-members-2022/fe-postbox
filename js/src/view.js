@@ -16,8 +16,8 @@ export default class View {
                 ? `<span class = 'postbox' style = 'width : ${village.postbox.size}px;'>📮</span>`
                 : ''
             }
-            
             `;
+
       if (village.child.length) {
         village.child.forEach((element) => (template += addTemplate(element)));
       }
@@ -25,12 +25,11 @@ export default class View {
       return template;
     };
 
-    let villageTemplate = '';
+    const villageTemplate = villageData.reduce(
+      (pre, curList) => pre + addTemplate(curList),
+      ''
+    );
 
-    villageData.forEach((element) => {
-      villageTemplate += addTemplate(element);
-    });
-    console.log(villageData);
     this.villageInfo.innerHTML = villageTemplate;
   }
 }
