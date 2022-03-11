@@ -13,6 +13,8 @@ const DISTANCE_MIN = 20;
 const LENGTH_MIN = 50;
 const WIDTH_MAX = MAP_WIDTH / 2 - DISTANCE_MIN;
 const HEIGHT_MAX = MAP_HEIGHT / 2 - DISTANCE_MIN;
+const POSTBOX_MAX = 30;
+const POSTBOX_MIN = 10;
 
 const division1 = { left: 0, top: 0 };
 const division2 = { left: MAP_WIDTH / 2, top: 0 };
@@ -63,20 +65,24 @@ const getInnerVillageProperty = (outerWidth, outerHeight) => {
 };
 
 const styleVillage = (village, property, isPositionAbsolute) => {
-  village.style.width = `${property.width}px`;
-  village.style.height = `${property.height}px`;
-  village.style.top = `${property.top}px`;
-  village.style.left = `${property.left}px`;
-  village.style.position = isPositionAbsolute ? "absolute" : "relative";
+  Object.assign(village.style, {
+    width: `${property.width}px`,
+    height: `${property.height}px`,
+    top: `${property.top}px`,
+    left: `${property.left}px`,
+    position: isPositionAbsolute ? "absolute" : "relative",
+  });
 };
 
 const getPostbox = () => {
   const postbox = document.createElement("span");
-  const size = randomNumber({ max: 30, min: 10 });
+  const size = randomNumber({ max: POSTBOX_MAX, min: POSTBOX_MIN });
   postbox.innerHTML = "📮";
-  postbox.style.position = "absolute";
-  postbox.style.fontSize = `${size}px`;
   postbox.dataset.size = `${size}`;
+  Object.assign(postbox.style, {
+    position: "absolute",
+    fontSize: `${size}px`,
+  });
 
   return postbox;
 };
@@ -136,19 +142,19 @@ const getVillageChunk = (number) => {
 
   range(number).forEach((_) => {
     const innerVillage = getInnerVillage(width, height);
-    if (innerVillage) {
-      village.append(innerVillage);
-      width = getLengthWithoutPixel(innerVillage.style.width);
-      height = getLengthWithoutPixel(innerVillage.style.height);
-      village = innerVillage;
-    }
+    if (!innerVillage) return;
+
+    village.append(innerVillage);
+    width = getLengthWithoutPixel(innerVillage.style.width);
+    height = getLengthWithoutPixel(innerVillage.style.height);
+    village = innerVillage;
   });
 
   return outerVillage;
 };
 
 const addVillages = () => {
-  const count = randomNumber({ max: 4, min: 1 });
+  const count = randomNumber({ max: divisions.length, min: 1 });
   for (let i = 0; i < count; i++) {
     const innerCount = randomNumber({ max: 5, min: 0 });
     const villageChunk = getVillageChunk(innerCount);
