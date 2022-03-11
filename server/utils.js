@@ -1,8 +1,8 @@
 const 마을개수랜덤생성 = () => {
-  const 최대갯수 = 5;
+  const 최대갯수 = 4;
   const 최소갯수 = 2;
 
-  return Math.floor(Math.random() * (최대갯수 - 최소갯수) + 최소갯수);
+  return Math.floor(Math.random() * (최대갯수 + 1 - 최소갯수) + 최소갯수);
 };
 
 const 크기랜덤생성 = ({ 우체통인가, 최대크기, 나눌수 = 1 }) => {
@@ -12,7 +12,7 @@ const 크기랜덤생성 = ({ 우체통인가, 최대크기, 나눌수 = 1 }) =>
 };
 
 const 우체통존재여부랜덤생성 = () => {
-  return Math.floor(Math.random() * 1) === 1 ? true : false;
+  return Math.floor(Math.random() * 2) === 1 ? true : false;
 };
 
 const 좌표랜덤생성 = ({

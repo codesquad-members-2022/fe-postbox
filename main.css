@@ -23,11 +23,12 @@
 .townInfo {
   margin-left: 10px;
   display: flex;
-  justify-content: center;
-  width: 150px;
+  flex-direction: column;
+  width: 200px;
 }
 
 .townInfo button {
+  margin-bottom: 20px;
   height: 40px;
   background: #f00;
   color: #fff;
@@ -42,4 +43,22 @@
 
 .box {
   display: inline-block;
+}
+
+.townName {
+  position: absolute;
+  left: calc(50% - 4px);
+  top: -13px;
+}
+
+.checkBtn {
+  cursor: pointer;
+}
+
+.text {
+  font-size: 18px;
+}
+
+.text div {
+  margin: 10px 0px;
 }
