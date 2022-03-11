@@ -12,33 +12,25 @@ class Controller {
 
   getRandomVillageCount() {
     const NUM = 3;
-    return Math.random() * NUM + 1;
+    return Math.floor(Math.random() * NUM) + 1;
   }
 
-  createVillages() {
-    for (let i = 0; i < this.villageCount; i++) {
-      console.log(this.villageContainer);
-      const village = new Village(
-        this.villageContainer,
-        this.mapWidth,
-        this.mapHeight
-      );
-      this.villageContainer.push(village.townSize);
-    }
-  }
+  createVillages(villageContainer, maxWidth, maxHeight) {
+    villageContainer = new Array(this.villageCount)
+      .fill("")
+      .map(() => new Village(villageContainer, maxWidth, maxHeight));
 
-  testCreateVillages(villageContainer, maxWidth, maxHeight) {
-    console.log(villageContainer);
-    for (let i = 0; i < this.villageCount; i++) {
-      const village = new Village(villageContainer, maxWidth, maxHeight);
-      villageContainer.push(village);
-    }
+    return villageContainer;
   }
 
   initService() {
     this.villageCount = this.getRandomVillageCount();
-
-    this.testCreateVillages(this.parentVillages, 600, 600);
+    const defaultMapSize = 600;
+    this.parentVillages = this.createVillages(
+      this.parentVillages,
+      defaultMapSize,
+      defaultMapSize
+    );
     this.parentVillages.forEach(({ townSize }) =>
       this.villageContainer.push(townSize)
     );
@@ -74,7 +66,7 @@ class Controller {
           y: [parentPositionY, parentHeight],
         } = townSize;
 
-        this.testCreateVillages(this.childVillages, parentWidth, parentHeight);
+        this.createVillages(this.childVillages, parentWidth, parentHeight);
 
         this.childVillages.forEach(({ townSize }) => {
           const {
