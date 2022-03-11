@@ -1,10 +1,10 @@
-import { COLOR_DELAY_TIME_MS } from "../../server/constants.js";
+import { COLOR_DELAY_TIME_MS } from "./constants.js";
 import {
   renderTownInfo,
   renderMailboxInfo,
   changeTownsColor,
 } from "./render.js";
-import { delay, getDatasetNames, getElementByClassName } from "./utils.js";
+import { delay, getDatasetNames, getElementByClassName, descendByMailboxSize } from "./utils.js";
 
 function handleCheckBtn(e) {
   const hasMailboxSize = (town) => town.dataset.mailboxSize !== "null";
@@ -14,11 +14,9 @@ function handleCheckBtn(e) {
 
   renderTownInfo(townNames);
 
-  const descendingByMailboxSize = (a, b) =>
-    b.dataset.mailboxSize - a.dataset.mailboxSize;
-  townNodesHaveMailbox.sort(descendingByMailboxSize);
+  const descTownNodesHaveMailbox = descendByMailboxSize(townNodesHaveMailbox);
+  const sortedTownNames = getDatasetNames(descTownNodesHaveMailbox);
 
-  const sortedTownNames = getDatasetNames(townNodesHaveMailbox);
   renderMailboxInfo(sortedTownNames);
 
   delay(COLOR_DELAY_TIME_MS).then(() => changeTownsColor(townNodesHaveMailbox));

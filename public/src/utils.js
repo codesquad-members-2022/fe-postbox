@@ -21,9 +21,20 @@ function getElementByClassName(className) {
   return null;
 }
 
+function descendByMailboxSize(nodes) {
+  for(let i = 0; i < nodes.length - 1; i++) {
+    for(let j = i + 1; j < nodes.length; j++ ) {
+      if(nodes[i].dataset.mailboxSize < nodes[j].dataset.mailboxSize) {
+        [nodes[i], nodes[j]] = [nodes[j], nodes[i]];
+      }
+    }
+  }
+  return nodes
+}
+
 const delay = (ms) =>
   new Promise((res) => {
     setTimeout(() => res(), ms);
   });
 
-export { getDatasetNames, getElementByClassName, delay };
+export { getDatasetNames, getElementByClassName, delay, descendByMailboxSize };
