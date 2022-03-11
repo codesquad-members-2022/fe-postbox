@@ -1,6 +1,6 @@
 .container {
   width: 1000px;
-  border: 2px solid #000;
+  border: 5px solid #000;
   text-align: center;
 }
 .map-element {
@@ -8,11 +8,11 @@
 }
 .village-info {
   width: 800px;
-  border: 2px solid blue;
+  border: 5px solid #00f;
   margin: 20px 0px 50px 35px;
 }
 .village {
-  border: 2px solid green;
+  border: 5px solid #0f0;
   display: inline-block;
   margin: 5px;
 }
@@ -21,8 +21,8 @@
   width: 150px;
 }
 .red-button {
-  background-color: red;
-  border: 2px solid red;
+  background-color: #f00;
+  border: 2px solid #f00;
   cursor: pointer;
 }
 .village-total,
