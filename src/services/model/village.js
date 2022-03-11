@@ -10,6 +10,9 @@ class Village {
   }
 
   getTownSize() {
+    const interval = 10;
+    const minSize = 20;
+
     const [positionX, positionY] = this.position;
     let minWidth = this.mapWidth;
     let minHeight = this.mapHeight;
@@ -27,11 +30,14 @@ class Village {
       }
     });
 
-    const newWidth =
-      Math.floor(Math.random() * (minWidth - positionX - 10)) + 1;
-    const newHeight =
-      Math.floor(Math.random() * (minHeight - positionY - 10)) + 1;
-
+    const newWidth = this.getRandomNum(
+      minWidth - positionX - interval,
+      minSize
+    );
+    const newHeight = this.getRandomNum(
+      minHeight - positionY - interval,
+      minSize
+    );
     return {
       x: [positionX, newWidth],
       y: [positionY, newHeight],
@@ -39,8 +45,10 @@ class Village {
   }
 
   getPosition() {
-    const newX = Math.floor(Math.random() * (this.mapWidth - 1)) + 1;
-    const newY = Math.floor(Math.random() * (this.mapHeight - 1)) + 1;
+    const interval = 100;
+
+    const newX = this.getRandomNum(this.mapWidth - 1, 1);
+    const newY = this.getRandomNum(this.mapHeight - 1, 1);
 
     for (const { townSize } of this.villageContainer) {
       const { x, y } = townSize;
@@ -58,6 +66,10 @@ class Village {
       }
     }
     return [newX, newY];
+  }
+
+  getRandomNum(maxNum, minNum) {
+    return Math.floor(Math.random() * maxNum) + minNum;
   }
 }
 
