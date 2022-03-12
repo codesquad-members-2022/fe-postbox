@@ -4,7 +4,7 @@ const mergePostboxTownNameArr = (leftArr, rightArr) => {
   let rightIndex = 0;
 
   while (leftIndex < leftArr.length && rightIndex < rightArr.length) {
-    if (leftArr[leftIndex].width > rightArr[rightIndex].width) {
+    if (leftArr[leftIndex].length > rightArr[rightIndex].length) {
       results.push(leftArr[leftIndex]);
       leftIndex++;
     } else {
