@@ -1,7 +1,7 @@
-import { convertStringToHTML, getRandomNumber } from "./util/util.js";
-import { FLEX, MAX, MIN } from "./constants.js";
+import { convertStringToHTML, getRandomNumber } from "../util/util.js";
+import { FLEX, MAX, MIN } from "../constants.js";
 import { Town } from "./town.js";
-import { getElementByClassName } from "./util/dom-lib.js";
+import { getElementByClassName } from "../util/dom-lib.js";
 
 export class TownDataGenerator {
   constructor() {

@@ -1,11 +1,10 @@
-import { TownDataGenerator } from "./town-data-generator.js";
+import { TownDataGenerator } from "./model/town-data-generator.js";
 import {
   getElementByClassName,
   getElementsByClassName,
 } from "./util/dom-lib.js";
 import { getRandomNumber } from "./util/util.js";
 
-// TODO 질문하기
 const $info = getElementByClassName("info");
 
 export const renderMapCell = () => {
