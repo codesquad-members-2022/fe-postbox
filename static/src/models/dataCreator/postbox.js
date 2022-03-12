@@ -14,10 +14,30 @@ const getPostboxLength = (postboxNumber) => {
   return postboxLengthList;
 };
 
+const getPostboxInfo = (postboxLengthList, townNames, postboxTowns) => {
+  const postboxInfos = [];
+  let postboxIndex = 0;
+  postboxTowns.forEach((postboxTown, townIndex) => {
+    if (postboxTown) {
+      const postboxInfo = {
+        townName: townNames[townIndex],
+        length: postboxLengthList[postboxIndex],
+      };
+      postboxInfos.push(postboxInfo);
+      postboxIndex++;
+    }
+  });
+  return postboxInfos;
+};
+
 export const updatePostboxNumber = (postboxData) => {
   postboxData.number = getPostboxNumber();
 };
 
 export const updatePostboxLength = (postboxData) => {
   postboxData.length = getPostboxLength(postboxData.number);
+};
+
+export const updatePostboxInfo = (postboxData, townNames, postboxTowns) => {
+  postboxData.postboxInfo = getPostboxInfo(postboxData.length, townNames, postboxTowns);
 };

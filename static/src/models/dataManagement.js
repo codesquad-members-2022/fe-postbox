@@ -11,9 +11,11 @@ export const initData = () => {
   townDataCreator.updateTownWidth(townData);
   townDataCreator.updateTownHeight(townData);
   townDataCreator.updateTownCoordinates(townData);
-  townDataCreator.updateParentTownIndice(townData);
+  townDataCreator.checkOverlapTown(townData);
+  // townDataCreator.updateParentTownIndice(townData);
   townDataCreator.updatePostboxTowns(townData, postboxData.number);
-  townDataCreator.updateAbsolutePostion(townData, postboxData.length);
+  postboxDataCreator.updatePostboxInfo(postboxData, townData.name, townData.postboxTowns);
+  // townDataCreator.updateAbsolutePostion(townData, postboxData.length);
   console.log(postboxData);
   console.log(townData);
 };

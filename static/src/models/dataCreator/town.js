@@ -30,54 +30,86 @@ const getTownLengthList = (townNumber) => {
   return townLengthList;
 };
 
+const createTownCoordinate = (townWidth, townHeight) => {
+  const { townTopCoordinate, townLeftCoordinate } = getTownTopLeftCoordinate();
+  const townRightCoordinate = townLeftCoordinate + townWidth;
+  const townBottomCoordinate = townTopCoordinate + townHeight;
+  const townCoordinate = {
+    top: townTopCoordinate,
+    right: townRightCoordinate,
+    bottom: townBottomCoordinate,
+    left: townLeftCoordinate,
+  };
+  return townCoordinate;
+};
+
 const getTownCoordinates = (townNumber, townWidthList, townHeightList) => {
   const townCoordinates = new Array(townNumber).fill({}).map((_, townIndex) => {
-    const { townTopCoordinate, townLeftCoordinate } = getTownTopLeftCoordinate();
-    const townRightCoordinate = townLeftCoordinate + townWidthList[townIndex];
-    const townBottomCoordinate = townTopCoordinate + townHeightList[townIndex];
-    const townCoordinate = {
-      top: townTopCoordinate,
-      right: townRightCoordinate,
-      bottom: townBottomCoordinate,
-      left: townLeftCoordinate,
-    };
+    const townCoordinate = createTownCoordinate(townWidthList[townIndex], townHeightList[townIndex]);
     return townCoordinate;
   });
   return townCoordinates;
 };
 
-const hasParentTown = (townsCoordinates, childTownCoordinate, childTownIndex) => {
-  const singleTownIndex = -1;
-  let parentTownIndex;
-  let oldParentTownCoordinate;
-  for (let nextTownIndex = 0; nextTownIndex < townsCoordinates.length; nextTownIndex++) {
-    const parentTownCoordinate = townsCoordinates[nextTownIndex];
-    if (nextTownIndex === childTownIndex) continue;
-    if (
-      parentTownCoordinate.left <= childTownCoordinate.left &&
-      childTownCoordinate.left <= parentTownCoordinate.right &&
-      parentTownCoordinate.top <= childTownCoordinate.top &&
-      childTownCoordinate.top <= parentTownCoordinate.bottom
-    ) {
-      if (
-        parentTownIndex !== undefined &&
-        oldParentTownCoordinate.top >= parentTownCoordinate.top &&
-        oldParentTownCoordinate.left >= parentTownCoordinate.left
-      )
-        continue;
-      parentTownIndex = nextTownIndex;
-      oldParentTownCoordinate = townsCoordinates[nextTownIndex];
-    }
-  }
-  return parentTownIndex === undefined ? singleTownIndex : parentTownIndex;
-};
+// const getNewRandomCoordinate = (currentTownCoordinate, nextTownCoordinate, currentTownWidth, currentTownHeight) => {
+//   let testCount = 1;
+//   while (testCount <= 100) {
+//     if (
+//       (nextTownCoordinate.left < currentTownCoordinate.left &&
+//         currentTownCoordinate.left < nextTownCoordinate.right &&
+//         nextTownCoordinate.right < currentTownCoordinate.right) ||
+//       (nextTownCoordinate.right < currentTownCoordinate.right &&
+//         currentTownCoordinate.right > nextTownCoordinate.left &&
+//         nextTownCoordinate.left > currentTownCoordinate.left) ||
+//       (nextTownCoordinate.top < currentTownCoordinate.top &&
+//         currentTownCoordinate.top > nextTownCoordinate.bottom &&
+//         nextTownCoordinate.bottom < currentTownCoordinate.bottom) ||
+//       (nextTownCoordinate.bottom < currentTownCoordinate.bottom &&
+//         currentTownCoordinate.bottom > nextTownCoordinate.top &&
+//         nextTownCoordinate.top > currentTownCoordinate.top)
+//     ) {
+//       const townCoordinate = createTownCoordinate(currentTownWidth, currentTownHeight);
+//       currentTownCoordinate.top = townCoordinate.top;
+//       currentTownCoordinate.right = townCoordinate.right;
+//       currentTownCoordinate.bottom = townCoordinate.bottom;
+//       currentTownCoordinate.left = townCoordinate.left;
+//     } else break;
+//     testCount++;
+//   }
+// };
 
-const getParentTownIndice = (townsCoordinates) => {
-  const parentTownIndice = townsCoordinates.map((childTownCoordinate, childTownIndex) => {
-    const parentTownIndex = hasParentTown(townsCoordinates, childTownCoordinate, childTownIndex);
-    return parentTownIndex;
-  });
-  return parentTownIndice;
+export const checkOverlapTown = ({ coordinate, width, height }) => {
+  let testCount = 1;
+  while (testCount <= 100) {
+    for (let currentTownIndex = 0; currentTownIndex < coordinate.length; currentTownIndex++) {
+      for (let nextTownIndex = 0; nextTownIndex < coordinate.length; nextTownIndex++) {
+        if (currentTownIndex === nextTownIndex) continue;
+        const currentTownCoordinate = coordinate[currentTownIndex];
+        const nextTownCoordinate = coordinate[nextTownIndex];
+        if (
+          (nextTownCoordinate.left < currentTownCoordinate.left &&
+            currentTownCoordinate.left < nextTownCoordinate.right &&
+            nextTownCoordinate.right < currentTownCoordinate.right) ||
+          (nextTownCoordinate.right < currentTownCoordinate.right &&
+            currentTownCoordinate.right > nextTownCoordinate.left &&
+            nextTownCoordinate.left > currentTownCoordinate.left) ||
+          (nextTownCoordinate.top < currentTownCoordinate.top &&
+            currentTownCoordinate.top > nextTownCoordinate.bottom &&
+            nextTownCoordinate.bottom < currentTownCoordinate.bottom) ||
+          (nextTownCoordinate.bottom < currentTownCoordinate.bottom &&
+            currentTownCoordinate.bottom > nextTownCoordinate.top &&
+            nextTownCoordinate.top > currentTownCoordinate.top)
+        ) {
+          const townCoordinate = createTownCoordinate(width[currentTownIndex], height[currentTownIndex]);
+          currentTownCoordinate.top = townCoordinate.top;
+          currentTownCoordinate.right = townCoordinate.right;
+          currentTownCoordinate.bottom = townCoordinate.bottom;
+          currentTownCoordinate.left = townCoordinate.left;
+        }
+      }
+    }
+    testCount++;
+  }
 };
 
 const getPostboxTowns = (townNumber, postboxNumber) => {
@@ -92,30 +124,30 @@ const getPostboxTowns = (townNumber, postboxNumber) => {
   return postboxTowns;
 };
 
-const getAbsolutePostion = (townsCoordinates, parentTownIndice, postboxTowns, postboxTownLengthList) => {
-  const absolutePostions = townsCoordinates.map((townsCoordinate, townIndex) => {
-    const absolutePosition = {
-      top: 0,
-      left: 0,
-    };
-    let postboxLengthIndex = 0;
-    const parentTownIndex = parentTownIndice[townIndex];
-    if (parentTownIndex === -1) {
-      absolutePosition.top = townsCoordinate.top;
-      absolutePosition.left = townsCoordinate.left;
-    } else {
-      absolutePosition.top = townsCoordinate.top - townsCoordinates[parentTownIndex].top;
-      absolutePosition.left = townsCoordinate.left - townsCoordinates[parentTownIndex].left;
-      if (postboxTowns[townIndex]) {
-        absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
-        absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
-        postboxLengthIndex++;
-      }
-    }
-    return absolutePosition;
-  });
-  return absolutePostions;
-};
+// const getAbsolutePostion = (townsCoordinates, parentTownIndice, postboxTowns, postboxTownLengthList) => {
+//   const absolutePostions = townsCoordinates.map((townsCoordinate, townIndex) => {
+//     const absolutePosition = {
+//       top: 0,
+//       left: 0,
+//     };
+//     let postboxLengthIndex = 0;
+//     const parentTownIndex = parentTownIndice[townIndex];
+//     if (parentTownIndex === -1) {
+//       absolutePosition.top = townsCoordinate.top;
+//       absolutePosition.left = townsCoordinate.left;
+//     } else {
+//       absolutePosition.top = townsCoordinate.top - townsCoordinates[parentTownIndex].top;
+//       absolutePosition.left = townsCoordinate.left - townsCoordinates[parentTownIndex].left;
+//       if (postboxTowns[townIndex]) {
+//         absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
+//         absolutePosition.top -= postboxTownLengthList[postboxLengthIndex];
+//         postboxLengthIndex++;
+//       }
+//     }
+//     return absolutePosition;
+//   });
+//   return absolutePostions;
+// };
 
 export const updateTownNumber = (townData, postboxNumber) => {
   townData.number = getTownNumber(postboxNumber);
@@ -137,19 +169,19 @@ export const updateTownCoordinates = (townData) => {
   townData.coordinate = getTownCoordinates(townData.number, townData.width, townData.height);
 };
 
-export const updateParentTownIndice = (townData) => {
-  townData.parentTownIndex = getParentTownIndice(townData.coordinate);
-};
+// export const updateParentTownIndice = (townData) => {
+//   townData.parentTownIndex = getParentTownIndice(townData.coordinate);
+// };
 
 export const updatePostboxTowns = (townData, postboxNumber) => {
   townData.postboxTowns = getPostboxTowns(townData.number, postboxNumber);
 };
 
-export const updateAbsolutePostion = (townData, postboxTownLengthList) => {
-  townData.absolutePosition = getAbsolutePostion(
-    townData.coordinate,
-    townData.parentTownIndex,
-    townData.postboxTowns,
-    postboxTownLengthList
-  );
-};
+// export const updateAbsolutePostion = (townData, postboxTownLengthList) => {
+//   townData.absolutePosition = getAbsolutePostion(
+//     townData.coordinate,
+//     townData.parentTownIndex,
+//     townData.postboxTowns,
+//     postboxTownLengthList
+//   );
+// };
