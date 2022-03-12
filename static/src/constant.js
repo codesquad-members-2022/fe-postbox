@@ -11,14 +11,14 @@ export const POSTBOX_RANGE = {
 
 export const TOWN_RANGE = {
   number: {
-    max: 26,
+    max: 10,
   },
   coordinate: {
     min: 0,
-    max: 80,
+    max: 70,
   },
   length: {
-    min: 20,
-    max: 100,
+    min: 15,
+    max: 30,
   },
 };
