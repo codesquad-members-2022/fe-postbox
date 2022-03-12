@@ -1,70 +1,78 @@
 # 📮 빨간 우체통을 찾아라!
 
 ## 필요한 데이터
-  - 마을의 총 개수
-  - 마을의 top-left 좌표(랜덤)
-  - 마을의 width, height (랜덤)
-  - 마을의 나머지 좌표 (top-right, bottom-left, bottom-right) (계산)
-  - 마을의 absolute 좌표
-  - 마을의 부모 마을의 인덱스(없을 경우 null)
-  - 마을의 이름
-  - 우체통의 총 개수
-  - 우체통의 width (우체통의 width = 우체통의 height)
-  - 우체통이 들어갈 마을의 인덱스
+
+- 마을의 총 개수
+- 마을의 top-left 좌표(랜덤)
+- 마을의 width, height (랜덤)
+- 마을의 나머지 좌표 (top-right, bottom-left, bottom-right) (계산)
+- 마을의 absolute 좌표
+- 마을의 부모 마을의 인덱스(없을 경우 null)
+- 마을의 이름
+- 우체통의 총 개수
+- 우체통의 width (우체통의 width = 우체통의 height)
+- 우체통이 들어갈 마을의 인덱스
 
 ## 우체통 조건
+
 - 개수 범위: 1 ~ 8개
 - width 범위: 3% ~ 10%
 
 ## 마을 조건
+
 - 개수 범위: 우체통의 개수 ~ 26개 (이름으로 사용할 알파벳의 개수)
-- top-left 좌표의 범위: 0 ~ 80%
-- width, height 범위: 20% ~ (100% - (top-left 좌표의 범위))
+- top-left 좌표의 범위: 0 ~ 50%
+- width, height 범위: 20% ~ 50%
   - top-left 좌표 + width, height <= 100
   - top-left 좌표에 맞게 범위가 유동적으로 변한다.
 
 ## 구현 과정
+
 ### 데이터 생성
+
 - 마을 개수, top-left 좌표, 우체통의 개수, 우체통 width, height, 우체통이 들어갈 마을의 인덱스를 랜덤으로 정한다.
 - 마을의 나머지 좌표를 구한다.
 - 마을의 부모 마을 여부를 확인한다.
   - A 마을의 좌표: [(Ax, Ay), (Ax + Awidth, Ay), (Ax, Ay + Aheight), (Ax + Awidth, Ay + Aheigth)]
   - B 마을의 좌표: [(Bx, By), (Bx + Bwidth, By), (Bx, By + Bheight), (Bx + Bwidth, By + Bheigth)]
   - if (Ax <= Bx && Bx >= Ax + Awidth) || (Ay <= By && By >= Ay + Aheigth)
-  해당 조건을 만족하면, A는 B의 부모 마을이다.
+    해당 조건을 만족하면, A는 B의 부모 마을이다.
 - 때문에 부모 마을의 영역을 넘지 않으면 B의 width, height를 유지하고, 넘을 시 넘어가는 크기만큼 빼서 재저장한다.
 - 부모 마을이 있을 경우, 자신의 좌표와 부모 마을의 좌표 차이를 마을의 absolute의 top, left로 사용하기 위해 저장한다.  
-(마을의 position을 absolute로 사용하기 위해서는 부모 마을 기준으로의 좌표가 필요하므로)
+  (마을의 position을 absolute로 사용하기 위해서는 부모 마을 기준으로의 좌표가 필요하므로)
 - 단 부모 마을의 인덱스가 우체통이 들어갈 인덱스와 일치한다면, 계산한 absolute의 top, left에서 우체통의 크기를 더해주고, (우체통 크기 + 마을의 좌표 + 마을의 크기)가 100%가 넘을 시, 넘치는 만큼 마을의 크기를 줄여준다.
 - 마을 이름은 알파벳 대문자순으로 charcode를 이용하여 정해준다.
 
 ### 렌더링
+
 - 부모 마을이 있는 경우, 부모 마을의 자식으로 추가해준다.
+
 ```javascript
 // before
-`<div class="town ${className}">${childTown}</div>`
-
-//after
+`<div class="town ${className}">${childTown}</div>` //after
 `<div class="town ${className}">
   <div class="town">${childTown}</div>
-</div>`
+</div>`;
 ```
+
 - 부모 마을이 없는 경우, 형제 마을로 추가해준다.
+
 ```javascript
 let mapTemplate +=`<div class="town ${className}">${childTown}</div>
 ```
+
 - 우체통이 있는 마을의 경우, 우체통을 자식으로 추가해준다.
 - 우체통이 있는 마을의 경우, `${className}`에 "postbox-town"을 넣어준다.
+
 ```javascript
 // before
-`<div class="town ${className}">${childTown}</div>`
-
-//after
+`<div class="town ${className}">${childTown}</div>` //after
 `<div class="town postbox-town">
   <div class="postbox"><span>📮</span></div>
   ${childTown}
-</div>`
+</div>`;
 ```
+
 - 저장해놓은 마을과 우체통의 absolute 좌표와 width, height를 토대로 style을 정해준다.
 
 ## 디렉토리 구조
