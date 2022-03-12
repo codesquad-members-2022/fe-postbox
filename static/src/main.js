@@ -1,9 +1,11 @@
-import { getElementsByClassName } from "./utils/util.js";
-import { PostboxButtonController } from "./controllers/postboxButton.js";
+import { initData } from "./models/dataManagement.js";
+import { renderMap } from "./controllers/townMap.js";
+import { addPostboxButtonEventListener } from "./controllers/postBoxButton.js";
 
 const init = () => {
-  const postboxButtonController = new PostboxButtonController();
-  postboxButtonController.addPostboxButtonEventListener();
+  initData();
+  renderMap();
+  addPostboxButtonEventListener();
 };
 
 init();

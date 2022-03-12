@@ -1,25 +1,79 @@
 # 📮 빨간 우체통을 찾아라!
 
-![map](https://user-images.githubusercontent.com/17706346/157483432-dcffe6aa-1742-41e2-bae2-710a8edd47df.png)
+## 필요한 데이터
+
+- 마을의 총 개수
+- 마을의 top-left 좌표(랜덤)
+- 마을의 width, height (랜덤)
+- 마을의 나머지 좌표 (top-right, bottom-left, bottom-right) (계산)
+- 마을의 absolute 좌표
+- 마을의 부모 마을의 인덱스(없을 경우 null)
+- 마을의 이름
+- 우체통의 총 개수
+- 우체통의 width (우체통의 width = 우체통의 height)
+- 우체통이 들어갈 마을의 인덱스
 
 ## 우체통 조건
 
-- 우체통의 개수는 2 ~ 4개 사이에서 랜덤으로 정한다.
-- 우체통의 위치는 마을의 왼쪽 상단 모서리에 위치하도록 한다.
-- 우체통의 width는 10% ~ 25% 사이에서 랜덤으로 정한다.
-- 전체 마을에서 우체통이 들어갈 마을의 인덱스를 랜덤으로 정한다.
-- 좌표 0 ~ 25% / 0 ~ 50%  
-  우체통 10% ~ 25%  
-  마을 넓이 50% ~ (100% -좌표)
+- 개수 범위: 1 ~ 8개
+- width 범위: 3% ~ 10%
 
 ## 마을 조건
 
-- 마을의 개수는 우체통의 개수의 2배에서 3배 사이에서 랜덤으로 정한다.
-- 하나의 마을에 너무 몰리지 않도록, 마을의 개수를 4로 나눈 나머지 개수의 마을은 1, 2, 3, 4 grid 중에 랜덤으로 들어간다.
-  (ex. 마을의 개수가 10개인 경우 1~8개는 돌아가며 4개의 화면에 들어가고 나머지 2개는 들어갈 위치가 랜덤으로 정해진다.)
-- 마을의 left, top 좌표는 0 ~ 부모 박스의 가로, 세로 1/2 중에서 랜덤으로 정한다.
-- 마을의 가로, 세로는 부모 박스의 가로, 세로의 1/2 ~ 부모박스의 가로, 세로 - left, top 좌표 중에서 랜덤으로 정한다.
-- 우체통이 들어가기로 정해진 마을의 자식 마을의 left, top 좌표는 우체통의 최대 크기 ~ 부모 마을의 가로, 세로 1/2 중에서 랜덤으로 정한다.(우체통이 왼쪽 상단에 있으므로)
+- 개수 범위: 우체통의 개수 ~ 26개 (이름으로 사용할 알파벳의 개수)
+- top-left 좌표의 범위: 0 ~ 50%
+- width, height 범위: 20% ~ 50%
+  - top-left 좌표 + width, height <= 100
+  - top-left 좌표에 맞게 범위가 유동적으로 변한다.
+
+## 구현 과정
+
+### 데이터 생성
+
+- 마을 개수, top-left 좌표, 우체통의 개수, 우체통 width, height, 우체통이 들어갈 마을의 인덱스를 랜덤으로 정한다.
+- 마을의 나머지 좌표를 구한다.
+- 마을의 부모 마을 여부를 확인한다.
+  - A 마을의 좌표: [(Ax, Ay), (Ax + Awidth, Ay), (Ax, Ay + Aheight), (Ax + Awidth, Ay + Aheigth)]
+  - B 마을의 좌표: [(Bx, By), (Bx + Bwidth, By), (Bx, By + Bheight), (Bx + Bwidth, By + Bheigth)]
+  - if (Ax <= Bx && Bx >= Ax + Awidth) || (Ay <= By && By >= Ay + Aheigth)
+    해당 조건을 만족하면, A는 B의 부모 마을이다.
+- 때문에 부모 마을의 영역을 넘지 않으면 B의 width, height를 유지하고, 넘을 시 넘어가는 크기만큼 빼서 재저장한다.
+- 부모 마을이 있을 경우, 자신의 좌표와 부모 마을의 좌표 차이를 마을의 absolute의 top, left로 사용하기 위해 저장한다.  
+  (마을의 position을 absolute로 사용하기 위해서는 부모 마을 기준으로의 좌표가 필요하므로)
+- 단 부모 마을의 인덱스가 우체통이 들어갈 인덱스와 일치한다면, 계산한 absolute의 top, left에서 우체통의 크기를 더해주고, (우체통 크기 + 마을의 좌표 + 마을의 크기)가 100%가 넘을 시, 넘치는 만큼 마을의 크기를 줄여준다.
+- 마을 이름은 알파벳 대문자순으로 charcode를 이용하여 정해준다.
+
+### 렌더링
+
+- 부모 마을이 있는 경우, 부모 마을의 자식으로 추가해준다.
+
+```javascript
+// before
+`<div class="town ${className}">${childTown}</div>` //after
+`<div class="town ${className}">
+  <div class="town">${childTown}</div>
+</div>`;
+```
+
+- 부모 마을이 없는 경우, 형제 마을로 추가해준다.
+
+```javascript
+let mapTemplate +=`<div class="town ${className}">${childTown}</div>
+```
+
+- 우체통이 있는 마을의 경우, 우체통을 자식으로 추가해준다.
+- 우체통이 있는 마을의 경우, `${className}`에 "postbox-town"을 넣어준다.
+
+```javascript
+// before
+`<div class="town ${className}">${childTown}</div>` //after
+`<div class="town postbox-town">
+  <div class="postbox"><span>📮</span></div>
+  ${childTown}
+</div>`;
+```
+
+- 저장해놓은 마을과 우체통의 absolute 좌표와 width, height를 토대로 style을 정해준다.
 
 ## 디렉토리 구조
 
@@ -36,9 +90,10 @@
 │       │   ├── 📁 data
 │       │   │   ├── town.js (json)
 │       │   │   └── postbox.js (json)
-│       │   ├── 📁 dataManager
+│       │   ├── 📁 dataCreator
 │       │   │   ├── town.js
 │       │   │   └── postbox.js
+│       │   └── dataMangement.js
 │       ├── 📁 utils
 │       │   └── util.js
 │       ├── 📁 views
