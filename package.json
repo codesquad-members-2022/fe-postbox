@@ -3,9 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/sju02048/fe-postbox#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
     "node-sass": "^7.0.1"
   }
 }
