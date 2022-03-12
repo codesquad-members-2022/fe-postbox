@@ -1,4 +1,30 @@
 import { getElementByClassName, getElementsByClassName } from "../utils/util.js";
+import { Postbox } from "./components/postbox.js";
+import { getPostboxTownNames, getPostboxSizeRank } from "./components/postboxInfo.js";
+import { Town } from "./components/town.js";
+
+const getTownMapTemplate = (townData, postboxData) => {
+  const { name, width, height, coordinate, postboxTowns } = townData;
+  let postboxIndex = 0;
+  const townMapTemplate = name.reduce((townsTemplate, _, townIndex) => {
+    const town = new Town(name[townIndex], width[townIndex], height[townIndex], coordinate[townIndex]);
+    let [className, postboxTemplate] = ["", "", ""];
+    if (postboxTowns[townIndex]) {
+      const postbox = new Postbox(postboxData.length[postboxIndex]);
+      className = "postboxTown";
+      postboxTemplate = postbox.getTemplate();
+      postboxIndex++;
+    }
+    return (townsTemplate += town.getTemplate(className, postboxTemplate));
+  }, "");
+  return townMapTemplate;
+};
+
+export const renderTownMap = (townData, postboxData) => {
+  const $map = getElementByClassName(document.body, "map");
+  const townMapTemplate = getTownMapTemplate(townData, postboxData);
+  $map.innerHTML = townMapTemplate;
+};
 
 export const findPostboxTowns = () => {
   const $map = getElementByClassName(document.body, "map");
